@@ -1,6 +1,9 @@
-import Menu from '../objects/Menu'
+import Menu from '../objects/MainMenu/Menu'
+import Header from '../objects/MainMenu/Header'
+import Footer from '../objects/MainMenu/Footer'
 import _ from 'lodash'
 import Config from "../config";
+import {scaleSprite} from "../utils";
 
 export default class extends Phaser.State {
 
@@ -9,8 +12,12 @@ export default class extends Phaser.State {
         this.game.stage.backgroundColor = Config.background.color;
         this.game.renderer.renderSession.roundPixels = true;
 
-        this.createHeader()
-        this.createFooter()
+        this.header = new Header(this.game, this.world)
+        this.footer = new Footer(this.game, this.world)
+
+        this.imageTest = this.game.add.image(this.world.centerX, this.world.centerY - this.game.height / 3, "mushroom");
+        this.imageTest.anchor.setTo(0.5);
+        scaleSprite(this.imageTest, this.game.width, this.game.height / 3, 50, 1);
 
         let mainMenuOptions = {
             'items' : [
@@ -28,7 +35,19 @@ export default class extends Phaser.State {
                 }
             ]
         }
-        this.mainMenu = new Menu(mainMenuOptions,this.game);
+        this.mainMenu = new Menu(mainMenuOptions, this.game, this.world);
+
+    }
+
+    resize(width, height) {
+        this.header.redraw(this.game, this.world)
+        this.footer.redraw(this.game, this.world)
+        this.mainMenu.redraw(this.game, this.world)
+
+        // TODO This is for test images
+        scaleSprite(this.imageTest, width, height / 3, 50, 1);
+        this.imageTest.x = this.world.centerX;
+        this.imageTest.y = this.world.centerY - height / 3;
     }
 
     startGame() {
@@ -41,46 +60,5 @@ export default class extends Phaser.State {
 
     showPolls() {
         this.state.start('Polls')
-    }
-
-    createHeader() {
-        // TODO check this out
-        let headerOffset = 80;
-
-        var babydueText = this.game.add.text(this.game.width/2, headerOffset,'Babydue');
-        babydueText.anchor.set(0.5);
-        babydueText.align = 'center';
-        babydueText.font = 'arcade';
-        babydueText.fontSize = 50;
-        babydueText.fill = '#333023';
-
-        // Add RUN text
-        babydueText = this.game.add.text(this.game.width/2+3, headerOffset + 35,'RACE');
-        babydueText.anchor.set(0.5);
-        babydueText.align = 'center';
-        babydueText.font = 'arcade';
-        babydueText.fontSize = 120;
-        babydueText.fill = '#504c39';
-    }
-
-    createFooter() {
-
-        var firstLine = "Copyright © 2018 - Paúl & Eli";
-        var footerHeight = 80;
-
-        var graphics = this.game.add.graphics(0, 0);
-        graphics.beginFill(0xF99601);
-        graphics.lineStyle(2, 0xF99601, 1);
-        graphics.drawRect(0, this.game.world.height-footerHeight, this.game.width, footerHeight);
-        graphics.endFill();
-
-
-        var firstLineText = this.game.add.text(this.game.width/2, this.game.world.height-footerHeight+30,firstLine);
-        firstLineText.anchor.set(0.5);
-        firstLineText.align = 'center';
-        firstLineText.font = 'arcade';
-        firstLineText.fontSize = 20;
-        firstLineText.fill = '#FFFFFF';
-        firstLineText.strokeThickness = 0;
     }
 }
