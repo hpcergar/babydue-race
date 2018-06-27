@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import config from '../config'
-import MapProvider from '../providers/Map'
+import AssetProvider from '../providers/Asset'
 
 
 export default class extends Phaser.State {
@@ -25,11 +25,7 @@ export default class extends Phaser.State {
         let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
         text.anchor.setTo(0.5, 0.5)
 
-        this.mapProvider = new MapProvider(this.game, config.scales.default, config.assets.prefixes)
-    }
-
-    create() {
-        this.game.attr.prefabs = this.mapProvider.create();
+        this.game.attr.assetProvider = new AssetProvider(this.game, config.scales.default, config.assets.prefixes)
     }
 
     render() {

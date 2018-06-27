@@ -164,9 +164,14 @@ export default class {
     }
 
 
-    create() {
-        // TODO Loop over prefabs, take tilemaps and load their children
-
+    /**
+     * Load children assets from already preloaded assets
+     * Needs to be called in another state::preload() function,
+     * different from constructor one since parent assets need to be fully loaded
+     * @returns {Array|*}
+     */
+    preloadSubassets() {
+        // Loop over prefabs, take tilemaps and load their children
         this.prefabs.forEach(prefab => {
             switch(prefab.type){
                 // Not working, tilesets have empty image once loaded in Phaser :(

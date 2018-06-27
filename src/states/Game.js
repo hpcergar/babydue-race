@@ -14,7 +14,7 @@ export default class extends Phaser.State {
 
       // this.game.load.spritesheet('player', 'assets/sprites/mario-sprites.png', 16, 32);
       // this.game.load.tilemap('tilemap', 'assets/tilemaps/' + this.assetScale + '/autumn/autumn.json', null, Phaser.Tilemap.TILED_JSON);
-      // this.game.load.image('tiles', 'assets/tilemaps/' + this.assetScale + '/autumn/autumn.png');
+      // this.game.load.image('autumn', 'assets/tilemaps/' + this.assetScale + '/autumn/autumn.png');
       // this.game.load.spritesheet('autumn-objects', 'assets/tilemaps/' + this.assetScale + '/autumn/objects.png', 64, 64);
 
   }
@@ -28,7 +28,7 @@ export default class extends Phaser.State {
       //is the name you gave the tilesheet when importing it into Tiled, the second
       //is the key to the asset in Phaser
       this.map = this.game.add.tilemap('level');
-      this.map.addTilesetImage('autumn' + this.scale, 'tiles');
+      this.map.addTilesetImage('autumn', 'autumn');
 
       //Add both the background and ground layers. We won't be doing anything with the
       //GroundLayer though

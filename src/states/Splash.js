@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import { centerGameObjects } from '../utils'
+import AssetProvider from '../providers/Asset'
 
 export default class extends Phaser.State {
   init () {}
@@ -13,7 +14,8 @@ export default class extends Phaser.State {
     //
     // load your assets
     //
-    this.load.image('mushroom', 'assets/images/mushroom2.png')
+      this.game.attr.prefabs = this.game.attr.assetProvider.preloadSubassets();
+
   }
 
   create () {
