@@ -3,7 +3,6 @@ import WebFont from 'webfontloader'
 import config from '../config'
 import AssetProvider from '../providers/Asset'
 
-
 export default class extends Phaser.State {
     init() {
         this.scale.scaleMode = Phaser.ScaleManager.RESIZE

@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "phaser-ce": "^2.10",
+    "phaser-arcade-slopes": "hexus/phaser-arcade-slopes#v0.3.1",
     "webfontloader": "^1.6.28",
     "lodash": "^4.17.4"
   }
