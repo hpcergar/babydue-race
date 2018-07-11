@@ -9,17 +9,19 @@ export default class {
 
         // Set gravity center in the middle
         this.player.anchor.x = 0.5;
+        console.log('anchor.y = ' + this.player.anchor.y);
         // Little jump after a big jump
-        this.player.body.bounce.y = 0.2;
+        this.player.body.debug = true;
+        // this.player.body.bounce.y = 0.2;
 
         // this.player.body.linearDamping = 1;
         this.player.body.collideWorldBounds = true;
         this.player.body.gravity.y = 650;
         // this.player.body.drag.x = 700
-        this.player.body.friction.x = 0
+        // this.player.body.friction.x = 0
 
         this.player.animations.add('right', [0,1,2], 10, true)
-        this.player.animations.play('right')
+        // this.player.animations.play('right')
 
         //Make the camera follow the sprite
         this.game.camera.follow(this.player);
@@ -29,7 +31,7 @@ export default class {
         this.player.body.slopes.preferY = true;
 
         // this.player.body.slopes.pullUp = 150;
-        this.player.body.slopes.pullDown = 150;
+        this.player.body.slopes.pullDown = 350;
         // this.player.body.slopes.pullTopRight = 1500;
         // this.player.body.slopes.pullBottomRight = 1500;
 
@@ -42,31 +44,40 @@ export default class {
         return this.player;
     }
 
-    update () {
+    update (hitting) {
         this.player.body.velocity.x = 0;
 
-        let hittingGround = this.player.body.touching.down;
+        let hittingGround = hitting && this.player.body.touching.down,
+            slopeUpFactor
 
-        // Disable gravity if touching ground
-        this.player.body.allowGravity = !hittingGround
-
-        if (this.cursors.up.isDown)
-        {
-            if (this.player.body.touching.down)
-            {
-                this.player.body.velocity.y = -350;
-            }
+        // Disable last jump bug on slopes
+        if(this.player.body.allowGravity && hitting && this.player.isOnSlope){
+            this.player.body.velocity.y = 0
         }
+
+        // Jump
+        if (this.cursors.up.isDown && hittingGround)
+        {
+            // this.player.body.allowGravity = true
+            this.player.body.velocity.y = this.player.isOnSlope ? -450 : -350
+        }
+
+        // slopeUpFactor = this.slopeUpFactor(this.player.isOnSlope, this.player.body.velocity.y)
+        // console.log(this.player.body.velocity.x + ' ' + this.player.body.velocity.y);
 
         if (this.cursors.left.isDown)
         {
             if(this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = false;}
-            this.player.body.velocity.x = -300;
+            this.player.body.velocity.x = -300 + slopeUpFactor;
         }
         else if (this.cursors.right.isDown)
         {
             if(!this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = true;}
-            this.player.body.velocity.x = 300;
+            this.player.body.velocity.x = 300 - slopeUpFactor;
         }
+    }
+
+    slopeUpFactor(isOnSlope, y){
+        return (isOnSlope && y < 0) ? 100 : 0
     }
 }

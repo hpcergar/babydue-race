@@ -36,7 +36,7 @@ export default class {
                     game.slopes.convertTilemapLayer(this.layers[layer.name], 'ninja', firstGid ? firstGid.value : undefined)
 
                     // TODO Remove this
-                    // this.layers[layer.name].debug = true
+                    this.layers[layer.name].debug = true
                 }
 
                 if(p.name === 'main' && p.value === true) {

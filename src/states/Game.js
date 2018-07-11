@@ -46,10 +46,18 @@ export default class extends Phaser.State {
 
   update() {
 
-      let hitGround = this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer);
+      let hitGround = this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer, this.isPlayerInSlope);
 
       this.stars.update(this.player.getObject())
 
       this.player.update(hitGround)
+  }
+
+  isPlayerInSlope(player, ground){
+      if(ground.slope && ground.slope.type > 0){
+          player.isOnSlope = ground.slope.type
+      } else {
+          player.isOnSlope = false
+      }
   }
 }
