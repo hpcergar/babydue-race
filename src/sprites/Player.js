@@ -3,13 +3,15 @@ export default class {
     constructor (game) {
         // Starts
         this.game = game
+
+        const [startX, startY] = this.getStartPoint(game.attr.playerPoints)
         //Add the sprite to the game and enable arcade physics on it
-        this.player = this.game.add.sprite(32, 32, 'player');
+        this.player = this.game.add.sprite(startX, startY, 'player');
+
         this.game.physics.arcade.enable(this.player);
 
         // Set gravity center in the middle
         this.player.anchor.x = 0.5;
-        console.log('anchor.y = ' + this.player.anchor.y);
         // Little jump after a big jump
         this.player.body.debug = true;
         // this.player.body.bounce.y = 0.2;
@@ -17,8 +19,6 @@ export default class {
         // this.player.body.linearDamping = 1;
         this.player.body.collideWorldBounds = true;
         this.player.body.gravity.y = 650;
-        // this.player.body.drag.x = 700
-        // this.player.body.friction.x = 0
 
         this.player.animations.add('right', [0,1,2], 10, true)
         // this.player.animations.play('right')
@@ -27,7 +27,7 @@ export default class {
         this.game.camera.follow(this.player);
 
         this.game.slopes.enable(this.player);
-        // this.game.slopes.preferY = true;
+
         this.player.body.slopes.preferY = true;
 
         // this.player.body.slopes.pullUp = 150;
@@ -62,8 +62,7 @@ export default class {
             this.player.body.velocity.y = this.player.isOnSlope ? -450 : -350
         }
 
-        // slopeUpFactor = this.slopeUpFactor(this.player.isOnSlope, this.player.body.velocity.y)
-        // console.log(this.player.body.velocity.x + ' ' + this.player.body.velocity.y);
+        slopeUpFactor = this.slopeUpFactor(this.player.isOnSlope, this.player.body.velocity.y)
 
         if (this.cursors.left.isDown)
         {
@@ -79,5 +78,15 @@ export default class {
 
     slopeUpFactor(isOnSlope, y){
         return (isOnSlope && y < 0) ? 100 : 0
+    }
+
+    /**
+     * Retrieve game player starting point
+     * @param points
+     * @returns {*[]}
+     */
+    getStartPoint(points) {
+        const startPoint = points.find(point => point.name === 'playerStartPoint')
+        return [startPoint.x, startPoint.y]
     }
 }

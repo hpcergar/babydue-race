@@ -12,6 +12,7 @@ export default class extends Phaser.State {
       this.stage.backgroundColor = '#000000'
       this.assetScale = 64;
       this.prefabs = this.game.attr.prefabs
+
       this.game.plugins.add(Phaser.Plugin.ArcadeSlopes);
   }
   preload() {

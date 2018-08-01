@@ -2,11 +2,12 @@
 
 
 export default class {
-    constructor( key, type, source, phaserEntity) {
+    constructor( key, type, source, phaserEntity, data) {
         this.key = key
         this.type = type
         this.source = source
         this.entity = phaserEntity
+        this._data = data;
     }
 
     setChildren(children) {
@@ -23,5 +24,14 @@ export default class {
 
     getChildren() {
         return this.children;
+    }
+
+
+    getData() {
+        return this._data;
+    }
+
+    setData(value) {
+        this._data = value;
     }
 }

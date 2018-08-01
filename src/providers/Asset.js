@@ -7,7 +7,7 @@ import Prefab from '../models/Prefab'
 const TYPE_SPRITESHEET = 'spritesheet'
 const TYPE_IMAGE = 'image'
 const TYPE_TILEMAP = 'tilemap'
-const TYPE_TILEMAP_JSON = 'tilemap-json'
+export const TYPE_TILEMAP_JSON = 'tilemap-json'
 
 export default class {
     /**
@@ -182,6 +182,7 @@ export default class {
                     // Load tilemap from JSON stored in cache
                     let data = this.game.cache.getText(prefab.key);
                     data = JSON.parse(data)
+                    prefab.setData(data)
                     prefab.setEntity(this.factoryTilemap(prefab.key, null, data))
 
                     // Add children
