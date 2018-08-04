@@ -2,7 +2,8 @@
 import Phaser from 'phaser'
 import SAT from 'SAT'
 import TilemapProvider from '../providers/Tilemap'
-import GroupProvider from '../providers/Groups'
+import DecorationProvider from '../providers/Decoration'
+import Background from '../sprites/Background'
 import Stars from '../sprites/Stars'
 import Player from '../sprites/Player'
 
@@ -18,25 +19,35 @@ export default class extends Phaser.State {
   preload() {
 
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.stage.backgroundColor = '#787878';
+
+      this.background = new Background(this.game, this.map)
+
 
       //Add the tilemap and tileset image. The first parameter in addTilesetImage
       //is the name you gave the tilesheet when importing it into Tiled, the second
       //is the key to the asset in Phaser
       this.map = this.game.add.tilemap('level');
+
+      // Attention! ORDER Matters for layer objects below!
+      // Decoration: Background layer
+      new DecorationProvider(this.map, 'Behind')
+
       this.tilemapProvider = new TilemapProvider(this.map, this.game);
+
+
       // this.groupProvider = new GroupProvider(this.game);
       this.stars = new Stars(this.game, this.map)
       this.player = new Player(this.game)
+
+      // Decoration: Foreground layer
+      new DecorationProvider(this.map, 'Foreground')
+
       this.mainLayer = this.tilemapProvider.getMainLayer()
   }
 
   create() {
 
-      // Decoration objects
-      // TODO Load other objects
-      // TODO Refactor this out of here
-      this.map.createFromObjects('Behind', 'Scarecrow', 'autumn-objects', 20, true, false, this.behindObjectLayer);
+
 
   }
 
@@ -52,6 +63,7 @@ export default class extends Phaser.State {
       this.stars.update(this.player.getObject())
 
       this.player.update(hitGround)
+      this.background.update()
   }
 
   isPlayerInSlope(player, ground){

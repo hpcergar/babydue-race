@@ -18,8 +18,13 @@ export default class {
         this.layers = {};
         map.layers.forEach(layer => {
             this.layers[layer.name] = map.createLayer(layer.name);
+
             let properties = undefined !== layer.properties.length ? layer.properties : []
             properties.forEach(p => {
+                if(p.name === 'main' && p.value === true) {
+                    this.mainLayer = layer.name
+                }
+
                 if(p.name === 'collision' && p.value === true){
                     let collision_tiles = [];
                     let firstGid = properties.find(subp => subp.name === 'firstGid')
@@ -36,7 +41,7 @@ export default class {
                     game.slopes.convertTilemapLayer(this.layers[layer.name], 'ninja', firstGid ? firstGid.value : undefined)
 
                     // TODO Remove this
-                    this.layers[layer.name].debug = true
+                    // this.layers[layer.name].debug = true
                 }
 
                 if(p.name === 'main' && p.value === true) {
@@ -49,6 +54,10 @@ export default class {
         if(this.mainLayer !== undefined){
             this.layers[this.mainLayer].resizeWorld()
         }
+    }
+
+    handleBackground(){
+
     }
 
     getLayers(){

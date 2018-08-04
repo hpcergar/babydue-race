@@ -6,6 +6,7 @@ import Prefab from '../models/Prefab'
 
 const TYPE_SPRITESHEET = 'spritesheet'
 const TYPE_IMAGE = 'image'
+const TYPE_IMAGE_COLLECTION = 'image-collection'
 const TYPE_TILEMAP = 'tilemap'
 export const TYPE_TILEMAP_JSON = 'tilemap-json'
 
@@ -76,6 +77,9 @@ export default class {
             case TYPE_IMAGE:
                 entity = this.factoryImage(options.key, options.source);
                 break;
+            case TYPE_IMAGE_COLLECTION:
+                entity = this.factoryImageCollection(options.key, options.source, options.tiles);
+                break;
         }
 
         return new Prefab(options.key, type, options.source, entity);
@@ -123,17 +127,17 @@ export default class {
 
         // Loop on tilemap data to load sub assets
         tilesets.forEach(item => {
-            // let type = _.find(item.properties, {'name': "type"}).value;
             let type = item.properties.find(property => property.name === 'type').value,
                 key = item.name;
 
-            tilemapPrefabs[key] = this.factory(type, {
+            let prefab = this.factory(type, {
                 key,
-                source: rootPath + '/' + item.image,
+                source: rootPath + '/' + ( item.image ? item.image : '' ),
                 width: type === TYPE_SPRITESHEET ? item.tilewidth : undefined,
                 height: type === TYPE_SPRITESHEET ? item.tileheight : undefined,
+                tiles: item.tiles ? item.tiles : undefined,
             })
-            tilemapPrefabs.push(tilemapPrefabs[key])
+            this.addPrefab(tilemapPrefabs, key, prefab)
         })
 
 
@@ -163,6 +167,46 @@ export default class {
         return this.game.load.image(name, source);
     }
 
+    /**
+     *
+     * @param name
+     * @param source
+     * @param tiles
+     * @returns {*}
+     */
+    factoryImageCollection(name, source, tiles) {
+        let tilemapPrefabs = []
+
+        tiles.forEach(item => {
+            let splited = item.image.split('.'),
+                key
+
+            splited.pop()
+            // We assume tilemap assets are in the same path
+            key = splited.join('/')
+            let prefab = this.factory(TYPE_IMAGE, {
+                key,
+                source: source + ( item.image ? item.image : '' ),
+                width: item.imagewidth,
+                height: item.imageheight,
+            })
+
+            this.addPrefab(tilemapPrefabs, key, prefab)
+        })
+
+        return tilemapPrefabs
+    }
+
+    /**
+     *
+     * @param prefabs
+     * @param key
+     * @param prefab
+     */
+    addPrefab(prefabs, key, prefab) {
+        prefabs[key] = prefab
+        prefabs.push(prefabs[key])
+    }
 
     /**
      * Load children assets from already preloaded assets
