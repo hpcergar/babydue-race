@@ -1,4 +1,4 @@
-import ToplistService from '../services/ToplistService';
+import HighscoresService from '../services/HighscoresService';
 import Config from '../config'
 
 export default class extends Phaser.State {
@@ -14,7 +14,7 @@ export default class extends Phaser.State {
 	    this.loadingText.fontSize = 40;
 	    this.loadingText.fill = '#504c39';	   
 
-		let results = ToplistService.getTop10();
+		let results = HighscoresService.getTop10();
 		this.renderHighScores(results);
 	}
 

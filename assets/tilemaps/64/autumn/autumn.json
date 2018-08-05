@@ -92,7 +92,7 @@
         {
          "draworder":"topdown",
          "id":11,
-         "name":"Coins",
+         "name":"Collectibles",
          "objects":[
                 {
                  "gid":98,
@@ -104,7 +104,43 @@
                  "visible":true,
                  "width":129,
                  "x":238,
-                 "y":468
+                 "y":467
+                }, 
+                {
+                 "gid":68,
+                 "height":129,
+                 "id":61,
+                 "name":"Coin",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":129,
+                 "x":389,
+                 "y":463
+                }, 
+                {
+                 "gid":98,
+                 "height":129,
+                 "id":62,
+                 "name":"Star",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":129,
+                 "x":204,
+                 "y":467
+                }, 
+                {
+                 "gid":98,
+                 "height":129,
+                 "id":63,
+                 "name":"Star",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":129,
+                 "x":272,
+                 "y":467
                 }],
          "opacity":1,
          "properties":[
@@ -228,7 +264,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":61,
+ "nextobjectid":64,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2018.06.01",
@@ -315,7 +351,7 @@
                 {
                  "id":1,
                  "image":"background.png",
-                 "imageheight":1024,
+                 "imageheight":1014,
                  "imagewidth":2048
                 }],
          "tilewidth":2048
