@@ -1,40 +1,65 @@
 {
-  "name": "babydue-race",
+  "name": "BabyDue2018",
   "version": "1.0.0",
-  "description": "For my little baby, a new adventure poll starring his sister :)",
-  "main": "src/index.js",
-  "scripts": {
-    "dev": "webpack",
-    "deploy": "webpack --config webpack.production.config.js",
-    "cordova": "webpack --config webpack.cordova.config.js",
-    "test": "eslint './src/**/*.js'"
+  "description": "Baby due date race game!",
+  "keywords": [
+    "Baby",
+    "Bebé",
+    "Aria",
+    "H. Paúl",
+    "Elísabeth"
+  ],
+  "author": {
+    "name": "H. Paúl Cervera García",
+    "email": "hpcergar@gmail.com",
+    "url": "TODO"
   },
-  "author": "hpcergar",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "browser-sync": "^2.23.6",
-    "browser-sync-webpack-plugin": "^2.0.1",
-    "clean-webpack-plugin": "^0.1.18",
-    "copy-webpack-plugin": "^4.4.1",
-    "eslint": "^4.17.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^6.0.0",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "expose-loader": "^0.7.4",
-    "html-webpack-plugin": "^2.30.1",
-    "webpack": "^3.11.0"
+  "homepage": "TODO",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hpcergar/babydue-race"
   },
   "dependencies": {
-    "phaser-ce": "^2.10",
-    "phaser-arcade-slopes": "hexus/phaser-arcade-slopes#v0.3.1",
-    "webfontloader": "^1.6.28",
-    "lodash": "^4.17.4"
+    "backbone": "^1.3.2",
+    "body-parser": "^1.15.0",
+    "bootstrap": "^3.3.6",
+    "crypto": "0.0.3",
+    "crypto-js": "^3.1.6",
+    "es5-shim": "^4.5.7",
+    "express": "^4.13.4",
+    "handlebars": "^4.0.5",
+    "if-env": "^1.0.0",
+    "jquery": "^2.2.2",
+    "jquery-ui": "^1.10.5",
+    "lodash": "^4.6.1",
+    "moment": "^2.12.0",
+    "nodemailer": "^2.3.2",
+    "noty": "^2.3.8",
+    "remodal": "^1.0.7",
+    "simple-node-logger": "^0.93.12",
+    "validator": "^4.9.0",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.7.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "chai": "^3.4.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "handlebars-loader": "^1.2.0",
+    "mocha": "^2.4.5",
+    "path": "^0.12.7",
+    "supertest": "^1.1.0",
+    "webpack": "^1.12.14"
+  },
+  "bundleDependencies": [],
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha test.js",
+    "postInstallDisabled": "if-env NODE_ENV=production && npm run build",
+    "build": "webpack -p --config ./webpack.production.config.js"
   }
 }
