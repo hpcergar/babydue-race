@@ -3,6 +3,7 @@ var express = require('express'),
     login = require('./routes/login'),
     bets = require('./routes/bets'),
     users = require('./routes/users'), 
+    highscores = require('./routes/highscores'),
     winner = require('./routes/winner')
     ;
 
@@ -54,6 +55,9 @@ var Main = function(){
 
         self.app.use('/login', security);
         self.app.use('/login', login);
+
+        self.app.use('/highscores', security);
+        self.app.use('/highscores', highscores);
 
         
     };

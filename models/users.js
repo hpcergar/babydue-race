@@ -17,9 +17,9 @@ exports.getAll = function(){
  * @returns {object|boolean}
  */
 exports.getUserByEmail = function(email){
-    if(users[email] && users[email]['name']){
+    if(users[email]){
         console.log('Name ' + users[email]['name'] + ' found for email ' + email);
-        return users[email]['name'];
+        return users[email];
     }
 
     console.log('Email not found ' + users[email]);
