@@ -1,8 +1,8 @@
 'use strict';
 
 var fs = require('fs'),
-    path = require('path'),
-    file = path.join(__dirname, '..', 'data', 'bets.json')
+    path = require('path')
+    // ,    file = path.join(__dirname, '..', 'data', 'bets.json')
 ;
 
 
@@ -11,10 +11,11 @@ var fs = require('fs'),
  *
  * @storage
  *
+ * @param file
  * @param callback
  */
 // TODO table via namespace
-function fetch(callback){
+function fetch(file, callback){
     // Change to sync version due to multiple callback calls in async
     var data = fs.readFileSync(file, 'utf8');
     callback(null, data);
@@ -26,10 +27,11 @@ function fetch(callback){
  *
  * @storage
  *
+ * @param file
  * @param data
  * @param callback
  */
-function flush(data, callback){
+function flush(file, data, callback){
     fs.writeFile(file, JSON.stringify(data), function(err){
         if(err) throw err;
         console.log('Flushed');

@@ -47,7 +47,7 @@ function getData(callback){
     
     // getDataFromFile(callback);
 
-    storageAdapter.fetch(function(err, data){
+    storageAdapter.fetch(file, function(err, data){
         dataCached = JSON.parse(data);
         console.log('Data retrieved from file');
 
@@ -80,23 +80,6 @@ function getData(callback){
 //     callback(null, dataCached);
 // }
 
-/**
- *
- * @todo there is something smelly in this callback call...
- *
- * @storage
- *
- * @param callback
- */
-function flush(callback){
-
-    var data = JSON.stringify(dataCached);
-    fs.writeFile(file, data, function(err){
-        if(err) throw err;
-        console.log('Flushed');
-        callback();
-    });
-}
 
 /**
  * Filter data, get only bets
@@ -299,7 +282,7 @@ exports.save = function(data, callback){
         }
         // save to JSON and save
         saveBet(data);
-        storageAdapter.flush(dataCached, callback);
+        storageAdapter.flush(file, dataCached, callback);
     })
 };
 

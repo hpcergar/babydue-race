@@ -1,7 +1,6 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    // urlencoded = bodyParser.urlencoded({ extended: false}),
     jsonencoded = bodyParser.json(),
     router = express.Router(),
     bets = require('../controller/bets')
