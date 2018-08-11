@@ -32,9 +32,12 @@
     "webpack": "^3.11.0"
   },
   "dependencies": {
-    "phaser-ce": "^2.10",
+    "crypto-js": "^3.1.6",
+    "jquery": "^2.2.4",
+    "lodash": "^4.17.4",
     "phaser-arcade-slopes": "hexus/phaser-arcade-slopes#v0.3.1",
-    "webfontloader": "^1.6.28",
-    "lodash": "^4.17.4"
+    "phaser-ce": "^2.10",
+    "sat": "^0.6.0",
+    "webfontloader": "^1.6.28"
   }
 }

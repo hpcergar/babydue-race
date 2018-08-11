@@ -1,43 +1,71 @@
 import Config from '../config'
+import AuthService from './AuthService'
 
 export default class {
 
-	saveScore(playerName,score) {
-		// If the name of the player is empty, we do not save it to the toplist
-		if (_.isEmpty(playerName)) {
-			return;
-		}
+    constructor() {
+        this.authService = new AuthService();
+    }
 
- 		/**
- 		 *
- 		 *   Save your score using a webservice, for example
-		 * 
-		 *   $.post(Settings.urls.saveScore,{
- 		 *  	'playerName' : playerName
- 		 *  	,'score' : score
- 		 *   }).done(function(data) {
- 		 *   	console.log('data was saved')
-		 *   });
-		 *
-		 **/ 		
-	}
+    /**
+     *
+     * @param playerName
+     * @param score
+     * @returns {boolean}
+     */
+    saveScore(playerName, score) {
+        // If the name of the player is empty, we do not save it to the toplist
+        if (_.isEmpty(playerName)) {
+            return;
+        }
 
-	/**
-	 * Call your webservice to get the top10 player
-	 * Something like this: return $.get(Settings.urls.getTop10);
-	 */
-	getTop10() {
- 		return [
- 			{"playerName":"AE","score":"100000"}
- 			,{"playerName":"AE","score":"90000"}
- 			,{"playerName":"AE","score":"80000"}
- 			,{"playerName":"AE","score":"70000"}
- 			,{"playerName":"AE","score":"60000"}
- 			,{"playerName":"AE","score":"50000"}
- 			,{"playerName":"AE","score":"40000"}
- 			,{"playerName":"AE","score":"30000"}
- 			,{"playerName":"AE","score":"20000"}
- 			,{"playerName":"AE","score":"10000"} 			
- 		];
-	}
+        let result = false;
+
+        // Login to server, if not then go to failed auth
+        $.ajax({
+            url: '/highscores/' + this.authService.getEmail() + '?email=' + this.authService.getEmail()
+            + '&signature=' + this.authService.getSignature()
+            + '&score=' + this.authService.signScore(score),
+            data: JSON.stringify({score: score}),
+            type: 'PUT',
+            contentType: "application/json",
+            headers: this.authService.generateAuthHeader(),
+            success: function (json) {
+                console.log(json)
+                result = true
+            },
+            error: function (err) {
+                console.log(err)
+                alert('Error in connection')
+            },
+            async: false
+        });
+
+        return result;
+    }
+
+    /**
+     *
+     * @returns {Array}
+     */
+    getTop10() {
+
+        let top10 = [];
+        // Login to server, if not then go to failed auth
+        $.ajax({
+            url: '/highscores?email=' + this.authService.getEmail() + '&signature=' + this.authService.getSignature(),
+            headers: this.authService.generateAuthHeader(),
+            success: function (json) {
+                console.log(json)
+                top10 = json
+            },
+            error: function (err) {
+                console.log(err)
+                alert('Error in connection')
+            },
+            async: false
+        });
+
+        return top10;
+    }
 }

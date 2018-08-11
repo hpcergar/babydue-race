@@ -14,7 +14,8 @@ export default class extends Phaser.State {
 	    this.loadingText.fontSize = 40;
 	    this.loadingText.fill = '#504c39';	   
 
-		let results = HighscoresService.getTop10();
+	    this.highscoresService = new HighscoresService();
+		let results = this.highscoresService.getTop10();
 		this.renderHighScores(results);
 	}
 
@@ -46,7 +47,7 @@ export default class extends Phaser.State {
 		let lineHeight = 35;
 
 		_.each(toplist,_.bind(function(item,index){
-			let value = (index+1)+'.  '+item.playerName + "\t\t" + item.score;
+			let value = (index+1)+'.  '+item.name + "\t\t" + item.score;
 			let playerName = this.game.add.text(130, topListOffset + lineHeight*index,value);
 		    playerName.align = 'left';
 		    playerName.font = 'arcade';

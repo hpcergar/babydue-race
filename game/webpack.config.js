@@ -8,9 +8,7 @@ var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
 var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
 var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
-// var phaserSlopes = path.join(__dirname, '/node_modules/phaser-arcade-slopes/dist/phaser-arcade-slopes.min.js')
 var phaserSlopes = path.join(__dirname, '/node_modules/phaser-arcade-slopes/dist/phaser-arcade-slopes.js')
-// var SAT = path.join(__dirname, '/node_modules/sat/SAT.min.js')
 var SAT = path.join(__dirname, '/node_modules/sat/SAT.js')
 
 var definePlugin = new webpack.DefinePlugin({
@@ -21,7 +19,7 @@ module.exports = {
     entry: {
         app: [
             'babel-polyfill',
-            path.resolve(__dirname, 'src/main.js')
+            path.resolve(__dirname, 'src/app.js')
         ],
         vendor: ['pixi', 'p2', 'phaser', 'webfontloader', 'SAT']
     },
@@ -64,6 +62,11 @@ module.exports = {
             server: {
                 baseDir: ['./', './build']
             }
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
         })
     ],
     module: {
@@ -73,11 +76,10 @@ module.exports = {
             {test: /phaser-split\.js$/, use: ['expose-loader?Phaser']},
             {test: /p2\.js/, use: ['expose-loader?p2']},
             {test: /lodash\.js/, use: ['expose-loader?_!lodash']},
+            {test: /jquery\.js/, use: ['expose-loader?$!jquery']},
 
             {test: /SAT\.js$/, use: ['expose-loader?SAT']},
             {test: /phaser-arcade-slopes\.js$/, use: ['expose-loader?phaserSlopes']}
-            // {test: /SAT\.min\.js$/, use: ['expose-loader?SAT']},
-            // {test: /phaser-arcade-slopes\.min\.js$/, use: ['expose-loader?phaserSlopes']}
 
         ]
     },
@@ -92,7 +94,7 @@ module.exports = {
             'pixi': pixi,
             'p2': p2,
             'phaserSlopes': phaserSlopes,
-            'SAT': SAT,
+             'SAT': SAT,
         }
     }
 }

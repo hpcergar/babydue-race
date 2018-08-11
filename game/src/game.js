@@ -12,15 +12,14 @@ import {calculateAttr} from './utils'
 
 import config from './config'
 
-class Game extends Phaser.Game {
-    constructor() {
+export class Game extends Phaser.Game {
+    constructor(options) {
 
         let attr = calculateAttr(config.resolutions);
 
         super(attr.width, attr.height, Phaser.CANVAS)
 
-        this.attr = attr
-
+        this.attr = _.extend(attr, options)
 
         this.state.add('Boot', BootState, false)
         this.state.add('Splash', SplashState, false)
@@ -54,4 +53,3 @@ class Game extends Phaser.Game {
     // }
 }
 
-window.game = new Game()
