@@ -5,7 +5,9 @@ var express = require('express'),
     router = express.Router(),
     users = require('../models/users'),
     usersController = require('../controller/users'),
-    _ = require('lodash')
+    _ = require('lodash'),
+    cryptoService = require('../service/crypto'),
+    salt = require('../config/config').saltScore
     ;
 
 
@@ -20,12 +22,23 @@ var express = require('express'),
 function handleUpsert(request, response, errorCode){
 
     let email = request.query.emailOrig || request.query.email;
-    // TODO Sign in front & decode score
+    // Decode score
     let scoreSignature = request.query.score;
+    if (cryptoService.crypt(request.body.score.toString(), salt) !== scoreSignature) {
+        let errorMessage = 'Wrong score sent ' + request.body.score
+        console.log(errorMessage);
+        response
+            .status(400)
+            .json({ error:  errorMessage});
+        return;
+    }
 
     let user = users.getUserByEmail(email)
     user.score = request.body.score;
     user.email = email;
+
+
+
     usersController.save(user, email, scoreSignature, function(error){
         if(error){
             console.log(error.message);

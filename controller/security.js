@@ -1,8 +1,9 @@
 'use strict';
 
 // TODO to config
-var crypto = require('crypto'),
+var cryptoService = require('../service/crypto'),
     salt = require('../config/config').salt || '2D23PsgZdDLMu225'
+
     ;
 
 /**
@@ -13,10 +14,7 @@ var crypto = require('crypto'),
 var getSignature = function(email){
 
     console.log('Salt used: ' + salt);
-    return crypto
-        .createHmac('sha256', salt)
-        .update(email)
-        .digest('hex');
+    return cryptoService.crypt(email, salt)
 };
 
 /**
@@ -26,6 +24,7 @@ var getSignature = function(email){
  * @param signature
  */
 var validate = function(email, signature){
+    console.log('Signature should be ' + getSignature(email))
     return (signature === getSignature(email));
 };
 

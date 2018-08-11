@@ -17,7 +17,6 @@ exports.save = function (params, emailOrig, scoreSignature, callback) {
     let email = params.email;
 
     // Data validation
-    if (params.score !== scoreSignature) {callback(new Error('Wrong score sent ' + params.score), null); return;}
     if(!params.email || !validator.isEmail(email)){callback(new Error('Invalid email'), null);return;}
     if(email !== emailOrig){callback(new Error('Sent email ' + email + ' is not the same as authenticated one ' + emailOrig), null);return;}
 
