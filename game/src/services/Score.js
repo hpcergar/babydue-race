@@ -5,10 +5,10 @@ export default class {
         // Starts
         this.game = game
 		this.score = 0
+        this.digitNumber = 7;
     }
 
     create(){
-        this.digitNumber = 7;
         this.topOffset = 20;
         this.rightOffset = 20;
         this.characterWidth = 25;
@@ -34,10 +34,18 @@ export default class {
     	return this.score
 	}
 
-    update() {
+    /**
+     * Left pad with zeros
+     * @param score
+     * @returns {string}
+     */
+	pad(score) {
         let zeros = '' + Math.pow(10,this.digitNumber);
-        let paddedScore = (zeros + this.score).substr(-this.digitNumber);
-        this.scoretext.setText(paddedScore);
+        return (zeros + score).substr(-this.digitNumber);
+    }
+
+    update() {
+        this.scoretext.setText(this.pad(this.score));
         this.scoretext.parent.bringToTop(this.scoretext)
 	}
 }

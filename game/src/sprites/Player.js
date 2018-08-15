@@ -12,6 +12,9 @@ export default class {
 
         // Set gravity center in the middle
         this.player.anchor.x = 0.5;
+
+        this.player.body.setSize(46, 64, 0, 0)
+
         // Little jump after a big jump
         this.player.body.debug = true;
         // this.player.body.bounce.y = 0.2;

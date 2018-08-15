@@ -70,10 +70,15 @@ export const calculateAttr = (resolutions) => {
         width = desiredWidth;
     }
 
+    console.log('Desired width ' + desiredWidth + '. Width ' + width)
+    let widthScale = (width / desiredWidth).toFixed(2)
+    let heightScale = (height / desiredHeight).toFixed(2)
 
 return {
         "width": width
         , "height": height
         , "assetScale": assetScale
+        , "widthScale": widthScale
+        , "heightScale": heightScale
     }
 }

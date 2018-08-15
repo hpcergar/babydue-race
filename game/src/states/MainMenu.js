@@ -15,9 +15,9 @@ export default class extends Phaser.State {
         this.header = new Header(this.game, this.world)
         this.footer = new Footer(this.game, this.world)
 
-        this.imageTest = this.game.add.image(this.world.centerX, this.world.centerY - this.game.height / 3, "mushroom");
-        this.imageTest.anchor.setTo(0.5);
-        scaleSprite(this.imageTest, this.game.width, this.game.height / 3, 50, 1);
+        // this.imageTest = this.game.add.image(this.world.centerX, this.world.centerY - this.game.height / 3, "mushroom");
+        // this.imageTest.anchor.setTo(0.5);
+        // scaleSprite(this.imageTest, this.game.width, this.game.height / 3, 50, 1);
 
         let mainMenuOptions = {
             'items' : [
