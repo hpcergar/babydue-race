@@ -23,12 +23,14 @@ export default class {
         this.player.body.collideWorldBounds = true;
         this.player.body.gravity.y = 650;
 
-        this.player.animations.add('right', [0,1,2], 10, true)
+        this.player.animations.add('running', [0,1,2,3,0,1,2,3,0,1,2,3,4,1,2,3], 5, true)
+        this.player.animations.add('standing',[0,0,0,0,0,0,0,0,0,0,0,0,4], 5, true)
         // this.player.animations.play('right')
 
         //Make the camera follow the sprite
         this.game.camera.follow(this.player);
 
+        // Enable slopes collision on this player
         this.game.slopes.enable(this.player);
 
         this.player.body.slopes.preferY = true;
@@ -39,6 +41,7 @@ export default class {
         // this.player.body.slopes.pullBottomRight = 1500;
 
         this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.player.animations.play('standing');
         this.lookingRight = true;
 
     }
@@ -48,6 +51,9 @@ export default class {
     }
 
     update (hitting) {
+
+        let wasStanding = this.player.body.velocity.x === 0
+
         this.player.body.velocity.x = 0;
 
         let hittingGround = hitting && this.player.body.touching.down,
@@ -77,6 +83,15 @@ export default class {
             if(!this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = true;}
             this.player.body.velocity.x = 300 - slopeUpFactor;
         }
+
+        if(wasStanding && this.player.body.velocity.x !== 0) {
+            this.player.animations.play('running')
+            console.log('running')
+        } else if (!wasStanding && this.player.body.velocity.x === 0){
+            this.player.animations.play('standing')
+        }
+
+
     }
 
     slopeUpFactor(isOnSlope, y){
