@@ -16,7 +16,7 @@ export default class extends Phaser.State {
 		this.font = 'Press Start 2P';
 
 
-		this.loadingText = this.game.add.text(this.game.width/2, 200,'Loading...');
+		this.loadingText = this.game.add.text(this.game.width/2, 200, this.game.translate('Loading...'));
 	    this.loadingText.anchor.set(0.5);
         this.loadingText.font = this.font
 	    this.loadingText.fontSize = 40 * this.fontScale;

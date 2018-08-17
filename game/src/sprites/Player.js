@@ -1,8 +1,11 @@
+import Input from '../services/Input'
 
 export default class {
     constructor (game) {
         // Starts
         this.game = game
+
+        this.input = new Input(this.game)
 
         const [startX, startY] = this.getStartPoint(game.attr.playerPoints)
         //Add the sprite to the game and enable arcade physics on it
@@ -65,7 +68,7 @@ export default class {
         }
 
         // Jump
-        if (this.cursors.up.isDown && hittingGround)
+        if (this.input.isDown() && hittingGround)
         {
             // this.player.body.allowGravity = true
             this.player.body.velocity.y = this.player.isOnSlope ? -450 : -350
