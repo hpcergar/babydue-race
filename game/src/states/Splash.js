@@ -24,7 +24,7 @@ export default class extends Phaser.State {
     // TODO Undo, swap lines
     //   this.state.start('MainMenu')
     //   this.state.start('HighScores')
-    //   this.state.start('Game')
-      this.state.start('GameStartTransition')
+      this.state.start('Game')
+      // this.state.start('GameStartTransition')
   }
 }

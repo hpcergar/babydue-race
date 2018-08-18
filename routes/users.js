@@ -16,7 +16,9 @@ router.route('/:email')
     .get(function (request, response) {
         let email = request.query.emailOrig || request.query.email;
         let user = users.getUserByEmail(email);
-        response.json(users.getUserByEmail(user ? user.name : false));
+        console.log(email)
+        console.log(user)
+        response.json(user ? user : false);
     })
 ;
 

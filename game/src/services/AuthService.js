@@ -56,8 +56,8 @@ export default class {
     signScore(score) {
         return crypto
             .createHmac('sha256', saltScore)
-            .update(score)
-            .digest('hex');
+            .update(score + '') // As string
+            .digest('hex')
     }
 
     /**

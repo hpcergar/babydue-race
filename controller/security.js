@@ -12,8 +12,6 @@ var cryptoService = require('../service/crypto'),
  * @returns {*|{}}
  */
 var getSignature = function(email){
-
-    console.log('Salt used: ' + salt);
     return cryptoService.crypt(email, salt)
 };
 

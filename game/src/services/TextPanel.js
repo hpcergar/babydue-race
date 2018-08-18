@@ -1,16 +1,20 @@
-
 export default class {
 
-    constructor (game, texts, callback = null) {
+    constructor(game, texts, callback = null, options = {}) {
         // Starts
         this.game = game
         this.texts = texts
         this.callback = callback
+        this.shouldWaitForUser = options.shouldWaitForUser || false
+        this.offsetX = options.offsetX || 0
+        this.offsetY = options.offsetY || 0
+        this.destroyOnComplete = options.destroyOnComplete || false
 
         this.textsIndex = 0
 
         this.animationStarted = false
         this.waitingForUser = false
+
 
         this.wordTimer = null;
         this.pageTimer = null;
@@ -26,12 +30,15 @@ export default class {
         this.wordDelay = 120;
         this.pageDelay = 5000;
         // Text width block
-        this.wordWrap = this.game.camera.width/2
+        this.wordWrap = this.game.camera.width / 2
     }
 
-    start(){
-        
-        this.text = this.game.add.text( this.game.camera.width/2 - ((this.wordWrap)/2), this.game.camera.y + this.game.camera.height / 3, '');
+    start() {
+
+        this.text = this.game.add.text(
+            this.offsetX + this.game.camera.width / 2 - ((this.wordWrap) / 2),
+            this.offsetY + this.game.camera.y + this.game.camera.height / 3,
+            '');
         this.text.fill = '#FFFFFF';
         this.text.font = 'Press Start 2P';
         this.text.fontSize = 14 * this.fontScale;
@@ -44,20 +51,20 @@ export default class {
     update(input = false) {
 
         // Handle user input
-        if(!input) return;
+        if (!input) return;
 
         this.waitingForUser ? this.nextPage() : this.fullPage()
-	}
-
+    }
 
 
     nextPage() {
         this.waitingForUser = false
-        console.log('Texts index' + this.textsIndex);
-        if (this.textsIndex === this.texts.length)
-        {
+        if (this.textsIndex === this.texts.length) {
             //  We're finished
             this.callback();
+            if(this.destroyOnComplete){
+                this.text.destroy();
+            }
             return;
         }
 
@@ -84,20 +91,27 @@ export default class {
         this.wordIndex++;
 
         //  Last word?
-        if (this.wordIndex === this.line.length)
-        {
+        if (this.wordIndex === this.line.length) {
             this.endPage()
         }
     }
-    
+
     endPage() {
         this.game.time.events.remove(this.wordTimer);
         this.textsIndex++;
-        this.waitingForUser = true
+        if (this.shouldWaitForUser) {
+            this.waitingForUser = true
+        } else {
+            this.game.time.events.add(this.pageDelay, this.nextPage, this);
+        }
     }
-    
+
     fullPage() {
         this.text.text = this.content;
         this.endPage()
+    }
+
+    destroy() {
+        this.text.destroy();
     }
 }

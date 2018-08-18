@@ -59,26 +59,29 @@ export default class extends Phaser.State {
                 this.game.translate("start-intro-1"),
                 this.game.translate("start-intro-2"),
             ],
-            () => this.state.start('Game')
+            () => this.state.start('Game'),
+            {
+                shouldWaitForUser: true
+            }
         )
 
 
-
+        let flashDuration = 500
         // Start transition
-        this.camera.flash('#000000', 500);
+        this.camera.flash('#000000', flashDuration);
 
         // User input control
         this.inputIsDown = false
 
-        // Display text panel after 1 sec
+        // Display text panel after a small delay
         setTimeout(() => {
             this.textPanel.start()
-        }, 500)
+        }, flashDuration)
 
     }
 
     update() {
-        // To keep Aria on the ground
+        // To keep player on the ground
         this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer);
 
         if(!this.inputIsDown && this.input.isDown()){

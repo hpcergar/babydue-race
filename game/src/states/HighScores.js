@@ -23,14 +23,14 @@ export default class extends Phaser.State {
 	    this.loadingText.fill = '#504c39';	   
 
 	    this.scoreService = new ScoreService();
-	    this.highscoresService = new HighscoresService();
+        this.highscoresService = new HighscoresService();
 		let results = this.highscoresService.getTop10();
 		this.renderHighScores(results);
 	}
 
 	update() {
 	    this.game.input.keyboard.onUpCallback = _.bind(function(e){
-			if(e.keyCode == Phaser.Keyboard.ESC || e.keyCode == Phaser.Keyboard.ENTER) {
+			if(e.keyCode === Phaser.Keyboard.ESC || e.keyCode === Phaser.Keyboard.ENTER) {
 	  			this.game.state.start('MainMenu');
 			}
 		},this);

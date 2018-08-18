@@ -2,6 +2,10 @@
         "Loading...": "Cargando...",
         "start-intro-1": "Ayuda a Aria a encontrar a su hermanito o hermanita... ¡a través de esta carrera de obstáculos!",
         "start-intro-2": "¡Y no olvidéis de recoger las monedas para probar vuestra pericia!",
+        "Congratulations": "¡Enhorabuena! ¡Has conseguido llegar al hospital y terminar la carrera con :score puntos!",
+        "You are in the top 10": "¡Además has conseguido entrar en el top 10!\n\nTu posición es: :position",
+        "Your best score is": "Tu mejor puntuación fue :score",
+
 
         "title": "¿Qué será, será?",
 

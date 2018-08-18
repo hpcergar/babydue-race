@@ -9,16 +9,10 @@ export default class {
 
     /**
      *
-     * @param playerName
      * @param score
      * @returns {boolean}
      */
-    saveScore(playerName, score) {
-        // If the name of the player is empty, we do not save it to the toplist
-        if (_.isEmpty(playerName)) {
-            return;
-        }
-
+    saveScore(score) {
         let result = false;
 
         // Login to server, if not then go to failed auth
@@ -67,5 +61,41 @@ export default class {
         });
 
         return top10;
+    }
+
+    /**
+     * Retrieve user stored score
+     * @returns {number}
+     */
+    getUserScore() {
+        // Login to server, if not then go to failed auth
+        let user = {score:0};
+
+        $.ajax({
+            url: '/users/' + this.authService.getEmail() + '?email=' + this.authService.getEmail() + '&signature=' + this.authService.getSignature(),
+            headers: this.authService.generateAuthHeader(),
+            success: function (json) {
+                user = json
+            },
+            error: function (err) {
+                console.log(err)
+                alert('Error in connection')
+            },
+            async: false
+        });
+
+        return user.score;
+    }
+
+    /**
+     * Returns score position if among top 10. Return 10 if outside (not in top10)
+     * @param score
+     * @returns {number}
+     */
+    getScorePosition(score) {
+        let top10 = this.getTop10()
+        let position = top10.filter(user => user.score > score).length + 1
+
+        return position > 10 ? false : position
     }
 }

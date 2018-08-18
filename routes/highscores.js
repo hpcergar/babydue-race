@@ -24,7 +24,10 @@ function handleUpsert(request, response, errorCode){
     let email = request.query.emailOrig || request.query.email;
     // Decode score
     let scoreSignature = request.query.score;
-    if (cryptoService.crypt(request.body.score.toString(), salt) !== scoreSignature) {
+
+    let scoreComputed = cryptoService.crypt(request.body.score.toString(), salt)
+
+    if (scoreComputed !== scoreSignature) {
         let errorMessage = 'Wrong score sent ' + request.body.score
         console.log(errorMessage);
         response

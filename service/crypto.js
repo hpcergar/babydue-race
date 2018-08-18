@@ -9,6 +9,6 @@ exports.crypt = function(text, salt){
         .update(text)
         .digest('hex');
 
-    console.log('Hash for ' + text + ' should be ' + hash);
+    console.log('Hash for ' + text + ' should be ' + hash + ' with salt ' + salt);
     return hash;
 }
