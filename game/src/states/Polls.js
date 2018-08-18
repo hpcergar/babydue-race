@@ -1,12 +1,6 @@
-import Config from '../config'
-
 export default class extends Phaser.State {
 
 	create() {
-
-	}
-
-	update() {
-
+        window.location.replace("/calendar" + document.location.search);
 	}
 }

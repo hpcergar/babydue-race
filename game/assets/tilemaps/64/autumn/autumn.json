@@ -78,18 +78,6 @@
                  "y":497.5
                 }, 
                 {
-                 "gid":70,
-                 "height":129,
-                 "id":68,
-                 "name":"Door",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":129,
-                 "x":920,
-                 "y":483
-                }, 
-                {
                  "gid":80,
                  "height":129,
                  "id":69,
@@ -265,6 +253,18 @@
                  "width":0,
                  "x":1042,
                  "y":448
+                }, 
+                {
+                 "height":0,
+                 "id":73,
+                 "name":"doorPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":921,
+                 "y":448
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -324,7 +324,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":73,
+ "nextobjectid":74,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2018.06.01",

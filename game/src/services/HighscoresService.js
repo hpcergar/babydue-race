@@ -25,7 +25,6 @@ export default class {
             contentType: "application/json",
             headers: this.authService.generateAuthHeader(),
             success: function (json) {
-                console.log(json)
                 result = true
             },
             error: function (err) {
@@ -50,7 +49,6 @@ export default class {
             url: '/highscores?email=' + this.authService.getEmail() + '&signature=' + this.authService.getSignature(),
             headers: this.authService.generateAuthHeader(),
             success: function (json) {
-                console.log(json)
                 top10 = json
             },
             error: function (err) {

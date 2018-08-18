@@ -7,6 +7,7 @@ import Background from '../sprites/Background'
 import Score from '../services/Score'
 import Collectibles from '../sprites/Collectibles'
 import Player from '../sprites/Player'
+import Door from '../sprites/Door'
 import Overlay from '../sprites/Overlay'
 import HighscoresService from '../services/HighscoresService'
 import TextPanel from "../services/TextPanel";
@@ -35,6 +36,7 @@ export default class extends Phaser.State {
         this.score = new Score(this.game)
         this.highscoresService = new HighscoresService()
         this.textPanel = {}
+        this.door = new Door(this.game)
 
         // State flags
         this.isEndAnimation = false
@@ -109,6 +111,10 @@ export default class extends Phaser.State {
     startEndAnimation() {
         this.isEndAnimation = true
         this.player.startEndAnimation()
+
+        // Render door
+        this.door.render()
+
         // let playerObject = this.player.getObject()
         this.game.world.bringToTop(this.overlay.getObject());
         this.game.world.bringToTop(this.player.getObject());
@@ -116,16 +122,14 @@ export default class extends Phaser.State {
 
         // Push new score to API
         let bestScore = this.highscoresService.getUserScore()
-        let position = false;
-        console.log('bestScore ' + bestScore)
-        console.log('score ' + bestScore)
-        position = this.highscoresService.getScorePosition(score)
+        let position = this.highscoresService.getScorePosition(score)
         if (score > bestScore) {
             this.highscoresService.saveScore(score);
         }
 
         // Score text & position if <= 10th
         let text = this.getEndText(score, position, bestScore)
+
 
         // Start transition
         // Display overlay
@@ -138,6 +142,10 @@ export default class extends Phaser.State {
                 x: playerObject.body.x - 70,
                 y: this.game.camera.y
             }, 750, Phaser.Easing.Quadratic.InOut);
+
+            // Create door
+            this.door.moveToPosition()
+
             moveCameraToRight.onComplete.addOnce(() => {
 
                 // Display end message with score & position
@@ -165,20 +173,25 @@ export default class extends Phaser.State {
     }
 
     startDoorTransition() {
-        this.game.world.bringToTop(this.layers[FRONT_LAYER]);
+        // Not need
+        // this.game.world.bringToTop(this.layers[FRONT_LAYER]);
 
-        // TODO Stop player in front of the door
-        this.player.goToPoint('playerInFrontOfDoor')
+        // Stop player in front of the door
+        this.player.goToPoint('playerInFrontOfDoor', () => {
+            this.game.camera.follow(null)
+            // Door animation
+            this.door.open();
 
-        // TODO Open door
-        sleep(1000)
+            setTimeout(() => {
+                // Pass player through the door
+                this.player.goToPoint('playerAfterDoor', () => {
+                    // Camera flash & go to state
+                    this.camera.fade('#000000');
+                    this.state.start('Polls')
+                })
 
-        // TODO Pass player through the door
-        this.player.goToPoint('playerAfterDoor')
-
-        // TODO Camera flash & go to state
-        this.camera.fade('#000000');
-        this.state.start('Polls')
+            }, 3000)
+        })
     }
 
 

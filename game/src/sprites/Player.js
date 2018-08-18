@@ -1,8 +1,9 @@
 import Input from '../services/Input'
+import Points from '../services/Points'
 import Config from '../config'
 
-const ANIMATION_STANDING = ANIMATION_STANDING
-const ANIMATION_RUNNING = ANIMATION_STANDING
+const ANIMATION_STANDING = 'standing'
+const ANIMATION_RUNNING = 'running'
 
 const GAME_VELOCITY = Config.player.gameVelocity
 const END_ANIMATION_VELOCITY = Config.player.endAnimationVelocity
@@ -16,10 +17,11 @@ export default class {
         this.isPlayable = true
 
         this.input = new Input(this.game)
+        this.points = new Points(this.game)
 
         // Game key points
-        const [startX, startY] = this.getStartPoint(game.attr.playerPoints)
-        const [endX, endY] = this.getEndPoint(game.attr.playerPoints)
+        const [startX, startY] = this.points.getStartPoint()
+        const [endX, endY] = this.points.getEndPoint()
 
         this.endX = endX
 
@@ -130,34 +132,18 @@ export default class {
         this.player.animations.play(ANIMATION_RUNNING)
     }
 
-    goToPoint(name) {
-        const [pointX, pointY] = this.getPoint(name, this.game.attr.playerPoints)
-        this.game.add.tween(this.player).to({
+    goToPoint(name, callback = undefined) {
+        const [pointX, pointY] = this.points.getPoint(name)
+        let tween = this.game.add.tween(this.player).to({
             x: pointX,
-            y: this.game.camera.y
+            y: this.player.position.y
         }, 750, Phaser.Easing.Quadratic.InOut);
+
+        if(callback){
+            tween.onComplete.addOnce(callback)
+        }
+        tween.start();
+
     }
 
-    getPoint(name, points) {
-        const startPoint = points.find(point => point.name === name)
-        return [startPoint.x, startPoint.y]
-    }
-
-    /**
-     * Retrieve game player starting point
-     * @param points
-     * @returns {*[]}
-     */
-    getStartPoint(points) {
-        return this.getPoint('playerStartPoint', points)
-    }
-
-    /**
-     * Retrieve game player end point (level-end, before end transition)
-     * @param points
-     * @returns {*[]}
-     */
-    getEndPoint(points) {
-        return this.getPoint('playerEndPoint', points)
-    }
 }
