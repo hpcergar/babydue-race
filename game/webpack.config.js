@@ -9,6 +9,7 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
 var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
 var phaserSlopes = path.join(__dirname, '/node_modules/phaser-arcade-slopes/dist/phaser-arcade-slopes.js')
+var debugArcade = path.join(__dirname, '/node_modules/phaser-plugin-debug-arcade-physics/dist/DebugArcadePhysics.js')
 var SAT = path.join(__dirname, '/node_modules/sat/SAT.js')
 
 var definePlugin = new webpack.DefinePlugin({
@@ -79,7 +80,8 @@ module.exports = {
             {test: /jquery\.js/, use: ['expose-loader?$!jquery']},
 
             {test: /SAT\.js$/, use: ['expose-loader?SAT']},
-            {test: /phaser-arcade-slopes\.js$/, use: ['expose-loader?phaserSlopes']}
+            {test: /phaser-arcade-slopes\.js$/, use: ['expose-loader?phaserSlopes']},
+            {test: /DebugArcadePhysics\.js$/, use: ['expose-loader?DebugArcadePhysics']}
 
         ]
     },
@@ -94,6 +96,7 @@ module.exports = {
             'pixi': pixi,
             'p2': p2,
             'phaserSlopes': phaserSlopes,
+            // 'DebugArcadePhysics': debugArcade,
              'SAT': SAT,
         }
     }

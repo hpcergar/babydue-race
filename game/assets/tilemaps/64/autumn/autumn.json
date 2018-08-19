@@ -78,6 +78,18 @@
                  "y":497.5
                 }, 
                 {
+                 "gid":70,
+                 "height":129,
+                 "id":68,
+                 "name":"Door",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":129,
+                 "x":920,
+                 "y":483
+                }, 
+                {
                  "gid":80,
                  "height":129,
                  "id":69,

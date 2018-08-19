@@ -12,6 +12,8 @@ import Overlay from '../sprites/Overlay'
 import HighscoresService from '../services/HighscoresService'
 import TextPanel from "../services/TextPanel";
 
+// import DebugArcadePhysics from 'DebugArcadePhysics'
+
 const BACKGROUND_LAYER = 'Background';
 const BEHIND_LAYER = 'Behind';
 const FRONT_LAYER = 'Foreground';
@@ -25,6 +27,10 @@ export default class extends Phaser.State {
         this.layers = []
 
         this.game.plugins.add(Phaser.Plugin.ArcadeSlopes);
+
+        // debug
+        // this.game.plugins.add(Phaser.Plugin.DebugArcadePhysics);
+        // this.game.debug.arcade.on()
     }
 
     preload() {
@@ -104,7 +110,7 @@ export default class extends Phaser.State {
         this.layers[BACKGROUND_LAYER].update()
 
         if (this.player.isPlayable && this.player.isBeyondEndPoint()) {
-            this.startEndAnimation()
+            // this.startEndAnimation()
         }
     }
 

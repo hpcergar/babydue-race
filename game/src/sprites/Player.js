@@ -33,14 +33,20 @@ export default class {
 
         // PHYSICS
         // Set gravity center in the middle
-        this.player.anchor.x = 0.5;
-        this.player.body.setSize(46, 64, 0, 0)
+        this.player.anchor.x = 0.4;
+        this.player.anchor.y = 0.25;
+        // this.player.body.setSize(46, 64, 0, 0)
+        this.player.body.setSize(40, 64, 6, 0)
         // Little jump after a big jump
-        this.player.body.debug = true;
+        // this.player.body.debug = true;
         // this.player.body.bounce.y = 0.2;
         // this.player.body.linearDamping = 1;
         this.player.body.collideWorldBounds = true;
         this.player.body.gravity.y = 650;
+
+        // this.game.debug.bodyInfo(this.player, 32, 32);
+        // this.game.debug.body(this.player);
+        // this.game.debug.reset();
 
         // ANIMATIONS
         this.player.animations.add(ANIMATION_RUNNING, [0,1,2,3,0,1,2,3,0,1,2,3,4,1,2,3], 5, true)
@@ -73,6 +79,10 @@ export default class {
 
     updatePlaying (hitting) {
 
+        this.game.debug.bodyInfo(this.player, 32, 32);
+        this.game.debug.body(this.player);
+        this.game.debug.reset();
+
         let wasStanding = this.player.body.velocity.x === 0
 
         this.player.body.velocity.x = 0;
@@ -91,6 +101,9 @@ export default class {
             // this.player.body.allowGravity = true
             this.player.body.velocity.y = this.player.isOnSlope ? -450 : -350
         }
+
+        // Rotation
+        this.rotateOnSlope(this.player.isOnSlope)
 
         slopeUpFactor = this.slopeUpFactor(this.player.isOnSlope, this.player.body.velocity.y)
 
@@ -120,6 +133,25 @@ export default class {
      */
     slopeUpFactor(isOnSlope, y){
         return (isOnSlope && y < 0) ? 100 : 0
+    }
+
+    /**
+     * Adapt angle on slope
+     * @param slopeId
+     */
+    rotateOnSlope(slopeId) {
+        if(false === slopeId && this.player.angle !== 0){
+            this.player.angle = 0
+        } else if(false !== slopeId) {
+            switch(slopeId) {
+                case 1:
+                    this.player.angle = 45;
+                    break;
+                case 2:
+                    this.player.angle = -45;
+                    break;
+            }
+        }
     }
 
     isBeyondEndPoint() {
