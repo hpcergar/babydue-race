@@ -15,6 +15,7 @@ export default class extends Phaser.State {
         this.header = new Header(this.game, this.world)
         this.footer = new Footer(this.game, this.world)
 
+        this.object = this.game.add.sprite(this.world.width - 64 - 525, this.game.camera.y, "aria-start-screen");
         // this.imageTest = this.game.add.image(this.world.centerX, this.world.centerY - this.game.height / 3, "mushroom");
         // this.imageTest.anchor.setTo(0.5);
         // scaleSprite(this.imageTest, this.game.width, this.game.height / 3, 50, 1);
@@ -22,7 +23,7 @@ export default class extends Phaser.State {
         let mainMenuOptions = {
             'items' : [
                 {
-                    'label'    : 'Play & Vote'
+                    'label'    : this.game.translate('Play & Vote')
                     ,'callback': _.bind(this.startGame,this)
                 }
                 ,{
@@ -45,9 +46,9 @@ export default class extends Phaser.State {
         this.mainMenu.redraw(this.game, this.world)
 
         // TODO This is for test images
-        scaleSprite(this.imageTest, width, height / 3, 50, 1);
-        this.imageTest.x = this.world.centerX;
-        this.imageTest.y = this.world.centerY - height / 3;
+        scaleSprite(this.object, width, height / 3, 50, 1);
+        this.object.x = this.world.centerX;
+        this.object.y = this.world.centerY - height / 3;
     }
 
     startGame() {

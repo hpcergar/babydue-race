@@ -31,7 +31,7 @@ class Menu {
 		    text.align = 'center';
 		    text.font = 'arcade';
 		    text.fontSize = 25;
-		    text.fill = '#FFFFFF';
+		    text.fill = '#455c3d';
     		text.strokeThickness = 0;
 
     		this.items.push(text);
@@ -45,7 +45,7 @@ class Menu {
 		    text.align = 'center';
 		    text.font = 'arcade';
 		    text.fontSize = 50;
-		    text.fill = '#FFFFFF';
+		    text.fill = '#455c3d';
 		    text.stroke = '#504c39';
     		text.strokeThickness = 0;
     		text.index = index
