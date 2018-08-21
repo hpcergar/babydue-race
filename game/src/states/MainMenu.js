@@ -11,15 +11,18 @@ export default class extends Phaser.State {
         // Set the game background colour
         this.game.stage.backgroundColor = Config.background.color;
         this.game.renderer.renderSession.roundPixels = true;
+        this.fontScale = this.game.attr.heightScale || 1;
 
         this.header = new Header(this.game, this.world)
         this.footer = new Footer(this.game, this.world)
 
-        this.object = this.game.add.sprite(this.world.width - 64 - 525, this.game.camera.y, "aria-start-screen");
+        this.object = this.game.add.sprite(this.world.width - (64) * this.fontScale, this.game.camera.y, "aria-start-screen");
         // this.imageTest = this.game.add.image(this.world.centerX, this.world.centerY - this.game.height / 3, "mushroom");
         // this.imageTest.anchor.setTo(0.5);
-        // scaleSprite(this.imageTest, this.game.width, this.game.height / 3, 50, 1);
+        scaleSprite(this.object, this.game.width, this.game.height * 4 / 5, 50, this.fontScale);
 
+
+        console.log(this.game.width, this.game.height * 2 / 3)
         let mainMenuOptions = {
             'items' : [
                 {
@@ -38,18 +41,13 @@ export default class extends Phaser.State {
         }
         this.mainMenu = new Menu(mainMenuOptions, this.game, this.world);
 
+        // Set image according to text block
+        const [menuX, menuY, menuWidth, menuHeight] = this.header.getPosition()
+        this.object.x =  menuX + (200) * this.fontScale
+        this.object.y =  menuY
+
     }
 
-    resize(width, height) {
-        this.header.redraw(this.game, this.world)
-        this.footer.redraw(this.game, this.world)
-        this.mainMenu.redraw(this.game, this.world)
-
-        // TODO This is for test images
-        scaleSprite(this.object, width, height / 3, 50, 1);
-        this.object.x = this.world.centerX;
-        this.object.y = this.world.centerY - height / 3;
-    }
 
     startGame() {
         this.state.start('GameStartTransition')

@@ -1,3 +1,5 @@
+import config from '../../config'
+
 class Menu {
 
 	constructor(options, game, world){
@@ -6,6 +8,10 @@ class Menu {
 		this.options = options;
 		this.items = [];
 		this.active = null;
+        // this.fontScale = this.game.attr.widthScale || 1;
+        this.fontScale = this.game.attr.heightScale || 1;
+        this.heightScale = this.game.attr.heightScale || 1;
+
 
 		// Create an isActive property on each element
 		this.options.items.forEach(function(navItem,index){
@@ -26,11 +32,11 @@ class Menu {
 
 		if (this.options.title) {
 			let topOffset = navigationOffset - 40;
-			let text = this.game.add.text(this.game.width/2, topOffset,this.options.title);
+			let text = this.game.add.text(this.game.width*1/3, topOffset, this.options.title + ' ');
 		    text.anchor.set(0.5);
 		    text.align = 'center';
-		    text.font = 'arcade';
-		    text.fontSize = 25;
+		    text.font = config.font.title.font;
+		    text.fontSize = 25 * this.fontScale;
 		    text.fill = '#455c3d';
     		text.strokeThickness = 0;
 
@@ -38,14 +44,14 @@ class Menu {
 		}
 
 		this.options.items.forEach(function(navItem,index){
-			let topOffset = navigationOffset + index*45;
-            let text = this.game.add.text(this.game.width/2, topOffset,navItem.label);
+			let topOffset = navigationOffset + index * 50 * this.heightScale;
+            let text = this.game.add.text(this.game.width*1/3, topOffset, navItem.label + ' ');
             text.inputEnabled = true;
 		    text.anchor.set(0.5);
 		    text.align = 'center';
-		    text.font = 'arcade';
-		    text.fontSize = 50;
-		    text.fill = '#455c3d';
+		    text.font = config.font.title.font;
+		    text.fontSize = 50 * this.fontScale;
+		    text.fill = '#e5b900';
 		    text.stroke = '#504c39';
     		text.strokeThickness = 0;
     		text.index = index
@@ -58,19 +64,10 @@ class Menu {
 	}
 
 	getTopOffset() {
-		// TODO Calculate in function of world height
-		return 200
+		// Calculate in function of world height
+		return 250 * this.heightScale
 	}
 
-	redraw(game, world) {
-		this.game = game
-		this.world = world
-        let navigationOffset = this.getTopOffset();
-        this.items.forEach(function(item,index){
-            item.position.x = this.game.width/2
-			item.position.y = navigationOffset + index*45
-        }, this)
-	}
 
 	itemOnActive(item) {
         if(this.items[this.active] != item && null != this.active){

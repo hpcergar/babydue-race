@@ -8,7 +8,7 @@ export default class {
         this.overlay = this.game.add.sprite(0, 0, 'black-pixel');
         this.overlay.tint = '#ffffff';
         // this.overlay.scale.setTo(game.world.width, game.world.height);
-        this.overlay.scale.setTo(window.innerWidth, window.innerHeight);
+        this.overlay.scale.setTo(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
 
     }
 
