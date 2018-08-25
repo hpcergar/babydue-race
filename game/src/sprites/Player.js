@@ -6,7 +6,13 @@ const ANIMATION_STANDING = 'standing'
 const ANIMATION_RUNNING = 'running'
 
 const GAME_VELOCITY = Config.player.gameVelocity
+const GRAVITY = 1000
+const JUMP = -550
 const END_ANIMATION_VELOCITY = Config.player.endAnimationVelocity
+
+const SLOPE_NONE = 0
+const SLOPE_ASCENDING = 1
+const SLOPE_DESCENDING = 2
 
 export default class {
     constructor (game) {
@@ -22,8 +28,11 @@ export default class {
         // Game key points
         const [startX, startY] = this.points.getStartPoint()
         const [endX, endY] = this.points.getEndPoint()
+        // TODO
+        // const [speedUpX, speedUpY] = this.points.getSpeedUpPoint()
 
         this.endX = endX
+        // this.speedUpX = speedUpX
 
         //Add the sprite to the game and enable arcade physics on it
         this.player = this.game.add.sprite(startX, startY, 'player');
@@ -42,7 +51,7 @@ export default class {
         // this.player.body.bounce.y = 0.2;
         // this.player.body.linearDamping = 1;
         this.player.body.collideWorldBounds = true;
-        this.player.body.gravity.y = 650;
+        this.player.body.gravity.y = GRAVITY;
 
         // this.game.debug.bodyInfo(this.player, 32, 32);
         // this.game.debug.body(this.player);
@@ -58,10 +67,7 @@ export default class {
         // Enable slopes collision on this player
         this.game.slopes.enable(this.player);
         this.player.body.slopes.preferY = true;
-        // this.player.body.slopes.pullUp = 150;
-        this.player.body.slopes.pullDown = 350;
-        // this.player.body.slopes.pullTopRight = 1500;
-        // this.player.body.slopes.pullBottomRight = 1500;
+        this.player.body.slopes.pullDown = GRAVITY / 2;
 
         // CONTROLS
         this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -91,19 +97,23 @@ export default class {
             slopeUpFactor
 
         // Disable last jump bug on slopes
-        if(this.player.body.allowGravity && hitting && this.player.isOnSlope){
-            this.player.body.velocity.y = 0
+        if(hitting && this.player.isOnSlope){
+            // Only on ascending, to avoid jumping on descending
+            this.player.body.velocity.y = this.player.body.velocity.y >= 0
+                ? this.player.body.velocity.y
+                : 0;
         }
+
+        // Rotation, acceleration, etc.
+        this.adaptOnSlope(this.player.isOnSlope)
 
         // Jump
         if (this.input.isDown() && hittingGround)
         {
-            // this.player.body.allowGravity = true
-            this.player.body.velocity.y = this.player.isOnSlope ? -450 : -350
+            this.player.body.velocity.y = this.inclination === SLOPE_ASCENDING ? JUMP - 100
+                                        : this.inclination === SLOPE_DESCENDING ? JUMP + 550
+                                        : JUMP
         }
-
-        // Rotation
-        this.rotateOnSlope(this.player.isOnSlope)
 
         slopeUpFactor = this.slopeUpFactor(this.player.isOnSlope, this.player.body.velocity.y)
 
@@ -125,6 +135,14 @@ export default class {
         }
     }
 
+    setCollisionData(ground) {
+        if (ground.slope && ground.slope.type > 0) {
+            this.player.isOnSlope = ground.slope.type
+        } else {
+            this.player.isOnSlope = false
+        }
+    }
+
     /**
      *
      * @param isOnSlope
@@ -139,19 +157,26 @@ export default class {
      * Adapt angle on slope
      * @param slopeId
      */
-    rotateOnSlope(slopeId) {
-        if(false === slopeId && this.player.angle !== 0){
-            this.player.angle = 0
-        } else if(false !== slopeId) {
-            switch(slopeId) {
-                case 1:
-                    this.player.angle = 45;
-                    break;
-                case 2:
-                    this.player.angle = -45;
-                    break;
-            }
+    adaptOnSlope(slopeId) {
+        switch(slopeId) {
+            case 1:
+                this.inclination = SLOPE_DESCENDING
+                this.player.angle = 45;
+                break;
+            case 2:
+                this.inclination = SLOPE_ASCENDING
+                this.player.angle = -45;
+                break;
+            default:
+                this.inclination = SLOPE_NONE
+                if(this.player.angle !== 0) {
+                    this.player.angle = 0
+                }
         }
+    }
+
+    isBeyondSpeedUpPoint() {
+        return this.player.position.x >= this.speedUpX
     }
 
     isBeyondEndPoint() {

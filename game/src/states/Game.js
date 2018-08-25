@@ -117,7 +117,7 @@ export default class extends Phaser.State {
 
     update() {
 
-        let hitGround = this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer, this.isPlayerInSlope);
+        let hitGround = this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer, (player, ground) => this.player.setCollisionData(ground));
 
         if (!this.isEndAnimation) {
             this.collectibles.update(this.player.getObject())
@@ -252,13 +252,5 @@ export default class extends Phaser.State {
         let overlayFadeIn = this.game.add.tween(this.overlay.getObject()).to({alpha: alpha}, duration, "Linear");
         overlayFadeIn.onComplete.addOnce(callback)
         overlayFadeIn.start();
-    }
-
-    isPlayerInSlope(player, ground) {
-        if (ground.slope && ground.slope.type > 0) {
-            player.isOnSlope = ground.slope.type
-        } else {
-            player.isOnSlope = false
-        }
     }
 }
