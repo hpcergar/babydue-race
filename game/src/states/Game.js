@@ -20,7 +20,7 @@ const FRONT_LAYER = 'Foreground';
 
 export default class extends Phaser.State {
     init() {
-        // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+
         this.stage.backgroundColor = '#000000'
         this.assetScale = 64;
         this.prefabs = this.game.attr.prefabs
@@ -34,6 +34,13 @@ export default class extends Phaser.State {
     }
 
     preload() {
+
+        // TODO Undo?
+        // this.scale.scaleMode = Phaser.ScaleManager.RESIZE
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        // this.game.scale.pageAlignHorizontally = true;
+        // this.game.scale.pageAlignVertically = true;
+        // this.game.stage.scale.startFullScreen();
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -61,6 +68,7 @@ export default class extends Phaser.State {
         //is the key to the asset in Phaser
         this.map = this.game.add.tilemap('level');
 
+
         this.layers[BEHIND_LAYER] = this.game.add.group()
         // ATTENTION! ORDER Matters for layer objects below!!!
         // Decoration: Background layer
@@ -68,6 +76,8 @@ export default class extends Phaser.State {
 
         // Ground
         this.tilemapProvider = new TilemapProvider(this.map, this.game);
+
+
 
         this.collectibles = new Collectibles(this.game, this.map, this.score)
 
@@ -88,6 +98,14 @@ export default class extends Phaser.State {
 
         // Start transition
         this.overlayFade(1000, () => this.game.world.bringToTop(this.layers[FRONT_LAYER]))
+
+
+
+        // let scale = 1.2
+        // this.game.renderer.resize( this.game.world.width / scale, this.game.world.height / scale );
+        // this.game.camera.scale.set(1.125)
+        // this.game.world.scale.x += 0.125
+        // this.game.world.scale.y += 0.125
     }
 
 

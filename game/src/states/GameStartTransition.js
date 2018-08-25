@@ -11,6 +11,7 @@ import Input from '../services/Input'
 
 export default class extends Phaser.State {
     init() {
+
         this.stage.backgroundColor = '#000000'
         this.assetScale = 64;
         this.prefabs = this.game.attr.prefabs
@@ -21,6 +22,7 @@ export default class extends Phaser.State {
 
     preload() {
 
+        this.scale.scaleMode = Phaser.ScaleManager.RESIZE
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //

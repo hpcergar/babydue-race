@@ -1,5 +1,19 @@
 import config from "./config";
 
+
+export const orientation = () => {
+    screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+
+    if (screen.lockOrientationUniversal && screen.lockOrientationUniversal("landscape")) {
+        return true;
+    }
+
+    return false;
+}
+
+
+
+
 export const centerGameObjects = (objects) => {
     objects.forEach(function (object) {
         object.anchor.setTo(0.5)
@@ -71,6 +85,7 @@ export const calculateAttr = (resolutions) => {
     }
 
     console.log('Desired width ' + desiredWidth + '. Width ' + width)
+    console.log('Desired height ' + desiredHeight + '. Height ' + height)
     let widthScale = (width / desiredWidth).toFixed(2)
     let heightScale = (height / desiredHeight).toFixed(2)
 

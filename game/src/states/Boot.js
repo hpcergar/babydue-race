@@ -5,7 +5,6 @@ import AssetProvider from '../providers/Asset'
 
 export default class extends Phaser.State {
     init() {
-        this.scale.scaleMode = Phaser.ScaleManager.RESIZE
         this.stage.backgroundColor = '#000000'
         this.fontsReady = false
         this.fontsLoaded = this.fontsLoaded.bind(this)

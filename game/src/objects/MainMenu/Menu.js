@@ -44,13 +44,13 @@ class Menu {
 		}
 
 		this.options.items.forEach(function(navItem,index){
-			let topOffset = navigationOffset + index * 50 * this.heightScale;
+			let topOffset = navigationOffset + index * 120 * this.heightScale;
             let text = this.game.add.text(this.game.width*1/3, topOffset, navItem.label + ' ');
             text.inputEnabled = true;
 		    text.anchor.set(0.5);
 		    text.align = 'center';
 		    text.font = config.font.title.font;
-		    text.fontSize = 50 * this.fontScale;
+		    text.fontSize = 100 * this.fontScale;
 		    text.fill = '#e5b900';
 		    text.stroke = '#504c39';
     		text.strokeThickness = 0;
@@ -65,7 +65,7 @@ class Menu {
 
 	getTopOffset() {
 		// Calculate in function of world height
-		return 250 * this.heightScale
+		return 470 * this.heightScale
 	}
 
 

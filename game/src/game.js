@@ -19,7 +19,10 @@ export class Game extends Phaser.Game {
 
         let attr = calculateAttr(config.resolutions);
 
+
         super(attr.width, attr.height, Phaser.CANVAS)
+        // Test for overlay full screen
+        // super(window.innerWidth, window.innerHeight, Phaser.CANVAS)
 
         this.attr = _.extend(attr, options)
         this.attr.translator = new Messages(options.lang)

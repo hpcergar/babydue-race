@@ -19,6 +19,13 @@ export default class {
         map.layers.forEach(layer => {
             this.layers[layer.name] = map.createLayer(layer.name);
 
+            // TODO Remove or use?
+            // this.layers[layer.name].scale = {x:2, y:2};
+            // this.layers[layer.name].setScale(2,2);
+            // console.log('scale ' + layer.name)
+            // TODO Debug
+            // this.layers[layer.name].debug = true
+
             let properties = undefined !== layer.properties.length ? layer.properties : []
             properties.forEach(p => {
                 if(p.name === 'main' && p.value === true) {
@@ -40,14 +47,10 @@ export default class {
 
                     game.slopes.convertTilemapLayer(this.layers[layer.name], 'ninja', firstGid ? firstGid.value : undefined)
 
-                    // TODO Remove this
-                    // this.layers[layer.name].debug = true
-                }
-
-                if(p.name === 'main' && p.value === true) {
-                    this.mainLayer = layer.name
                 }
             })
+
+
         });
 
         // Set world bounds to main layer

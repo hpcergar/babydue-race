@@ -5,6 +5,7 @@ import Config from '../config'
 export default class extends Phaser.State {
 
 	create() {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
 		// Set the game background colour
 		this.game.stage.backgroundColor = Config.background.color;
         console.log('Font scale ' + this.game.attr.widthScale)

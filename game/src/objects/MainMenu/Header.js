@@ -24,23 +24,23 @@ class Header {
         babydueText.anchor.set(0.5);
         babydueText.align = 'center';
         babydueText.font = config.font.title.font;
-        babydueText.fontSize = 70 * this.fontScale;
+        babydueText.fontSize = 140 * this.fontScale;
         babydueText.fill = '#ca869f';
         this.items.push(babydueText)
 
         // Add RACE text
-        let babydueSubtext = this.game.add.text(this.game.width*1/3+3, headerOffset + (60 * this.heightScale),'    RACE ');
+        let babydueSubtext = this.game.add.text(this.game.width*1/3+3, headerOffset + (120 * this.heightScale),'    RACE ');
         babydueSubtext.anchor.set(0.5);
         babydueSubtext.align = 'center';
         babydueSubtext.font = config.font.title.font;
-        babydueSubtext.fontSize = 130 * this.fontScale;
+        babydueSubtext.fontSize = 260 * this.fontScale;
         babydueSubtext.fill = '#504c39';
         this.items.push(babydueSubtext)
 	}
 
 	getTopOffset() {
 		// Calculate in function of world height
-		return 60 * this.heightScale
+		return 100 * this.heightScale
 	}
 
 	getPosition(){

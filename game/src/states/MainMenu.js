@@ -7,7 +7,8 @@ import {scaleSprite} from "../utils";
 
 export default class extends Phaser.State {
 
-    create() {
+    preload() {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
         // Set the game background colour
         this.game.stage.backgroundColor = Config.background.color;
         this.game.renderer.renderSession.roundPixels = true;
@@ -16,13 +17,12 @@ export default class extends Phaser.State {
         this.header = new Header(this.game, this.world)
         this.footer = new Footer(this.game, this.world)
 
-        this.object = this.game.add.sprite(this.world.width - (64) * this.fontScale, this.game.camera.y, "aria-start-screen");
-        // this.imageTest = this.game.add.image(this.world.centerX, this.world.centerY - this.game.height / 3, "mushroom");
-        // this.imageTest.anchor.setTo(0.5);
+        this.object = this.game.add.sprite(this.camera.width - (64) * this.fontScale, this.game.camera.y, "aria-start-screen");
         scaleSprite(this.object, this.game.width, this.game.height * 4 / 5, 50, this.fontScale);
 
 
         console.log(this.game.width, this.game.height * 2 / 3)
+        console.log(this.game.attr.heightScale)
         let mainMenuOptions = {
             'items' : [
                 {
@@ -41,11 +41,14 @@ export default class extends Phaser.State {
         }
         this.mainMenu = new Menu(mainMenuOptions, this.game, this.world);
 
-        // Set image according to text block
-        const [menuX, menuY, menuWidth, menuHeight] = this.header.getPosition()
-        this.object.x =  menuX + (200) * this.fontScale
-        this.object.y =  menuY
 
+    }
+
+    create() {
+        // // Set image according to text block
+        const [menuX, menuY, menuWidth, menuHeight] = this.header.getPosition()
+        this.object.x =  menuX + (350) * this.fontScale
+        this.object.y =  menuY
     }
 
 
