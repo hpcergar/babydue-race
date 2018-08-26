@@ -4,7 +4,7 @@ import phaserSlopes from 'phaserSlopes'
 export default class {
     constructor(map, game) {
 
-        // Add tilesets images (not objects nor spritesheets)
+        // Add tilesets images (not objects nor sprite sheets)
         map.tilesets.forEach(t => {
             if(t.properties.length > 0){
                 let type = t.properties.find(p => p.name === 'type')

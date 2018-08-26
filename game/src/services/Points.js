@@ -34,4 +34,12 @@ export default class {
     getEndPoint() {
         return this.getPoint('playerEndPoint')
     }
+
+    /**
+     * Retrieve game point starting from player being faster than before (middle-end)
+     * @returns {*[]}
+     */
+    getSpeedUpPoint() {
+        return this.getPoint('playerSpeedUpPoint')
+    }
 }

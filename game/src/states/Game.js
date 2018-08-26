@@ -16,6 +16,7 @@ import TextPanel from "../services/TextPanel";
 
 const BACKGROUND_LAYER = 'Background';
 const BEHIND_LAYER = 'Behind';
+const MECHANINCS_LAYER = 'Mechanics';
 const FRONT_LAYER = 'Foreground';
 
 export default class extends Phaser.State {
@@ -74,12 +75,11 @@ export default class extends Phaser.State {
         // Decoration: Background layer
         new DecorationProvider(this.map, 'Behind', this.layers[BEHIND_LAYER])
 
-        new DecorationProvider(this.map, 'Mechanics', this.layers[BEHIND_LAYER])
-
         // Ground
         this.tilemapProvider = new TilemapProvider(this.map, this.game);
 
-
+        // Mechanics (slow-down, jump)
+        new DecorationProvider(this.map, 'Mechanics', this.layers[MECHANINCS_LAYER])
 
         this.collectibles = new Collectibles(this.game, this.map, this.score)
 
@@ -129,8 +129,9 @@ export default class extends Phaser.State {
 
         this.layers[BACKGROUND_LAYER].update()
 
+        // End game
         if (this.player.isPlayable && this.player.isBeyondEndPoint()) {
-            // this.startEndAnimation()
+            this.startEndAnimation()
         }
     }
 
