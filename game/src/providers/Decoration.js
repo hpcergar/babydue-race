@@ -10,6 +10,8 @@ export default class {
         map.createFromObjects(layerName, 'Tree-yellow', 'autumn-objects', 21, true, false, layer);
         map.createFromObjects(layerName, 'Flower-orange-small', 'autumn-objects', 5, true, false, layer);
         map.createFromObjects(layerName, 'Directions-tower', 'autumn-objects', 14, true, false, layer);
+        map.createFromObjects(layerName, 'Mech-Jump', 'autumn-objects', 27, true, false, layer);
+        map.createFromObjects(layerName, 'Mech-Slow', 'autumn-objects', 10, true, false, layer);
         // map.createFromObjects(layerName, 'Door', 'autumn-objects', 4, true, false, layer);
     }
 }

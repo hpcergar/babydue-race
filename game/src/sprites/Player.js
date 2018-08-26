@@ -14,6 +14,9 @@ const SLOPE_NONE = 0
 const SLOPE_ASCENDING = 1
 const SLOPE_DESCENDING = 2
 
+const SLOPE_TYPE_JUMP = 22
+const SLOPE_TYPE_SLOW = 20
+
 export default class {
     constructor (game) {
         // Starts
@@ -68,6 +71,7 @@ export default class {
         this.game.slopes.enable(this.player);
         this.player.body.slopes.preferY = true;
         this.player.body.slopes.pullDown = GRAVITY / 2;
+        this.player.slopeId = false
 
         // CONTROLS
         this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -97,7 +101,7 @@ export default class {
             slopeUpFactor
 
         // Disable last jump bug on slopes
-        if(hitting && this.player.isOnSlope){
+        if(hitting && this.player.slopeId){
             // Only on ascending, to avoid jumping on descending
             this.player.body.velocity.y = this.player.body.velocity.y >= 0
                 ? this.player.body.velocity.y
@@ -105,17 +109,25 @@ export default class {
         }
 
         // Rotation, acceleration, etc.
-        this.adaptOnSlope(this.player.isOnSlope)
+        this.adaptOnSlope(this.player.slopeId)
 
-        // Jump
-        if (this.input.isDown() && hittingGround)
-        {
-            this.player.body.velocity.y = this.inclination === SLOPE_ASCENDING ? JUMP - 100
-                                        : this.inclination === SLOPE_DESCENDING ? JUMP + 550
-                                        : JUMP
+        if(hittingGround){
+            // Mechanic: jump
+            if(this.player.slopeId === SLOPE_TYPE_JUMP){
+                this.player.body.velocity.y = JUMP - 200
+            }
+            // Jump
+            else
+                if (this.input.isDown())
+            {
+                this.player.body.velocity.y = this.inclination === SLOPE_ASCENDING ? JUMP - 100
+                    : this.inclination === SLOPE_DESCENDING ? JUMP + 550
+                        : JUMP
+            }
         }
 
-        slopeUpFactor = this.slopeUpFactor(this.player.isOnSlope, this.player.body.velocity.y)
+
+        slopeUpFactor = this.slopeUpFactor(this.player.slopeId, this.player.body.velocity.y)
 
         if (this.cursors.left.isDown)
         {
@@ -128,6 +140,11 @@ export default class {
             this.player.body.velocity.x = GAME_VELOCITY - slopeUpFactor;
         }
 
+        // Mechanic: drag
+        if(this.player.slopeId === SLOPE_TYPE_SLOW && this.player.body.velocity.x !== 0){
+            this.player.body.velocity.x = (this.player.body.velocity.x >= 0 ? 1 : -1) * (GAME_VELOCITY / 8)
+        }
+
         if(wasStanding && this.player.body.velocity.x !== 0) {
             this.player.animations.play(ANIMATION_RUNNING)
         } else if (!wasStanding && this.player.body.velocity.x === 0){
@@ -137,9 +154,9 @@ export default class {
 
     setCollisionData(ground) {
         if (ground.slope && ground.slope.type > 0) {
-            this.player.isOnSlope = ground.slope.type
+            this.player.slopeId = ground.slope.type
         } else {
-            this.player.isOnSlope = false
+            this.player.slopeId = false
         }
     }
 
@@ -158,6 +175,7 @@ export default class {
      * @param slopeId
      */
     adaptOnSlope(slopeId) {
+        // Rotation
         switch(slopeId) {
             case 1:
                 this.inclination = SLOPE_DESCENDING
@@ -167,11 +185,24 @@ export default class {
                 this.inclination = SLOPE_ASCENDING
                 this.player.angle = -45;
                 break;
+            // Mechanic jump
             default:
                 this.inclination = SLOPE_NONE
                 if(this.player.angle !== 0) {
                     this.player.angle = 0
                 }
+        }
+
+        // Mechanic
+        switch(slopeId) {
+            // Jump
+            case SLOPE_TYPE_JUMP:
+
+                break;
+
+            // Slow down
+            case SLOPE_TYPE_SLOW:
+                break;
         }
     }
 

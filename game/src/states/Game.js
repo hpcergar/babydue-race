@@ -74,6 +74,8 @@ export default class extends Phaser.State {
         // Decoration: Background layer
         new DecorationProvider(this.map, 'Behind', this.layers[BEHIND_LAYER])
 
+        new DecorationProvider(this.map, 'Mechanics', this.layers[BEHIND_LAYER])
+
         // Ground
         this.tilemapProvider = new TilemapProvider(this.map, this.game);
 
