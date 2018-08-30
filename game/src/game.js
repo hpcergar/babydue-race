@@ -20,9 +20,9 @@ export class Game extends Phaser.Game {
         let attr = calculateAttr(config.resolutions);
 
 
-        super(attr.width, attr.height, Phaser.CANVAS)
+        // super(attr.width, attr.height, Phaser.CANVAS)
         // Test for overlay full screen
-        // super(window.innerWidth, window.innerHeight, Phaser.CANVAS)
+        super(window.innerWidth, window.innerHeight, Phaser.CANVAS, '', null, false, false)
 
         this.attr = _.extend(attr, options)
         this.attr.translator = new Messages(options.lang)
@@ -40,26 +40,7 @@ export class Game extends Phaser.Game {
     }
 
 
-    // updateRealSize(width, height) {
-    //     this.realWidth = Math.max(width, height);
-    //     this.realHeight = Math.min(width, height);
-    // }
-    //
-    // updateAssetScale(width, height) {
-    //     this.assetScale = 1;
-    //     if (width > config.gameWidth || height > config.gameHeight) {
-    //         this.assetScale = 2;
-    //     }
-    // }
-    //
-    // updateScaleRatio() {
-    //     this.updateRealSize(window.innerWidth, window.innerHeight)
-    //     let ws = this.realWidth / (config.gameWidth * this.assetScale);
-    //     let wh = this.realHeight / (config.gameHeight * this.assetScale);
-    //     this.scaleRatio = Math.max(ws, wh);
-    // }
-
-    translate(msg) {
+      translate(msg) {
         return this.attr.translator.translate(msg)
     }
 }

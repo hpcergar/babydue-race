@@ -34,6 +34,13 @@ export default class {
     	return this.score
 	}
 
+	redraw() {
+        this.label.kill()
+        this.scoretext.kill()
+        this.create()
+        this.update()
+    }
+
     /**
      * Left pad with zeros
      * @param score

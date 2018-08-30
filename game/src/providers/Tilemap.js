@@ -19,10 +19,6 @@ export default class {
         map.layers.forEach(layer => {
             this.layers[layer.name] = map.createLayer(layer.name);
 
-            // TODO Remove or use?
-            // this.layers[layer.name].scale = {x:2, y:2};
-            // this.layers[layer.name].setScale(2,2);
-            // console.log('scale ' + layer.name)
             // TODO Debug
             // this.layers[layer.name].debug = true
 

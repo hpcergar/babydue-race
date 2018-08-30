@@ -96,7 +96,7 @@ module.exports = {
             'pixi': pixi,
             'p2': p2,
             'phaserSlopes': phaserSlopes,
-            // 'DebugArcadePhysics': debugArcade,
+            'DebugArcadePhysics': debugArcade,
              'SAT': SAT,
         }
     }

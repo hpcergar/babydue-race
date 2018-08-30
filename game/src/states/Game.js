@@ -16,8 +16,11 @@ import TextPanel from "../services/TextPanel";
 
 const BACKGROUND_LAYER = 'Background';
 const BEHIND_LAYER = 'Behind';
-const MECHANINCS_LAYER = 'Mechanics';
+const MECHANICS_LAYER = 'Mechanics';
 const FRONT_LAYER = 'Foreground';
+
+const MIN_WIDTH = 1350
+const MIN_HEIGHT = 900
 
 export default class extends Phaser.State {
     init() {
@@ -38,10 +41,19 @@ export default class extends Phaser.State {
 
         // TODO Undo?
         // this.scale.scaleMode = Phaser.ScaleManager.RESIZE
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.scale.align(true, true);
+        this.scale.setResizeCallback(this.onResize, this);
+        this.scale.refresh();
+
         // this.game.scale.pageAlignHorizontally = true;
-        // this.game.scale.pageAlignVertically = true;
-        // this.game.stage.scale.startFullScreen();
+        this.game.scale.pageAlignVertically = true;
+
+        // console.log('window', window.innerWidth, window.innerHeight)
+        // console.log('camera', this.game.camera)
+        // console.log('game', this.game.width, this.game.height)
+        // console.log('game world', this.game.world.width, this.game.world.height)
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -79,12 +91,15 @@ export default class extends Phaser.State {
         this.tilemapProvider = new TilemapProvider(this.map, this.game);
 
         // Mechanics (slow-down, jump)
-        new DecorationProvider(this.map, 'Mechanics', this.layers[MECHANINCS_LAYER])
+        new DecorationProvider(this.map, 'Mechanics', this.layers[MECHANICS_LAYER])
 
         this.collectibles = new Collectibles(this.game, this.map, this.score)
 
 
         this.player = new Player(this.game)
+
+        // let scale = 0.7
+        // this.game.renderer.resize(this.game.renderer.width * scale, this.game.renderer.height * scale)
 
         // Decoration: Foreground layer
         this.layers[FRONT_LAYER] = this.game.add.group()
@@ -100,22 +115,33 @@ export default class extends Phaser.State {
 
         // Start transition
         this.overlayFade(1000, () => this.game.world.bringToTop(this.layers[FRONT_LAYER]))
-
-
-
-        // let scale = 1.2
-        // this.game.renderer.resize( this.game.world.width / scale, this.game.world.height / scale );
-        // this.game.camera.scale.set(1.125)
-        // this.game.world.scale.x += 0.125
-        // this.game.world.scale.y += 0.125
     }
 
+    onResize(scaleManager, parentBounds) {
+        // console.log('onResize', parentBounds.width, parentBounds.height);
+        //
+        // let scaleX = parentBounds.width / MAX_WIDTH;
+        // let scaleY = parentBounds.height / MAX_HEIGHT;
+        let scaleX = parentBounds.width / MIN_WIDTH;
+        let scaleY = parentBounds.height / MIN_HEIGHT;
+        let scale = Math.max(0.6, Math.max(scaleX, scaleY));
+        let width = ~~Math.min(parentBounds.width / scale, MIN_WIDTH);
+        let height = ~~Math.min(parentBounds.height / scale, MIN_HEIGHT);
 
-    create() {
+        let layersMap = this.tilemapProvider.getLayers()
+        layersMap['Ground'].resize(width, height)
+        layersMap['Ninja-tiles'].resize(width, height)
+        layersMap['Ground background'].resize(width, height)
+
+        // console.log('game size', width, height, scale)
+        scaleManager.setGameSize(width, height);
+        scaleManager.setUserScale(scale, scale, 0, 0, false, false);
+
+
+        this.mainLayer.resizeWorld()
+        this.score.redraw()
     }
 
-    render() {
-    }
 
     update() {
 
@@ -217,7 +243,7 @@ export default class extends Phaser.State {
                     this.state.start('Polls')
                 })
 
-            }, 3000)
+            }, 1000)
         })
     }
 
@@ -252,7 +278,13 @@ export default class extends Phaser.State {
      * @param alpha
      */
     overlayFade(duration, callback, alpha = 0) {
-        let overlayFadeIn = this.game.add.tween(this.overlay.getObject()).to({alpha: alpha}, duration, "Linear");
+        let overlay = this.overlay.getObject()
+        overlay.position.x = this.game.camera.x
+        overlay.position.y = this.game.camera.y
+        console.log('overlay position', overlay.position.x, overlay.position.y, overlay.width, overlay.height)
+        console.log('camera', this.game.camera.x, this.game.camera.y, this.game.camera.width, this.game.camera.height)
+        // this.overlay.resize()
+        let overlayFadeIn = this.game.add.tween(overlay).to({alpha: alpha}, duration, "Linear");
         overlayFadeIn.onComplete.addOnce(callback)
         overlayFadeIn.start();
     }

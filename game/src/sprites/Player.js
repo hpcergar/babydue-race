@@ -30,8 +30,8 @@ export default class {
 
         // Game key points
         const [startX, startY] = this.points.getStartPoint()
+
         const [endX, endY] = this.points.getEndPoint()
-        // TODO
         const [speedUpX, speedUpY] = this.points.getSpeedUpPoint()
 
         this.endX = endX
@@ -41,18 +41,16 @@ export default class {
         this.player = this.game.add.sprite(startX, startY, 'player');
         this.game.physics.arcade.enable(this.player);
         // Make the camera follow the sprite
+        // TODO Use if we manage to solve too much starting Y offset in mobiles
+        // this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_PLATFORMER);
         this.game.camera.follow(this.player);
 
         // PHYSICS
         // Set gravity center in the middle
         this.player.anchor.x = 0.4;
         this.player.anchor.y = 0.25;
-        // this.player.body.setSize(46, 64, 0, 0)
         this.player.body.setSize(40, 64, 6, 0)
         // Little jump after a big jump
-        // this.player.body.debug = true;
-        // this.player.body.bounce.y = 0.2;
-        // this.player.body.linearDamping = 1;
         this.player.body.collideWorldBounds = true;
         this.player.body.gravity.y = GRAVITY;
         this.velocity = GAME_VELOCITY;
@@ -103,6 +101,8 @@ export default class {
 
         let wasStanding = this.player.body.velocity.x === 0
 
+        // TODO Switch to make it run/stop
+        // this.player.body.velocity.x = this.velocity;
         this.player.body.velocity.x = 0;
 
         let hittingGround = hitting && this.player.body.touching.down,

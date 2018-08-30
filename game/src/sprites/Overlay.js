@@ -6,10 +6,13 @@ export default class {
 
         //Add the sprite to the game and enable arcade physics on it
         this.overlay = this.game.add.sprite(0, 0, 'black-pixel');
-        this.overlay.tint = '#ffffff';
-        // this.overlay.scale.setTo(game.world.width, game.world.height);
-        this.overlay.scale.setTo(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
+        this.overlay.tint = '#000000';
+        this.resize()
+    }
 
+    resize() {
+        // console.log('resize', window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio)
+        this.overlay.scale.setTo(this.game.camera.width, this.game.camera.height);
     }
 
     getObject() {
