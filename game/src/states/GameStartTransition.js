@@ -8,6 +8,8 @@ import Player from '../sprites/Player'
 import Overlay from '../sprites/Overlay'
 import TextPanel from '../services/TextPanel'
 import Input from '../services/Input'
+import Scale from "../services/Scale";
+
 
 export default class extends Phaser.State {
     init() {
@@ -22,7 +24,12 @@ export default class extends Phaser.State {
 
     preload() {
 
-        this.scale.scaleMode = Phaser.ScaleManager.RESIZE
+        this.scaleService = new Scale()
+        this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.scale.align(true, true);
+        this.scale.setResizeCallback(this.onResize, this);
+        this.scale.refresh();
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //
@@ -75,12 +82,33 @@ export default class extends Phaser.State {
         // User input control
         this.inputIsDown = false
 
+        // Force update user scale
+        this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
+
         // Display text panel after a small delay
         setTimeout(() => {
             this.textPanel.start()
         }, flashDuration)
-
     }
+
+    /**
+     *
+     * @param scaleManager
+     * @param parentBounds
+     * @param force
+     */
+    onResize(scaleManager, parentBounds, force = false) {
+        this.scaleService.resize(scaleManager, parentBounds, force, (width, height) => {
+            let layersMap = this.tilemapProvider.getLayers()
+            layersMap['Ground'].resize(width, height)
+            layersMap['Ground background'].resize(width, height)
+
+            this.overlay.resize()
+            this.mainLayer.resizeWorld()
+        })
+    }
+
+
 
     update() {
         // To keep player on the ground

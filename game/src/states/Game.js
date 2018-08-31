@@ -11,6 +11,7 @@ import Door from '../sprites/Door'
 import Overlay from '../sprites/Overlay'
 import HighscoresService from '../services/HighscoresService'
 import TextPanel from "../services/TextPanel";
+import Scale from "../services/Scale";
 
 // import DebugArcadePhysics from 'DebugArcadePhysics'
 
@@ -18,9 +19,6 @@ const BACKGROUND_LAYER = 'Background';
 const BEHIND_LAYER = 'Behind';
 const MECHANICS_LAYER = 'Mechanics';
 const FRONT_LAYER = 'Foreground';
-
-const MIN_WIDTH = 1350
-const MIN_HEIGHT = 900
 
 export default class extends Phaser.State {
     init() {
@@ -39,21 +37,11 @@ export default class extends Phaser.State {
 
     preload() {
 
-        // TODO Undo?
-        // this.scale.scaleMode = Phaser.ScaleManager.RESIZE
-        // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        this.scaleService = new Scale()
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
         this.scale.setResizeCallback(this.onResize, this);
         this.scale.refresh();
-
-        // this.game.scale.pageAlignHorizontally = true;
-        this.game.scale.pageAlignVertically = true;
-
-        // console.log('window', window.innerWidth, window.innerHeight)
-        // console.log('camera', this.game.camera)
-        // console.log('game', this.game.width, this.game.height)
-        // console.log('game world', this.game.world.width, this.game.world.height)
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -93,13 +81,11 @@ export default class extends Phaser.State {
         // Mechanics (slow-down, jump)
         new DecorationProvider(this.map, 'Mechanics', this.layers[MECHANICS_LAYER])
 
+        // Collectibles (coins, stars)
         this.collectibles = new Collectibles(this.game, this.map, this.score)
 
-
+        // Player (Aria)
         this.player = new Player(this.game)
-
-        // let scale = 0.7
-        // this.game.renderer.resize(this.game.renderer.width * scale, this.game.renderer.height * scale)
 
         // Decoration: Foreground layer
         this.layers[FRONT_LAYER] = this.game.add.group()
@@ -108,38 +94,39 @@ export default class extends Phaser.State {
         this.mainLayer = this.tilemapProvider.getMainLayer()
 
         this.score.create();
+        this.score.hide()
 
         // Overlay, for transitions
         this.overlay = new Overlay(this.game)
+
         this.game.world.bringToTop(this.player.getObject());
 
         // Start transition
-        this.overlayFade(1000, () => this.game.world.bringToTop(this.layers[FRONT_LAYER]))
+        // Force update user scale
+        this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
+        this.overlay.fade(1000, () => {
+            this.score.show()
+            this.game.world.bringToTop(this.layers[FRONT_LAYER])
+        })
     }
 
-    onResize(scaleManager, parentBounds) {
-        // console.log('onResize', parentBounds.width, parentBounds.height);
-        //
-        // let scaleX = parentBounds.width / MAX_WIDTH;
-        // let scaleY = parentBounds.height / MAX_HEIGHT;
-        let scaleX = parentBounds.width / MIN_WIDTH;
-        let scaleY = parentBounds.height / MIN_HEIGHT;
-        let scale = Math.max(0.6, Math.max(scaleX, scaleY));
-        let width = ~~Math.min(parentBounds.width / scale, MIN_WIDTH);
-        let height = ~~Math.min(parentBounds.height / scale, MIN_HEIGHT);
+    /**
+     *
+     * @param scaleManager
+     * @param parentBounds
+     * @param force
+     */
+    onResize(scaleManager, parentBounds, force = false) {
+        this.scaleService.resize(scaleManager, parentBounds, force, (width, height) => {
+            console.log('scaled up (width, height)')
+            let layersMap = this.tilemapProvider.getLayers()
+            layersMap['Ground'].resize(width, height)
+            layersMap['Ground background'].resize(width, height)
 
-        let layersMap = this.tilemapProvider.getLayers()
-        layersMap['Ground'].resize(width, height)
-        layersMap['Ninja-tiles'].resize(width, height)
-        layersMap['Ground background'].resize(width, height)
-
-        // console.log('game size', width, height, scale)
-        scaleManager.setGameSize(width, height);
-        scaleManager.setUserScale(scale, scale, 0, 0, false, false);
-
-
-        this.mainLayer.resizeWorld()
-        this.score.redraw()
+            this.overlay.resize()
+            this.score.redraw()
+            this.mainLayer.resizeWorld()
+        })
     }
 
 
@@ -186,7 +173,7 @@ export default class extends Phaser.State {
 
         // Start transition
         // Display overlay
-        this.overlayFade(1000, () => {
+        this.overlay.fade(1000, () => {
             let playerObject = this.player.getObject()
             // Move camera to have user on the left
             this.game.camera.follow(null);
@@ -209,7 +196,7 @@ export default class extends Phaser.State {
                     }, 750, Phaser.Easing.Quadratic.InOut);
                     moveCameraToRight.onComplete.addOnce(() => {
                         this.game.camera.follow(playerObject);
-                        this.overlayFade(1000, () => this.startDoorTransition(), 0)
+                        this.overlay.fade(1000, () => this.startDoorTransition(), 0)
                     })
                     moveCameraToRight.start();
 
@@ -271,21 +258,4 @@ export default class extends Phaser.State {
         return [text]; // As single page, you could add multiple for each displayed page
     }
 
-    /**
-     *
-     * @param duration
-     * @param callback
-     * @param alpha
-     */
-    overlayFade(duration, callback, alpha = 0) {
-        let overlay = this.overlay.getObject()
-        overlay.position.x = this.game.camera.x
-        overlay.position.y = this.game.camera.y
-        console.log('overlay position', overlay.position.x, overlay.position.y, overlay.width, overlay.height)
-        console.log('camera', this.game.camera.x, this.game.camera.y, this.game.camera.width, this.game.camera.height)
-        // this.overlay.resize()
-        let overlayFadeIn = this.game.add.tween(overlay).to({alpha: alpha}, duration, "Linear");
-        overlayFadeIn.onComplete.addOnce(callback)
-        overlayFadeIn.start();
-    }
 }

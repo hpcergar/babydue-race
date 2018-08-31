@@ -6,6 +6,7 @@ export default class {
         this.game = game
 		this.score = 0
         this.digitNumber = 7;
+        this.isHidden = false;
     }
 
     create(){
@@ -35,8 +36,22 @@ export default class {
 	}
 
 	redraw() {
+        this.remove()
+        this.show()
+    }
+
+    remove() {
         this.label.kill()
         this.scoretext.kill()
+    }
+
+    hide() {
+        this.isHidden = true
+        this.remove()
+    }
+
+    show() {
+        this.isHidden = false
         this.create()
         this.update()
     }
@@ -52,7 +67,9 @@ export default class {
     }
 
     update() {
-        this.scoretext.setText(this.pad(this.score));
-        this.scoretext.parent.bringToTop(this.scoretext)
+        if(this.isHidden === false){
+            this.scoretext.setText(this.pad(this.score));
+            this.scoretext.parent.bringToTop(this.scoretext)
+        }
 	}
 }
