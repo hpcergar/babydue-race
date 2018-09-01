@@ -23,7 +23,7 @@ export default class {
         this.game = game
         
         // STATES
-        this.isPlayable = true
+        this.isPlayable = false
 
         this.input = new Input(this.game)
         this.points = new Points(this.game)
@@ -55,6 +55,8 @@ export default class {
         this.player.body.gravity.y = GRAVITY;
         this.velocity = GAME_VELOCITY;
         this.speedUp = false;
+        // Start stopped
+        this.player.body.velocity.x = 0;
 
         // this.game.debug.bodyInfo(this.player, 32, 32);
         // this.game.debug.body(this.player);
@@ -103,7 +105,7 @@ export default class {
 
         // TODO Switch to make it run/stop
         // this.player.body.velocity.x = this.velocity;
-        this.player.body.velocity.x = 0;
+        // this.player.body.velocity.x = 0;
 
         let hittingGround = hitting && this.player.body.touching.down,
             slopeUpFactor
@@ -138,16 +140,23 @@ export default class {
         //
         slopeUpFactor = this.slopeUpFactor(this.player.slopeId, this.player.body.velocity.y)
 
-        if (this.cursors.left.isDown)
-        {
-            if(this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = false;}
-            this.player.body.velocity.x = -this.velocity + slopeUpFactor;
-        }
-        else if (this.cursors.right.isDown)
-        {
-            if(!this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = true;}
+
+        if(this.isPlayable){
             this.player.body.velocity.x = this.velocity - slopeUpFactor;
         }
+
+        // Manual debug
+        //
+        // if (this.cursors.left.isDown)
+        // {
+        //     if(this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = false;}
+        //     this.player.body.velocity.x = -this.velocity + slopeUpFactor;
+        // }
+        // else if (this.cursors.right.isDown)
+        // {
+        //     if(!this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = true;}
+        //     this.player.body.velocity.x = this.velocity - slopeUpFactor;
+        // }
 
         // Mechanic: drag
         if(this.player.slopeId === SLOPE_TYPE_SLOW && this.player.body.velocity.x !== 0){
@@ -160,6 +169,11 @@ export default class {
         } else if (!wasStanding && this.player.body.velocity.x === 0){
             this.player.animations.play(ANIMATION_STANDING)
         }
+    }
+
+    run() {
+        this.isPlayable = true
+        this.player.body.velocity.x = this.velocity;
     }
 
     setCollisionData(ground) {

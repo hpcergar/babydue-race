@@ -93,7 +93,6 @@ export default class extends Phaser.State {
 
         this.mainLayer = this.tilemapProvider.getMainLayer()
 
-        this.score.create();
         this.score.hide()
 
         // Overlay, for transitions
@@ -107,6 +106,7 @@ export default class extends Phaser.State {
         this.overlay.fade(1000, () => {
             this.score.show()
             this.game.world.bringToTop(this.layers[FRONT_LAYER])
+            this.startBeginTransition()
         })
     }
 
@@ -124,8 +124,8 @@ export default class extends Phaser.State {
             layersMap['Ground background'].resize(width, height)
 
             this.overlay.resize()
-            this.score.redraw()
             this.mainLayer.resizeWorld()
+            this.score.redraw()
         })
     }
 
@@ -146,6 +146,48 @@ export default class extends Phaser.State {
         if (this.player.isPlayable && this.player.isBeyondEndPoint()) {
             this.startEndAnimation()
         }
+    }
+
+    /**
+     *
+     */
+    startBeginTransition() {
+        this.countDownNumber(3, () =>
+            this.countDownNumber(2, () =>
+                this.countDownNumber(1, () =>
+                    this.countDownNumber(this.game.translate('Despegue'), () => {
+                        this.player.run()
+                }))))
+    }
+
+    /**
+     *
+     * @param number
+     * @param callback
+     */
+    countDownNumber(number, callback) {
+        let numberText = this.game.add.text(this.game.width/2 - 15, this.game.height/2 - 15, number);
+        numberText.font = 'Press Start 2P';
+        numberText.fontSize = 30;
+        numberText.fill = '#cc4c28';
+        numberText.fixedToCamera = true;
+        numberText.alpha = 0;
+
+        this.add.tween(numberText).to({ alpha: 1}, 500, Phaser.Easing.Back.Out, true);
+        let scaleTweenIn = this.add.tween(numberText.scale).to({ x: 2, y: 2}, 500, Phaser.Easing.Back.Out)
+        scaleTweenIn.onComplete.addOnce(() => {
+            setTimeout(() => {
+                // this.add.tween(numberText).to({ alpha: 0}, 500, Phaser.Easing.Back.Out, true);
+                // let scaleTweenOut = this.add.tween(numberText.scale).to({ x: 4, y: 4}, 500, Phaser.Easing.Back.Out)
+                let scaleTweenOut = this.add.tween(numberText).to({ width: numberText.width*3, height: numberText.height*3, alpha: 0}, 300, 'Linear')
+                scaleTweenOut.onComplete.addOnce(() => {
+                    numberText.kill();
+                    callback()
+                })
+                scaleTweenOut.start();
+            }, 500)
+        })
+        scaleTweenIn.start();
     }
 
     startEndAnimation() {
