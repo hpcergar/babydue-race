@@ -166,9 +166,11 @@ export default class extends Phaser.State {
      * @param callback
      */
     countDownNumber(number, callback) {
-        let numberText = this.game.add.text(this.game.width/2 - 15, this.game.height/2 - 15, number);
+        let numberText = this.game.add.text(this.game.width/2, this.game.height/2, number);
         numberText.font = 'Press Start 2P';
         numberText.fontSize = 30;
+        numberText.anchor.set(0.5);
+        numberText.align = 'center';
         numberText.fill = '#cc4c28';
         numberText.fixedToCamera = true;
         numberText.alpha = 0;
@@ -177,9 +179,7 @@ export default class extends Phaser.State {
         let scaleTweenIn = this.add.tween(numberText.scale).to({ x: 2, y: 2}, 500, Phaser.Easing.Back.Out)
         scaleTweenIn.onComplete.addOnce(() => {
             setTimeout(() => {
-                // this.add.tween(numberText).to({ alpha: 0}, 500, Phaser.Easing.Back.Out, true);
-                // let scaleTweenOut = this.add.tween(numberText.scale).to({ x: 4, y: 4}, 500, Phaser.Easing.Back.Out)
-                let scaleTweenOut = this.add.tween(numberText).to({ width: numberText.width*3, height: numberText.height*3, alpha: 0}, 300, 'Linear')
+                let scaleTweenOut = this.add.tween(numberText).to({ width: numberText.width*3, height: numberText.height*3, alpha: 0}, 300, Phaser.Easing.Circular.Out)
                 scaleTweenOut.onComplete.addOnce(() => {
                     numberText.kill();
                     callback()

@@ -8,7 +8,6 @@ export default class extends Phaser.State {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
 		// Set the game background colour
 		this.game.stage.backgroundColor = Config.background.color;
-        console.log('Font scale ' + this.game.attr.widthScale)
         this.fontScale = this.game.attr.widthScale || 1;
         this.heightScale = this.game.attr.heightScale || 1;
 		this.createHeader();
@@ -54,12 +53,11 @@ export default class extends Phaser.State {
 		this.loadingText.destroy();
 		
 		let topListOffset = 90 * this.heightScale;
-		// let lineHeight = 35;
 		let text = '';
-		_.each(toplist,_.bind(function(item,index){
+		_.each(toplist,_.bind((item,index) => {
 			let value = (index+1)+'. ' + this.scoreService.pad(item.score) + "\t" + item.name;
             text += "\n" + value;
-		},this));
+		}));
 
 		let highscores = this.game.add.text(this.game.width/2, topListOffset, text,
             {
