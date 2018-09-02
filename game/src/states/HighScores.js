@@ -1,16 +1,21 @@
 import HighscoresService from '../services/HighscoresService';
 import ScoreService from '../services/Score';
+import Input from '../services/Input'
 import Config from '../config'
 
 export default class extends Phaser.State {
 
 	create() {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+
+        this.input = new Input(this.game)
+
 		// Set the game background colour
 		this.game.stage.backgroundColor = Config.background.color;
         this.fontScale = this.game.attr.widthScale || 1;
         this.heightScale = this.game.attr.heightScale || 1;
 		this.createHeader();
+
 
 		// this.font = 'arcade';
 		this.font = 'Press Start 2P';
@@ -29,11 +34,9 @@ export default class extends Phaser.State {
 	}
 
 	update() {
-	    this.game.input.keyboard.onUpCallback = _.bind(function(e){
-			if(e.keyCode === Phaser.Keyboard.ESC || e.keyCode === Phaser.Keyboard.ENTER) {
-	  			this.game.state.start('MainMenu');
-			}
-		},this);
+        if (this.input.isDown()) {
+            this.game.state.start('MainMenu');
+        }
 	}
 
 	createHeader() {

@@ -2,6 +2,7 @@
 
 var model = require('../models/bets'),
     winner = require('../models/winner'),
+    user = require('../models/users'),
     // Date validation & transform
     moment = require('moment'),
     validator = require('validator')
@@ -32,6 +33,7 @@ exports.save = function (params, emailOrig, callback) {
 
     // Winner check
     if(winner.haveWinner()){callback(new Error('Bets disabled: we already got a winner!'), null);return;}
+    if(!user.hasAlreadyPlayed(email)){callback(new Error('You can only vote after play at least once'), null);return;}
 
 
     // Check availability of date

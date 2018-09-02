@@ -95,12 +95,22 @@ exports.getUserByEmail = function(email){
 };
 
 /**
- * Validates given gender
+ * Validates given email is valid user
  * @param email
  * @returns {boolean}
  */
 exports.isValidUser = function(email){
     return (false !== this.getUserByEmail(email));
+};
+
+/**
+ * Validates user has already player at least once
+ * @param email
+ * @returns {boolean}
+ */
+exports.hasAlreadyPlayed = function(email){
+    let user = this.getUserByEmail(email)
+    return (false !== user && user.score);
 };
 
 

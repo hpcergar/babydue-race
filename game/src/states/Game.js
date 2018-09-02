@@ -48,7 +48,7 @@ export default class extends Phaser.State {
 
         // STATE
         // TODO False on production
-        this.debug = false
+        this.debug = true
 
         // Score
         this.score = new Score(this.game)
@@ -215,7 +215,7 @@ export default class extends Phaser.State {
         // Push new score to API
         let bestScore = this.highscoresService.getUserScore()
         let position = this.highscoresService.getScorePosition(score)
-        if (score > bestScore) {
+        if (!bestScore || score > bestScore) {
             this.highscoresService.saveScore(score);
         }
 
@@ -295,14 +295,14 @@ export default class extends Phaser.State {
      */
     getEndText(score, position, bestScore) {
         let text = this.game.translate('Congratulations').replace(':score', score),
-            isBestScore = score >= bestScore
+            isBestScore = bestScore && score >= bestScore
         ;
 
         if (false !== position && isBestScore) {
             text = text.concat("\n" + this.game.translate("You are in the top 10").replace(':position', position))
         }
 
-        if (!isBestScore) {
+        if (!isBestScore && bestScore) {
             text = text.concat("\n\n" + this.game.translate("Your best score is").replace(':score', bestScore))
         }
 

@@ -4,6 +4,7 @@ import Footer from '../objects/MainMenu/Footer'
 import _ from 'lodash'
 import Config from "../config";
 import {scaleSprite} from "../utils";
+import HighscoresService from "../services/HighscoresService";
 
 export default class extends Phaser.State {
 
@@ -13,6 +14,9 @@ export default class extends Phaser.State {
         this.game.stage.backgroundColor = Config.background.color;
         this.game.renderer.renderSession.roundPixels = true;
         this.fontScale = this.game.attr.heightScale || 1;
+
+        this.highscoresService = new HighscoresService()
+        let canVote = !!this.highscoresService.getUserScore()
 
         this.header = new Header(this.game, this.world)
         this.footer = new Footer(this.game, this.world)
@@ -30,15 +34,20 @@ export default class extends Phaser.State {
                     ,'callback': _.bind(this.startGame,this)
                 }
                 ,{
-                    'label'    : 'High scores'
+                    'label'    : this.game.translate('High scores')
                     ,'callback': _.bind(this.showHighScores,this)
-                }
-                ,{
-                    'label'    : 'See polls'
-                    ,'callback': _.bind(this.showPolls,this)
                 }
             ]
         }
+
+        // Add link to votes if can vote (has already played once)
+        if(canVote) {
+            mainMenuOptions.items.push({
+                'label'    : this.game.translate('See polls')
+                ,'callback': _.bind(this.showPolls,this)
+            })
+        }
+
         this.mainMenu = new Menu(mainMenuOptions, this.game, this.world);
 
 

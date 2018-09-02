@@ -60,6 +60,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha test.js",
     "postInstallDisabled": "if-env NODE_ENV=production && npm run build",
+    "build-dev": "webpack",
     "build": "webpack -p --config ./webpack.production.config.js"
   }
 }
