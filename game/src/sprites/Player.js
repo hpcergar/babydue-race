@@ -8,6 +8,7 @@ const ANIMATION_RUNNING = 'running'
 const GAME_VELOCITY = Config.player.gameVelocity
 const GRAVITY = 1000
 const JUMP = -550
+const JUMP_MECHANIC = 2 * JUMP
 const END_ANIMATION_VELOCITY = Config.player.endAnimationVelocity
 
 const SLOPE_NONE = 0
@@ -18,19 +19,20 @@ const SLOPE_TYPE_JUMP = 22
 const SLOPE_TYPE_SLOW = 20
 
 export default class {
-    constructor (game) {
+    constructor (game, debug = false) {
         // Starts
         this.game = game
         
         // STATES
         this.isPlayable = false
+        this.debug = debug
 
         this.input = new Input(this.game)
         this.points = new Points(this.game)
 
         // Game key points
-        const [startX, startY] = this.points.getStartPoint()
-
+        const [startX, startY] = this.debug ? this.points.getDebugPoint() : this.points.getStartPoint()
+        console.log(startX)
         const [endX, endY] = this.points.getEndPoint()
         const [speedUpX, speedUpY] = this.points.getSpeedUpPoint()
 
@@ -103,9 +105,9 @@ export default class {
 
         let wasStanding = this.player.body.velocity.x === 0
 
-        // TODO Switch to make it run/stop
-        // this.player.body.velocity.x = this.velocity;
-        // this.player.body.velocity.x = 0;
+        if(this.debug){
+            this.player.body.velocity.x = 0;
+        }
 
         let hittingGround = hitting && this.player.body.touching.down,
             slopeUpFactor
@@ -125,7 +127,7 @@ export default class {
         if(hittingGround){
             // Mechanic: jump (boing!)
             if(this.player.slopeId === SLOPE_TYPE_JUMP){
-                this.player.body.velocity.y = JUMP - 200
+                this.player.body.velocity.y = JUMP_MECHANIC
             }
             // Jump
             else
@@ -141,22 +143,21 @@ export default class {
         slopeUpFactor = this.slopeUpFactor(this.player.slopeId, this.player.body.velocity.y)
 
 
-        if(this.isPlayable){
+        if(this.isPlayable && false === this.debug){
             this.player.body.velocity.x = this.velocity - slopeUpFactor;
         }
 
         // Manual debug
-        //
-        // if (this.cursors.left.isDown)
-        // {
-        //     if(this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = false;}
-        //     this.player.body.velocity.x = -this.velocity + slopeUpFactor;
-        // }
-        // else if (this.cursors.right.isDown)
-        // {
-        //     if(!this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = true;}
-        //     this.player.body.velocity.x = this.velocity - slopeUpFactor;
-        // }
+        if (this.cursors.left.isDown && this.debug)
+        {
+            if(this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = false;}
+            this.player.body.velocity.x = -this.velocity + slopeUpFactor;
+        }
+        else if (this.cursors.right.isDown && this.debug)
+        {
+            if(!this.lookingRight) {  this.player.scale.x *= -1;  this.lookingRight = true;}
+            this.player.body.velocity.x = this.velocity - slopeUpFactor;
+        }
 
         // Mechanic: drag
         if(this.player.slopeId === SLOPE_TYPE_SLOW && this.player.body.velocity.x !== 0){

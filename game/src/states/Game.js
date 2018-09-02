@@ -37,6 +37,7 @@ export default class extends Phaser.State {
 
     preload() {
 
+        this.game.renderer.renderSession.roundPixels = true
         this.scaleService = new Scale()
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
@@ -46,11 +47,13 @@ export default class extends Phaser.State {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // STATE
+        // TODO False on production
+        this.debug = false
+
         // Score
         this.score = new Score(this.game)
         this.highscoresService = new HighscoresService()
         this.textPanel = {}
-        this.door = new Door(this.game)
 
         // State flags
         this.isEndAnimation = false
@@ -81,11 +84,13 @@ export default class extends Phaser.State {
         // Mechanics (slow-down, jump)
         new DecorationProvider(this.map, 'Mechanics', this.layers[MECHANICS_LAYER])
 
+        this.door = new Door(this.game)
+
         // Collectibles (coins, stars)
         this.collectibles = new Collectibles(this.game, this.map, this.score)
 
         // Player (Aria)
-        this.player = new Player(this.game)
+        this.player = new Player(this.game, this.debug)
 
         // Decoration: Foreground layer
         this.layers[FRONT_LAYER] = this.game.add.group()
@@ -106,7 +111,13 @@ export default class extends Phaser.State {
         this.overlay.fade(1000, () => {
             this.score.show()
             this.game.world.bringToTop(this.layers[FRONT_LAYER])
-            this.startBeginTransition()
+            if(this.debug) {
+                this.player.run()
+            } else {
+                // Normal flow
+                this.startBeginTransition()
+            }
+
         })
     }
 
@@ -141,6 +152,8 @@ export default class extends Phaser.State {
         }
 
         this.layers[BACKGROUND_LAYER].update()
+
+        this.overlay.update()
 
         // End game
         if (this.player.isPlayable && this.player.isBeyondEndPoint()) {
@@ -194,9 +207,6 @@ export default class extends Phaser.State {
         this.isEndAnimation = true
         this.player.startEndAnimation()
 
-        // Render door
-        this.door.render()
-
         // let playerObject = this.player.getObject()
         this.game.world.bringToTop(this.overlay.getObject());
         this.game.world.bringToTop(this.player.getObject());
@@ -214,34 +224,26 @@ export default class extends Phaser.State {
 
 
         // Start transition
-        // Display overlay
+        // 1. Display overlay
         this.overlay.fade(1000, () => {
             let playerObject = this.player.getObject()
-            // Move camera to have user on the left
+            // 2. Move camera to have player on the left
             this.game.camera.follow(null);
             playerObject.body.velocity.x = 0;
+            this.overlay.resizeBig() // Quick fix: avoid empty spaces on camera travelling
             let moveCameraToRight = this.game.add.tween(this.game.camera).to({
                 x: playerObject.body.x - 70,
                 y: this.game.camera.y
             }, 750, Phaser.Easing.Quadratic.InOut);
 
-            // Create door
-            this.door.moveToPosition()
-
             moveCameraToRight.onComplete.addOnce(() => {
 
-                // Display end message with score & position
+                // 3. Display end message with score & position
                 this.textPanel = new TextPanel(this.game, text, () => {
-                    let moveCameraToRight = this.game.add.tween(this.game.camera).to({
-                        x: this.game.world.x / 2 + playerObject.body.width / 2,
-                        y: this.game.camera.y
-                    }, 750, Phaser.Easing.Quadratic.InOut);
-                    moveCameraToRight.onComplete.addOnce(() => {
-                        this.game.camera.follow(playerObject);
-                        this.overlay.fade(1000, () => this.startDoorTransition(), 0)
-                    })
-                    moveCameraToRight.start();
-
+                    // 4. Follow player again
+                    this.game.camera.follow(playerObject, Phaser.Camera.FOLLOW_LOCKON, 0.1);
+                    // 5. Fade out overlay & start door transition
+                    this.overlay.fade(1000, () => this.startDoorTransition(), 0)
                 }, {
                     offsetX: this.game.camera.x,
                     destroyOnComplete: true
@@ -255,12 +257,19 @@ export default class extends Phaser.State {
     }
 
     startDoorTransition() {
-        // Not need
+        // Not needed
         // this.game.world.bringToTop(this.layers[FRONT_LAYER]);
 
         // Stop player in front of the door
         this.player.goToPoint('playerInFrontOfDoor', () => {
+            // Display layers accordingly
+            this.game.world.bringToTop(this.door.getObject())
+            this.game.world.bringToTop(this.player.getObject())
+            this.game.world.bringToTop(this.tilemapProvider.getGroundLayer())
+            this.game.world.bringToTop(this.layers[FRONT_LAYER])
+
             this.game.camera.follow(null)
+
             // Door animation
             this.door.open();
 

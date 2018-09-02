@@ -1,6 +1,8 @@
 'use strict';
 import phaserSlopes from 'phaserSlopes'
 
+const GROUND_LAYER = 'Ground'
+
 export default class {
     constructor(map, game) {
 
@@ -65,5 +67,9 @@ export default class {
 
     getMainLayer() {
         return this.layers[this.mainLayer];
+    }
+
+    getGroundLayer() {
+        return this.layers[GROUND_LAYER];
     }
 }

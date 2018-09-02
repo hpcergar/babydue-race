@@ -14,18 +14,32 @@ export default class {
     }
 
     resize() {
+        this.overlay.width = this.setDimensionValue(this.overlay.width, this.game.camera.width)
+        this.overlay.height = this.setDimensionValue(this.overlay.height, this.game.camera.height)
         this.overlay.position.x = this.game.camera.x - MARGIN
         this.overlay.position.y = this.game.camera.y - MARGIN
-        this.overlay.width = this.game.camera.width + 2*MARGIN
-        this.overlay.height = this.game.camera.height > this.overlay.height
-            ? this.game.camera.height + 2*MARGIN
-            : this.overlay.height
+    }
 
-        console.log('overlay', this.overlay.position, this.overlay.width, this.overlay.height)
+    setDimensionValue(value, cameraValue) {
+        return cameraValue > value
+            ? cameraValue + 2*MARGIN
+            : value
+    }
+
+    /**
+     *
+     */
+    resizeBig() {
+        let width = this.overlay.width
+        this.overlay.width = 4 * width // Quick fix: avoid empty spaces on camera travelling
+        this.overlay.position.x = this.overlay.position.x - width * 1.5
     }
 
     update() {
-        this.resize()
+        // Resize with camera if visible
+        if(this.overlay.alpha > 0){
+            this.resize()
+        }
     }
 
     getObject() {

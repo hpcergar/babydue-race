@@ -15,5 +15,6 @@ export default class {
         map.createFromObjects(layerName, 'Mech-Jump', 'autumn-objects', 27, true, false, layer);
         map.createFromObjects(layerName, 'Mech-Slow', 'autumn-objects', 10, true, false, layer);
         map.createFromObjects(layerName, 'Door', 'autumn-objects', 4, true, false, layer);
+        map.createFromObjects(layerName, 'DoorMask', 'autumn-objects', 29, true, false, layer);
     }
 }

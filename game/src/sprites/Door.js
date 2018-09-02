@@ -9,31 +9,23 @@ export default class {
         // Starts
         this.game = game
         this.points = new Points(this.game)
-    }
 
-    render() {
+        //Add the sprite to the game and enable arcade physics on it
+        const [doorX, doorY] = this.points.getPoint('doorPoint')
+
         // Let's let it render anywhere outside camera
-        this.object = this.game.add.sprite(this.game.camera.x - 64, this.game.camera.y, 'door');
+        this.object = this.game.add.sprite(doorX, doorY - 93, 'door');
 
-
-        console.log(this.object.position.x, this.object.position.y)
         // Define animations
         this.object.animations.add(ANIMATION_STANDING, [0], 5, false)
         this.object.animations.add(ANIMATION_OPENING, [0,1,2,3,4,5,6,7], 5, false)
         this.object.animations.add(ANIMATION_OPEN, [7], 5, false)
 
-        this.object.animations.play(ANIMATION_STANDING);
+        this.object.animations.frame = 0;
     }
 
     getObject() {
         return this.object;
-    }
-
-    moveToPosition() {
-        //Add the sprite to the game and enable arcade physics on it
-        const [doorX, doorY] = this.points.getPoint('doorPoint')
-        this.object.position.x = doorX
-        this.object.position.y = doorY - 94
     }
 
     open() {

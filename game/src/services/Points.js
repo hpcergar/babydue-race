@@ -28,6 +28,14 @@ export default class {
     }
 
     /**
+     * Retrieve game player debug starting point
+     * @returns {*[]}
+     */
+    getDebugPoint() {
+        return this.getPoint('playerDebugPoint')
+    }
+
+    /**
      * Retrieve game player end point (level-end, before end transition)
      * @returns {*[]}
      */
