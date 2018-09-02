@@ -107,8 +107,10 @@ export default class {
     }
 
     fullPage() {
-        this.text.text = this.content;
-        this.endPage()
+        if(this.text){
+            this.text.text = this.content;
+            this.endPage()
+        }
     }
 
     destroy() {

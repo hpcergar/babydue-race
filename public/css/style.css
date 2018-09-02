@@ -331,18 +331,44 @@ footer {
     font-style: normal;
 }
 
+/* Wolf font */
+@font-face {
+    font-family: 'icomoon';
+    src: url('/calendar/assets/fonts/icomoon.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/*.icon {*/
+    /*font-family: "IcoMoon-Free" !important;*/
+    /*font-feature-settings: "liga";*/
+    /*font-style: normal;*/
+    /*font-variant: normal;*/
+    /*font-weight: normal;*/
+    /*letter-spacing: 0;*/
+    /*line-height: 1;*/
+    /*text-transform: none;*/
+/*}*/
+
 .icon {
-    font-family: "IcoMoon-Free" !important;
-    font-feature-settings: "liga";
+    font-family: "icomoon" !important;
+    speak: none;
     font-style: normal;
     font-variant: normal;
     font-weight: normal;
     letter-spacing: 0;
     line-height: 1;
     text-transform: none;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .icon-fire::before {
-    content: "";
+    /*content: "";*/
+    content: "\e900";
+    /*color: rgb(0, 0, 0);*/
 }
 
 

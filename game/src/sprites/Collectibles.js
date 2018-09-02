@@ -15,7 +15,7 @@ export default class {
         // Coins
         this.createCollectible('Coin', 2, 'coins', 30, 30, POINTS_COIN)
         // Stars
-        this.createCollectible('Star', 32, 'stars', 30, 30, POINTS_STAR)
+        this.createCollectible('Star', 32, 'stars', 45, 45, POINTS_STAR)
     }
 
     /**
