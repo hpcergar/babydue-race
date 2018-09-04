@@ -1,11 +1,9 @@
 ﻿'use strict';
 
-import en from './I18n/en';
 import fr from './I18n/fr';
 import es from './I18n/es';
 
 let dicts = {
-        en: en,
         fr: fr,
         es: es
     };

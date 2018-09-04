@@ -2,7 +2,6 @@
 'use strict';
 
 var dicts = {
-        en: require('./I18n/en'),
         fr: require('./I18n/fr'),
         es: require('./I18n/es')
     },

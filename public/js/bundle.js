@@ -77,7 +77,7 @@
 	    conf = _lodash2.default.extend({
 	    // Birth estimated date
 	    ESTIMATED_DATE: '2018-10-20',
-	    LANG: /fr/.test(lang) ? 'fr' : /es/.test(lang) ? 'es' : 'en',
+	    LANG: /es/.test(lang) ? 'es' : 'fr',
 	    EMAIL: getURLParameter('email'),
 	    SIGNATURE: getURLParameter('signature')
 	});
@@ -2211,8 +2211,8 @@
 	        $ = __webpack_require__(7),
 	        _ = __webpack_require__(5),
 	        MainView = __webpack_require__(8),
-	        UnauthorizedView = __webpack_require__(93),
-	        Auth = __webpack_require__(46).default,
+	        UnauthorizedView = __webpack_require__(92),
+	        Auth = __webpack_require__(45).default,
 	        t = __webpack_require__(34).translate;
 	
 	    var router = Backbone.Router.extend({
@@ -31148,7 +31148,7 @@
 	        remodal = __webpack_require__(12),
 	        Backbone = __webpack_require__(4),
 	        template = __webpack_require__(13),
-	        CalendarView = __webpack_require__(38)
+	        CalendarView = __webpack_require__(37)
 	    // WinnerView = require('./WinnerView'),
 	    // Winner = require('../Model/Winner').default
 	    ;
@@ -35472,9 +35472,8 @@
 	    'use strict';
 	
 	    var dicts = {
-	        en: __webpack_require__(35),
-	        fr: __webpack_require__(36),
-	        es: __webpack_require__(37)
+	        fr: __webpack_require__(35),
+	        es: __webpack_require__(36)
 	    },
 	        dict;
 	
@@ -35506,78 +35505,16 @@
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	
 	        return {
-	                "title": "Whatever will be, will be",
-	
-	                "Header title": "Whatever will be, will be",
-	                "Presentation title": "I got a good feeling about this",
-	                "Presentation": "What could it be? We all have a feeling about this... will it be strong enough? Of course it will! <br/>We encourage you to mark in this calendar whatever your instinct may tell you, choosing what gender do you think the baby would be and the date of birth. Let's know who is the best foreseer!<br/><br/>In addition to this, there will be a little prize for these people who choose the final date, and a bigger one for the person who hits the target: gender and day.",
-	                "Instructions title": "How to play?",
-	                "Instructions": "Very easy! Just select your favorite day. Three options will appear to indicate the baby's gender. You can choose whichever option you want if it has not already been selected by another player.<br/><br/>If your instinct plays a dirty trick on your selection and you have changed your mind, there is no problem, you can modify it any time you want. <br>What do you need to know?:<br/><br/><b>Date of birth:</b> We are within the time! Time goes so fast... we have to be ready because the baby could be born any time right now! Just one note: the date set by the gynecologist is Jun the 7th (that's why this day has been marked differently). Nevertheless, babys usually born on the day D only on 4% of cases. It could happen before, far before or after Jun 7th, but not much later, because in this situation the gynecologist and the all medical team will kindly invite our baby to get out from mommy's belly.<br/><br/><b>Baby's gender:</b> there are only three basic and fundamental options: Boy and Girl, around 50% each; and Dragon: do not forget we still have two of three Targaryen's eggs at home since our wedding, so anything can happen!",
-	                "boy": "Boy",
-	                "girl": "Girl",
-	                "dragon": "Dragon",
-	                "And the winner is": "And the winner is...",
-	                "Timeline": "Timeline",
-	                "Timeline introduction": "Baby's steps so far",
-	
-	                "Garbancito time": "October-November",
-	                "Garbancito": "Little Chick pea",
-	                "Garbancito text": "Surprise! Very excited to tell our close family that it was here.",
-	                "Almendrita time": "November-December",
-	                "Almendrita": "Little Almond",
-	                "Almendrita text": "Tireless fighter, capable to go on whatever it takes.",
-	                "Naranjito time": "December-January",
-	                "Naranjito": "Little Orange",
-	                "Naranjito text": "Started wanting to get all the attention by making its first belly bubbles.",
-	                "Manzanita time": "January-February",
-	                "Manzanita": "Little Apple",
-	                "Manzanita text": "Belly bubbles are not enought. Little kicks are much more noticeable.",
-	                "Coquito time": "February-March",
-	                "Coquito": "Little Coconut",
-	                "Coquito text": "Its first hiccup.",
-	                "Lechuguita time": "March-April",
-	                "Lechuguita": "Little Salad",
-	                "Lechuguita text": "Kind of shy for photographies, quickly gaining weight and it made very clear how delightful was a crossed position in mum's belly.",
-	                "Meloncito time": "April-May",
-	                "Meloncito": "Little Melon",
-	                "Meloncito text": "Proud acrobat. An expert in position changing: horizontally crossed, head-down positioned, diagonal to the belly, rugby ball-sized...",
-	
-	                "Footer": "Made with ❤ by its parents.",
-	
-	                "OK": "OK",
-	                "Are you sure?": "Are you sure?",
-	                "Unauthorized": "Impossible to authenticate",
-	                "You don't have access to this content": "You don't have access to this content",
-	                "Place your bet on day": "Place your bet on day",
-	                "Your current bet of": "Your current bet of",
-	                "No more bets allowed": "The baby is born! No more bets allowed.",
-	                "will be changed to this": "will be changed to this",
-	                "calendar.dayNamesMin": "Su,Mo,Tu,We,Th,Fr,Sa",
-	
-	                "Bet saved": "Bet saved",
-	                "Error saving bet": "Error saving bet"
-	        };
-	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
-	
-	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	
-	        return {
 	                "title": "Que sera, sera ?",
 	
 	                "Header title": "Que sera, sera ?",
 	                "Presentation title": "J'ai un bon feeling",
-	                "Presentation": "Qu'est-ce que \xE7a peut bien \xEAtre? Nous avons tous un feeling \xE0 ce sujet... sera-t-il suffisamment fort ? Bien sur !<br/>Nous vous invitons \xE0 pronostiquer sur le calendrier ce que votre instinct vous dit, marquant ce que vous pensez que le b\xE9b\xE9 sera et le jour de naissance. Voyons qui est le meilleur devin !<br/><br/>En plus, il y aura un petit prix pour les personnes qui r\xE9ussiront \xE0 d\xE9couvrir la date et un prix un peu plus grand \xE0 celui qui aura atteint le jour et le sexe du b\xE9b\xE9.",
+	                "Presentation": "Qu'est-ce que \xE7a peut bien \xEAtre? Demande Aria. Nous avons tous un feeling \xE0 ce sujet... sera le votre suffisamment fort ? Bien sur !<br/>Nous vous invitons \xE0 pronostiquer sur le calendrier ce que votre instinct vous dit, marquant ce que vous pensez que le b\xE9b\xE9 sera et le jour de naissance, et aider ainsi \xE0 Aria \xE0 lui retrouver. Voyons qui est le meilleur devin !<br/><br/>En plus, il y aura un petit prix pour les personnes qui r\xE9ussiront \xE0 d\xE9couvrir la date et un prix un peu plus grand \xE0 celui qui aura atteint le jour et le sexe du b\xE9b\xE9.",
 	                "Instructions title": "Comment on y joue ?",
-	                "Instructions": "C'est très simple ! Il suffit de sélectionner le jour de votre préférence. Ensuite, trois options apparaîtront pour montrer le sexe du bébé. Vous pouvez choisir n'importe quelle option si elle n'a pas été choisie précédemment par une autre personne.<br><br>Si votre instinct vous joue un mauvais tour et que vous avez changé votre avis, il n'y a pas de problème, vous pouvez le modifier autant de fois que vous le voudrez. <br/>Qu'est-ce qu'il faut tenir en compte ?<br/><br/><b>Date de naissance :</b> On est déjà dans le délai ! Le temps passe tellement vite... on doit être prêt car le bébé pourrait naître un de ces jours ! Juste une note : la date prévue par le gynécologue est le 7 juin (c'est pour cela que le jour est coloré). Néanmoins on sait qu'il n'y a que 4% de probabilités que le bébé naisse le jour prévu. Il pourrait naître avant, beaucoup trop avant ou même après... mais pas trop après car dans ce cas, le gynécologue ainsi que tout l'équipe médicale lui inviteraient à bien vouloir sortir du vendre de maman.<br/><br/><b>Le sexe du bébé :</b> Dans notre cas, il n'y a que trois options basiques et fondamentales: Garçon et Fille, autour du 50% de probabilités; et Dragon: on ne doit pas oublier qu'on a chez nous deux des trois œufs de dragon Targaryen depuis notre mariage, donc il peut toujours avoir de possibilités... on ne peut rien écarter !",
+	                "Instructions": "C'est très simple ! Il suffit de sélectionner le jour de votre préférence. Ensuite, trois options apparaîtront pour montrer le sexe du bébé. Vous pouvez choisir n'importe quelle option si elle n'a pas été choisie précédemment par une autre personne.<br><br>Si votre instinct vous joue un mauvais tour et que vous avez changé votre avis, il n'y a pas de problème, vous pouvez le modifier autant de fois que vous le voudrez. <br/>Qu'est-ce qu'il faut tenir en compte ?<br/><br/><b>Date de naissance :</b> On est déjà dans le délai ! Le temps passe tellement vite... on doit être prêt car le bébé pourrait naître un de ces jours ! Juste une note : la date prévue par le gynécologue est le 20 octobre (c'est pour cela que le jour est coloré). Néanmoins on sait qu'il n'y a que 4% de probabilités que le bébé naisse le jour prévu. Il pourrait naître avant, beaucoup trop avant ou même après... mais pas trop après car dans ce cas, le gynécologue ainsi que tout l'équipe médicale lui inviteraient à bien vouloir sortir du vendre de maman.<br/><br/><b>Le sexe du bébé :</b> Dans notre cas, il n'y a que trois options basiques et fondamentales: Garçon et Fille, autour du 50% de probabilités; et Loup : on ne doit pas oublier qu'il s'agit de l'un des doudous le plus apprecié par Aria, qui l'accompagne chaque nuit, donc il peut toujours avoir de possibilités... on ne peut rien écarter !",
 	                "boy": "Garçon",
 	                "girl": "Fille",
-	                "dragon": "Dragon",
+	                "dragon": "Loup",
 	                "And the winner is": "And the winner is...",
 	                "Timeline": "Timeline",
 	                "Timeline introduction": "Les pas du petit jusqu'à présent",
@@ -35622,7 +35559,7 @@
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
@@ -35634,12 +35571,12 @@
 	
 	                "Header title": "¿Qué será, será?",
 	                "Presentation title": "Tengo un buen feeling",
-	                "Presentation": "\xBFQu\xE9 ser\xE1, ser\xE1? Todos tenemos un feeling al respecto... \xBFser\xE1 lo suficientemente fuerte? \xA1Seguro que s\xED! <br/>Te invitamos a marcar en el calendario lo que te dicta el instinto, indicando qu\xE9 crees que ser\xE1 y el d\xEDa de nacimiento, \xA1a ver qui\xE9n acierta!<br/><br/>Adem\xE1s, habr\xE1 un peque\xF1o premio para aquellas personas que acierten la fecha y un premio mayor para aqu\xE9l o aquella cuyo instinto rebosante haya desvelado tanto el d\xEDa como el sexo del beb\xE9.",
+	                "Presentation": "\xBFQu\xE9 ser\xE1, ser\xE1? Pregunta Aria. Todos tenemos un feeling al respecto... \xBFser\xE1 el tuyo lo suficientemente fuerte? \xA1Seguro que s\xED! <br/>Te invitamos a marcar en el calendario lo que te dicta el instinto, indicando qu\xE9 crees que ser\xE1 y el d\xEDa de nacimiento, y as\xED ayudar a Aria a encontrar al beb\xE9<br/><br/>Adem\xE1s, habr\xE1 un peque\xF1o premio para aquellas personas que acierten la fecha y un premio mayor para aqu\xE9l o aquella cuyo instinto rebosante haya desvelado tanto el d\xEDa como el sexo del beb\xE9.",
 	                "Instructions title": "¿Cómo se juega?",
-	                "Instructions": "Tan sencillo como seleccionar el día de tu preferencia. Seguidamente aparecerán tres opciones que indican el sexo del bebé. Es posible escoger cualquier opción que no haya sido seleccionada previamente por otro participante.<br/><br/>Si tu instinto te ha jugado una mala pasada y has cambiado de opinión, no hay problema, puedes modificarla tantas veces como quieras.<br/>¿Qué tienes que tener en cuenta?:<br/><br/><b>Fecha de nacimiento:</b> Estamos en las semanas posibles. Cómo pasa el tiempo. Debemos estar preparados porque ¡ya puede nacer en cualquier momento! Sólo un apunte, la fecha prevista por el ginecólogo es el 7 de junio (por eso está señalado en el calendario). Que el bebé nazca el día previsto sólo ocurre en el 4% de los casos. Puede nacer antes, mucho antes o después... pero no mucho después, porque en ese caso el ginecólogo y el resto del equipo médico lo invitaría muy amablemente a salir del vientre de mamá.<br/><br/><b>El sexo del bebé:</b> En nuestro caso sólo puede haber tres opciones básicas y fundamentales: Niño y Niña, alrededor del 50% de probabilidad cada uno.  Dragón: no debemos olvidar que tenemos dos de los tres huevos Targaryen desde la boda, así que alguna posibilidad siempre hay... ¡no se descarta nada!",
+	                "Instructions": "Tan sencillo como seleccionar el día de tu preferencia. Seguidamente aparecerán tres opciones que indican el sexo del bebé. Es posible escoger cualquier opción que no haya sido seleccionada previamente por otro participante.<br/><br/>Si tu instinto te ha jugado una mala pasada y has cambiado de opinión, no hay problema, puedes modificarla tantas veces como quieras.<br/>¿Qué tienes que tener en cuenta?:<br/><br/><b>Fecha de nacimiento:</b> Estamos en las semanas posibles. Cómo pasa el tiempo. Debemos estar preparados porque ¡ya puede nacer en cualquier momento! Sólo un apunte, la fecha prevista por el ginecólogo es el 20 de octubre (por eso está señalado en el calendario). Que el bebé nazca el día previsto sólo ocurre en el 4% de los casos. Puede nacer antes, mucho antes o después... pero no mucho después, porque en ese caso el ginecólogo y el resto del equipo médico lo invitaría muy amablemente a salir del vientre de mamá.<br/><br/><b>El sexo del bebé:</b> En nuestro caso sólo puede haber tres opciones básicas y fundamentales: Niño y Niña, alrededor del 50% de probabilidad cada uno.  Lobo: no debemos olvidar que se trata de uno de los más preciados peluches de Aria, que la acompaña en todos sus sueños, así que alguna posibilidad siempre hay... ¡no se descarta nada!",
 	                "boy": "Niño",
 	                "girl": "Niña",
-	                "dragon": "Dragón",
+	                "dragon": "Lobito",
 	                "And the winner is": "And the winner is...",
 	                "Timeline": "Timeline",
 	                "Timeline introduction": "El recorrido hasta ahora de la criatura",
@@ -35669,7 +35606,7 @@
 	                "Footer": "Hecho con ❤ por sus papis.",
 	
 	                "OK": "OK",
-	                "Are you sure?": "¿Está seguro?",
+	                "Are you sure?": "¿Estás seguro?",
 	                "Unauthorized": "Autentificación fallida",
 	                "You don't have access to this content": "Contenido protegido",
 	                "Place your bet on day": "Creo que será el día",
@@ -35684,7 +35621,7 @@
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -35695,18 +35632,18 @@
 	    var _ = __webpack_require__(5),
 	        $ = __webpack_require__(7),
 	        jQuery = __webpack_require__(7),
-	        dateHelper = __webpack_require__(39).default,
-	        datepicker = __webpack_require__(40),
+	        dateHelper = __webpack_require__(38).default,
+	        datepicker = __webpack_require__(39),
 	        Backbone = __webpack_require__(4),
-	        Bet = __webpack_require__(42).default,
-	        DateBetSet = __webpack_require__(43).default,
-	        dateBetSetCollection = __webpack_require__(81).default,
+	        Bet = __webpack_require__(41).default,
+	        DateBetSet = __webpack_require__(42).default,
+	        dateBetSetCollection = __webpack_require__(80).default,
 	        // Yes, as it's exporting the "default" object
-	    UserCollection = __webpack_require__(82).default,
+	    UserCollection = __webpack_require__(81).default,
 	        userCollection = new UserCollection(),
-	        ModalView = __webpack_require__(84),
+	        ModalView = __webpack_require__(83),
 	        t = __webpack_require__(34).translate,
-	        template = __webpack_require__(92);
+	        template = __webpack_require__(91);
 	
 	    var CalendarView = Backbone.View.extend({
 	
@@ -35905,7 +35842,7 @@
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -35954,7 +35891,7 @@
 	exports.default = DateHelper;
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35963,7 +35900,7 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	__webpack_require__(41);
+	__webpack_require__(40);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -35999,7 +35936,7 @@
 	module.exports = _jquery2.default.datepicker;
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -36738,7 +36675,7 @@
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36787,7 +36724,7 @@
 	exports.default = Bet;
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36800,7 +36737,7 @@
 	
 	var _backbone = __webpack_require__(4);
 	
-	var _BetCollection = __webpack_require__(44);
+	var _BetCollection = __webpack_require__(43);
 	
 	var _BetCollection2 = _interopRequireDefault(_BetCollection);
 	
@@ -36853,7 +36790,7 @@
 	exports.default = DateBetSet;
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36866,11 +36803,11 @@
 	
 	var _backbone = __webpack_require__(4);
 	
-	var _BackboneBet = __webpack_require__(45);
+	var _BackboneBet = __webpack_require__(44);
 	
 	var _BackboneBet2 = _interopRequireDefault(_BackboneBet);
 	
-	var _Bet = __webpack_require__(42);
+	var _Bet = __webpack_require__(41);
 	
 	var _Bet2 = _interopRequireDefault(_Bet);
 	
@@ -36922,7 +36859,7 @@
 	exports.default = BetCollection;
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36931,7 +36868,7 @@
 	
 	var _backbone2 = _interopRequireDefault(_backbone);
 	
-	var _Auth = __webpack_require__(46);
+	var _Auth = __webpack_require__(45);
 	
 	var _Auth2 = _interopRequireDefault(_Auth);
 	
@@ -36960,7 +36897,7 @@
 	module.exports = _backbone2.default;
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36969,7 +36906,7 @@
 	  value: true
 	});
 	
-	var _cryptoJs = __webpack_require__(47);
+	var _cryptoJs = __webpack_require__(46);
 	
 	var _cryptoJs2 = _interopRequireDefault(_cryptoJs);
 	
@@ -36999,13 +36936,13 @@
 	exports.default = generateAuthHeader;
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(49), __webpack_require__(50), __webpack_require__(51), __webpack_require__(52), __webpack_require__(53), __webpack_require__(54), __webpack_require__(55), __webpack_require__(56), __webpack_require__(57), __webpack_require__(58), __webpack_require__(59), __webpack_require__(60), __webpack_require__(61), __webpack_require__(62), __webpack_require__(63), __webpack_require__(64), __webpack_require__(65), __webpack_require__(66), __webpack_require__(67), __webpack_require__(68), __webpack_require__(69), __webpack_require__(70), __webpack_require__(71), __webpack_require__(72), __webpack_require__(73), __webpack_require__(74), __webpack_require__(75), __webpack_require__(76), __webpack_require__(77), __webpack_require__(78), __webpack_require__(79), __webpack_require__(80));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(48), __webpack_require__(49), __webpack_require__(50), __webpack_require__(51), __webpack_require__(52), __webpack_require__(53), __webpack_require__(54), __webpack_require__(55), __webpack_require__(56), __webpack_require__(57), __webpack_require__(58), __webpack_require__(59), __webpack_require__(60), __webpack_require__(61), __webpack_require__(62), __webpack_require__(63), __webpack_require__(64), __webpack_require__(65), __webpack_require__(66), __webpack_require__(67), __webpack_require__(68), __webpack_require__(69), __webpack_require__(70), __webpack_require__(71), __webpack_require__(72), __webpack_require__(73), __webpack_require__(74), __webpack_require__(75), __webpack_require__(76), __webpack_require__(77), __webpack_require__(78), __webpack_require__(79));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -37022,7 +36959,7 @@
 	}));
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
@@ -37787,13 +37724,13 @@
 	}));
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -38096,13 +38033,13 @@
 	}));
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -38177,13 +38114,13 @@
 	}));
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -38331,13 +38268,13 @@
 	}));
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -38471,13 +38408,13 @@
 	}));
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -38744,13 +38681,13 @@
 	}));
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -38899,13 +38836,13 @@
 	}));
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -39103,13 +39040,13 @@
 	}));
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(55));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(54));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -39188,13 +39125,13 @@
 	}));
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(49));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(48));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -39516,13 +39453,13 @@
 	}));
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(49), __webpack_require__(57));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(48), __webpack_require__(56));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -39604,13 +39541,13 @@
 	}));
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(49));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(48));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -39932,13 +39869,13 @@
 	}));
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -40204,13 +40141,13 @@
 	}));
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -40352,13 +40289,13 @@
 	}));
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(54), __webpack_require__(61));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(53), __webpack_require__(60));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -40502,13 +40439,13 @@
 	}));
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(54), __webpack_require__(61));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(53), __webpack_require__(60));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -40639,13 +40576,13 @@
 	}));
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48));
+			module.exports = exports = factory(__webpack_require__(47));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41519,13 +41456,13 @@
 	}));
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41602,13 +41539,13 @@
 	}));
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41665,13 +41602,13 @@
 	}));
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41786,13 +41723,13 @@
 	}));
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41845,13 +41782,13 @@
 	}));
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41890,13 +41827,13 @@
 	}));
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41944,13 +41881,13 @@
 	}));
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -41993,13 +41930,13 @@
 	}));
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -42038,13 +41975,13 @@
 	}));
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -42088,13 +42025,13 @@
 	}));
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -42123,13 +42060,13 @@
 	}));
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -42194,13 +42131,13 @@
 	}));
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(52), __webpack_require__(53), __webpack_require__(63), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(51), __webpack_require__(52), __webpack_require__(62), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -42431,13 +42368,13 @@
 	}));
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(52), __webpack_require__(53), __webpack_require__(63), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(51), __webpack_require__(52), __webpack_require__(62), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -43206,13 +43143,13 @@
 	}));
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(52), __webpack_require__(53), __webpack_require__(63), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(51), __webpack_require__(52), __webpack_require__(62), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -43350,13 +43287,13 @@
 	}));
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(52), __webpack_require__(53), __webpack_require__(63), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(51), __webpack_require__(52), __webpack_require__(62), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -43547,13 +43484,13 @@
 	}));
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	;(function (root, factory, undef) {
 		if (true) {
 			// CommonJS
-			module.exports = exports = factory(__webpack_require__(48), __webpack_require__(52), __webpack_require__(53), __webpack_require__(63), __webpack_require__(64));
+			module.exports = exports = factory(__webpack_require__(47), __webpack_require__(51), __webpack_require__(52), __webpack_require__(62), __webpack_require__(63));
 		}
 		else if (typeof define === "function" && define.amd) {
 			// AMD
@@ -43742,7 +43679,7 @@
 	}));
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43755,7 +43692,7 @@
 	
 	var _backbone = __webpack_require__(4);
 	
-	var _DateBetSet = __webpack_require__(43);
+	var _DateBetSet = __webpack_require__(42);
 	
 	var _DateBetSet2 = _interopRequireDefault(_DateBetSet);
 	
@@ -43850,7 +43787,7 @@
 	exports.default = new DateBetSetCollection();
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43863,11 +43800,11 @@
 	
 	var _backbone = __webpack_require__(4);
 	
-	var _BackboneBet = __webpack_require__(45);
+	var _BackboneBet = __webpack_require__(44);
 	
 	var _BackboneBet2 = _interopRequireDefault(_BackboneBet);
 	
-	var _User = __webpack_require__(83);
+	var _User = __webpack_require__(82);
 	
 	var _User2 = _interopRequireDefault(_User);
 	
@@ -43931,7 +43868,7 @@
 	exports.default = UserCollection;
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43979,7 +43916,7 @@
 	exports.default = User;
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -43990,12 +43927,12 @@
 	    var _ = __webpack_require__(5),
 	        $ = __webpack_require__(7),
 	        jQuery = __webpack_require__(7),
-	        dateHelper = __webpack_require__(39).default,
+	        dateHelper = __webpack_require__(38).default,
 	        Backbone = __webpack_require__(4),
-	        UserNotifications = __webpack_require__(85).default,
+	        UserNotifications = __webpack_require__(84).default,
 	        t = __webpack_require__(34).translate,
 	        users = __webpack_require__(34),
-	        template = __webpack_require__(87);
+	        template = __webpack_require__(86);
 	
 	    // "Do your bet" view
 	    var ModalView = Backbone.View.extend({
@@ -44123,7 +44060,7 @@
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44138,7 +44075,7 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _noty = __webpack_require__(86);
+	var _noty = __webpack_require__(85);
 	
 	var _noty2 = _interopRequireDefault(_noty);
 	
@@ -44185,7 +44122,7 @@
 	exports.default = UserNotifications;
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(root, factory) {
@@ -46066,7 +46003,7 @@
 	});
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46084,28 +46021,28 @@
 	    }, "4": function _(container, depth0, helpers, partials, data) {
 	        var stack1;
 	
-	        return (stack1 = __default(__webpack_require__(88)).call(depth0 != null ? depth0 : container.nullContext || {}, (stack1 = depth0 != null ? depth0.currentUserBet : depth0) != null ? stack1.date : stack1, depth0 != null ? depth0.date : depth0, { "name": "isnt", "hash": {}, "fn": container.program(5, data, 0), "inverse": container.noop, "data": data })) != null ? stack1 : "";
+	        return (stack1 = __default(__webpack_require__(87)).call(depth0 != null ? depth0 : container.nullContext || {}, (stack1 = depth0 != null ? depth0.currentUserBet : depth0) != null ? stack1.date : stack1, depth0 != null ? depth0.date : depth0, { "name": "isnt", "hash": {}, "fn": container.program(5, data, 0), "inverse": container.noop, "data": data })) != null ? stack1 : "";
 	    }, "5": function _(container, depth0, helpers, partials, data) {
 	        var stack1,
 	            alias1 = depth0 != null ? depth0 : container.nullContext || {},
 	            alias2 = container.escapeExpression;
 	
-	        return "    <h2>" + alias2(__default(__webpack_require__(33)).call(alias1, "Your current bet of", { "name": "t", "hash": {}, "data": data })) + " " + alias2(__default(__webpack_require__(89)).call(alias1, (stack1 = depth0 != null ? depth0.currentUserBet : depth0) != null ? stack1.date : stack1, { "name": "dateformat", "hash": {}, "data": data })) + " " + alias2(__default(__webpack_require__(33)).call(alias1, "will be changed to this", { "name": "t", "hash": {}, "data": data })) + "</h2>\r\n";
+	        return "    <h2>" + alias2(__default(__webpack_require__(33)).call(alias1, "Your current bet of", { "name": "t", "hash": {}, "data": data })) + " " + alias2(__default(__webpack_require__(88)).call(alias1, (stack1 = depth0 != null ? depth0.currentUserBet : depth0) != null ? stack1.date : stack1, { "name": "dateformat", "hash": {}, "data": data })) + " " + alias2(__default(__webpack_require__(33)).call(alias1, "will be changed to this", { "name": "t", "hash": {}, "data": data })) + "</h2>\r\n";
 	    }, "7": function _(container, depth0, helpers, partials, data, blockParams, depths) {
 	        var stack1,
 	            alias1 = depth0 != null ? depth0 : container.nullContext || {},
 	            alias2 = container.lambda,
 	            alias3 = container.escapeExpression;
 	
-	        return "        <div class=\"buttonWrapper\">\r\n            <button class=\"choice btn btn-default\r\n" + ((stack1 = helpers["if"].call(alias1, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.email : stack1, { "name": "if", "hash": {}, "fn": container.program(8, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\"" + ((stack1 = helpers["if"].call(alias1, depths[1] != null ? depths[1].haveWinner : depths[1], { "name": "if", "hash": {}, "fn": container.program(12, data, 0, blockParams, depths), "inverse": container.program(14, data, 0, blockParams, depths), "data": data })) != null ? stack1 : "") + "data-gender=\"" + alias3(alias2(data && data.key, depth0)) + "\" data-date=\"" + alias3(alias2(depths[1] != null ? depths[1].date : depths[1], depth0)) + "\"\r\n                >\r\n\r\n                <i class=\"fa fa-4x\r\n            " + ((stack1 = __default(__webpack_require__(90)).call(alias1, data && data.key, "d", { "name": "is", "hash": {}, "fn": container.program(19, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n            " + ((stack1 = __default(__webpack_require__(90)).call(alias1, data && data.key, "f", { "name": "is", "hash": {}, "fn": container.program(21, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n            " + ((stack1 = __default(__webpack_require__(90)).call(alias1, data && data.key, "m", { "name": "is", "hash": {}, "fn": container.program(23, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n             " + alias3(alias2(data && data.key, depth0)) + "\"></i>\r\n\r\n\r\n\r\n            </button>\r\n\r\n" + ((stack1 = helpers["if"].call(alias1, depth0, { "name": "if", "hash": {}, "fn": container.program(25, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "</div>\r\n";
+	        return "        <div class=\"buttonWrapper\">\r\n            <button class=\"choice btn btn-default\r\n" + ((stack1 = helpers["if"].call(alias1, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.email : stack1, { "name": "if", "hash": {}, "fn": container.program(8, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\"" + ((stack1 = helpers["if"].call(alias1, depths[1] != null ? depths[1].haveWinner : depths[1], { "name": "if", "hash": {}, "fn": container.program(12, data, 0, blockParams, depths), "inverse": container.program(14, data, 0, blockParams, depths), "data": data })) != null ? stack1 : "") + "data-gender=\"" + alias3(alias2(data && data.key, depth0)) + "\" data-date=\"" + alias3(alias2(depths[1] != null ? depths[1].date : depths[1], depth0)) + "\"\r\n                >\r\n\r\n                <i class=\"fa fa-4x\r\n            " + ((stack1 = __default(__webpack_require__(89)).call(alias1, data && data.key, "d", { "name": "is", "hash": {}, "fn": container.program(19, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n            " + ((stack1 = __default(__webpack_require__(89)).call(alias1, data && data.key, "f", { "name": "is", "hash": {}, "fn": container.program(21, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n            " + ((stack1 = __default(__webpack_require__(89)).call(alias1, data && data.key, "m", { "name": "is", "hash": {}, "fn": container.program(23, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n             " + alias3(alias2(data && data.key, depth0)) + "\"></i>\r\n\r\n\r\n\r\n            </button>\r\n\r\n" + ((stack1 = helpers["if"].call(alias1, depth0, { "name": "if", "hash": {}, "fn": container.program(25, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "</div>\r\n";
 	    }, "8": function _(container, depth0, helpers, partials, data, blockParams, depths) {
 	        var stack1;
 	
-	        return (stack1 = __default(__webpack_require__(90)).call(depth0 != null ? depth0 : container.nullContext || {}, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.date : stack1, depth0 != null ? depth0.date : depth0, { "name": "is", "hash": {}, "fn": container.program(9, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
+	        return (stack1 = __default(__webpack_require__(89)).call(depth0 != null ? depth0 : container.nullContext || {}, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.date : stack1, depth0 != null ? depth0.date : depth0, { "name": "is", "hash": {}, "fn": container.program(9, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
 	    }, "9": function _(container, depth0, helpers, partials, data, blockParams, depths) {
 	        var stack1;
 	
-	        return (stack1 = __default(__webpack_require__(90)).call(depth0 != null ? depth0 : container.nullContext || {}, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.gender : stack1, data && data.key, { "name": "is", "hash": {}, "fn": container.program(10, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
+	        return (stack1 = __default(__webpack_require__(89)).call(depth0 != null ? depth0 : container.nullContext || {}, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.gender : stack1, data && data.key, { "name": "is", "hash": {}, "fn": container.program(10, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
 	    }, "10": function _(container, depth0, helpers, partials, data) {
 	        return " selected btn-success";
 	    }, "12": function _(container, depth0, helpers, partials, data) {
@@ -46121,7 +46058,7 @@
 	    }, "16": function _(container, depth0, helpers, partials, data, blockParams, depths) {
 	        var stack1;
 	
-	        return (stack1 = __default(__webpack_require__(88)).call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? depth0.email : depth0, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.email : stack1, { "name": "isnt", "hash": {}, "fn": container.program(17, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
+	        return (stack1 = __default(__webpack_require__(87)).call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? depth0.email : depth0, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.email : stack1, { "name": "isnt", "hash": {}, "fn": container.program(17, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
 	    }, "17": function _(container, depth0, helpers, partials, data) {
 	        return " disabled=\"disabled\"";
 	    }, "19": function _(container, depth0, helpers, partials, data) {
@@ -46133,19 +46070,19 @@
 	    }, "25": function _(container, depth0, helpers, partials, data, blockParams, depths) {
 	        var stack1;
 	
-	        return (stack1 = __default(__webpack_require__(88)).call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? depth0.email : depth0, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.email : stack1, { "name": "isnt", "hash": {}, "fn": container.program(26, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
+	        return (stack1 = __default(__webpack_require__(87)).call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? depth0.email : depth0, (stack1 = depths[1] != null ? depths[1].currentUserBet : depths[1]) != null ? stack1.email : stack1, { "name": "isnt", "hash": {}, "fn": container.program(26, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "";
 	    }, "26": function _(container, depth0, helpers, partials, data, blockParams, depths) {
-	        return "                    <p class=\"author\">" + container.escapeExpression(__default(__webpack_require__(91)).call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? depth0.email : depth0, depths[1] != null ? depths[1].users : depths[1], { "name": "username", "hash": {}, "data": data })) + "</p>\r\n";
+	        return "                    <p class=\"author\">" + container.escapeExpression(__default(__webpack_require__(90)).call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? depth0.email : depth0, depths[1] != null ? depths[1].users : depths[1], { "name": "username", "hash": {}, "data": data })) + "</p>\r\n";
 	    }, "compiler": [7, ">= 4.0.0"], "main": function main(container, depth0, helpers, partials, data, blockParams, depths) {
 	        var stack1,
 	            alias1 = depth0 != null ? depth0 : container.nullContext || {},
 	            alias2 = container.escapeExpression;
 	
-	        return "<h1>" + alias2(__default(__webpack_require__(33)).call(alias1, "Place your bet on day", { "name": "t", "hash": {}, "data": data })) + " " + alias2(__default(__webpack_require__(89)).call(alias1, depth0 != null ? depth0.date : depth0, { "name": "dateformat", "hash": {}, "data": data })) + "</h1>\r\n\r\n" + ((stack1 = helpers["if"].call(alias1, depth0 != null ? depth0.haveWinner : depth0, { "name": "if", "hash": {}, "fn": container.program(1, data, 0, blockParams, depths), "inverse": container.program(3, data, 0, blockParams, depths), "data": data })) != null ? stack1 : "") + "\r\n<div class=\"row\">\r\n" + ((stack1 = helpers.each.call(alias1, depth0 != null ? depth0.bets : depth0, { "name": "each", "hash": {}, "fn": container.program(7, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n</div>\r\n";
+	        return "<h1>" + alias2(__default(__webpack_require__(33)).call(alias1, "Place your bet on day", { "name": "t", "hash": {}, "data": data })) + " " + alias2(__default(__webpack_require__(88)).call(alias1, depth0 != null ? depth0.date : depth0, { "name": "dateformat", "hash": {}, "data": data })) + "</h1>\r\n\r\n" + ((stack1 = helpers["if"].call(alias1, depth0 != null ? depth0.haveWinner : depth0, { "name": "if", "hash": {}, "fn": container.program(1, data, 0, blockParams, depths), "inverse": container.program(3, data, 0, blockParams, depths), "data": data })) != null ? stack1 : "") + "\r\n<div class=\"row\">\r\n" + ((stack1 = helpers.each.call(alias1, depth0 != null ? depth0.bets : depth0, { "name": "each", "hash": {}, "fn": container.program(7, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n</div>\r\n";
 	    }, "useData": true, "useDepths": true });
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -46165,7 +46102,7 @@
 	};
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46183,7 +46120,7 @@
 	};
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -46203,7 +46140,7 @@
 	};
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -46219,7 +46156,7 @@
 	};
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -46235,7 +46172,7 @@
 	            alias1 = depth0 != null ? depth0 : container.nullContext || {},
 	            alias2 = container.escapeExpression;
 	
-	        return "<i class=\"fa \r\n" + ((stack1 = __default(__webpack_require__(90)).call(alias1, depth0 != null ? depth0.gender : depth0, "d", { "name": "is", "hash": {}, "fn": container.program(4, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n" + ((stack1 = __default(__webpack_require__(90)).call(alias1, depth0 != null ? depth0.gender : depth0, "f", { "name": "is", "hash": {}, "fn": container.program(6, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n" + ((stack1 = __default(__webpack_require__(90)).call(alias1, depth0 != null ? depth0.gender : depth0, "m", { "name": "is", "hash": {}, "fn": container.program(8, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n " + alias2(container.lambda(depth0 != null ? depth0.gender : depth0, depth0)) + "\" title=\"" + alias2(__default(__webpack_require__(91)).call(alias1, depth0 != null ? depth0.email : depth0, depths[1] != null ? depths[1].users : depths[1], { "name": "username", "hash": {}, "data": data })) + "\"></i>\r\n";
+	        return "<i class=\"fa \r\n" + ((stack1 = __default(__webpack_require__(89)).call(alias1, depth0 != null ? depth0.gender : depth0, "d", { "name": "is", "hash": {}, "fn": container.program(4, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n" + ((stack1 = __default(__webpack_require__(89)).call(alias1, depth0 != null ? depth0.gender : depth0, "f", { "name": "is", "hash": {}, "fn": container.program(6, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n" + ((stack1 = __default(__webpack_require__(89)).call(alias1, depth0 != null ? depth0.gender : depth0, "m", { "name": "is", "hash": {}, "fn": container.program(8, data, 0, blockParams, depths), "inverse": container.noop, "data": data })) != null ? stack1 : "") + "\r\n " + alias2(container.lambda(depth0 != null ? depth0.gender : depth0, depth0)) + "\" title=\"" + alias2(__default(__webpack_require__(90)).call(alias1, depth0 != null ? depth0.email : depth0, depths[1] != null ? depths[1].users : depths[1], { "name": "username", "hash": {}, "data": data })) + "\"></i>\r\n";
 	    }, "4": function _(container, depth0, helpers, partials, data) {
 	        return "icon icon-fire";
 	    }, "6": function _(container, depth0, helpers, partials, data) {
@@ -46252,7 +46189,7 @@
 	    }, "useData": true, "useDepths": true });
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -46261,7 +46198,7 @@
 	    'use strict';
 	
 	    var Backbone = __webpack_require__(4),
-	        template = __webpack_require__(94);
+	        template = __webpack_require__(93);
 	
 	    var UnauthorizedView = Backbone.View.extend({
 	        template: template,
@@ -46276,7 +46213,7 @@
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";

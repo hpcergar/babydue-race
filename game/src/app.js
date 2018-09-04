@@ -9,8 +9,8 @@ let authService = new AuthService(),
     authHeader = authService.generateAuthHeader(email, signature);
 
 function startGame(){
-    let lang = navigator.language;
-    lang = /fr/.test(lang) ? 'fr' : (/es/.test(lang) ? 'es' : 'en')
+    let lang = (/es/.test(navigator.language) ? 'es' : 'fr');
+
     window.game = new Game({email, signature, authHeader, lang})
 }
 

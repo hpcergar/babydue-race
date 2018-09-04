@@ -12,7 +12,7 @@ var lang = navigator.language,
     conf = _.extend({
         // Birth estimated date
         ESTIMATED_DATE: '2018-10-20',
-        LANG: /fr/.test(lang) ? 'fr' : (/es/.test(lang) ? 'es' : 'en'),
+        LANG: (/es/.test(lang) ? 'es' : 'fr'),
         EMAIL:  getURLParameter('email'),
         SIGNATURE: getURLParameter('signature')  
     });
