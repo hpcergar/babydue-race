@@ -1,58 +1,84 @@
-import config from '../../config'
+import Config from '../../config'
+
+const MIN_WIDTH = Config.resolutions[0].width // TODO Use according resolution instead of [0]
+const MIN_HEIGHT = Config.resolutions[0].height
 
 class Header {
 
-	constructor(game, world){
-		this.game = game;
-		this.world = world;
-		this.items = [];
-        this.fontScale = this.game.attr.heightScale || 1;
-        this.heightScale = this.game.attr.heightScale || 1;
+    constructor(game, world) {
+        this.game = game;
+        this.world = world;
+        this.items = [];
+        // this.fontScale = this.game.attr.heightScale || 1;
+        // this.heightScale = this.game.attr.heightScale || 1;
+        this.fontScale = 1;
+        this.heightScale = 1;
 
-		this.draw();
 
-		return this;
-	}
+        this.draw();
 
-	draw() {
+        return this;
+    }
+
+    draw() {
         // Check this out
         let headerOffset = this.getTopOffset()
 
         this.items = []
 
-        let babydueText = this.game.add.text(this.game.width*1/3, headerOffset,' Babydue ');
+        let babydueText = this.game.add.text(this.getLeftOffsetText(), headerOffset, ' Babydue ');
         babydueText.anchor.set(0.5);
         babydueText.align = 'center';
-        babydueText.font = config.font.title.font;
-        babydueText.fontSize = 140 * this.fontScale;
+        babydueText.font = Config.font.title.font;
+        babydueText.fontSize = 100 * this.fontScale;
         babydueText.fill = '#ca869f';
         this.items.push(babydueText)
+        this.babydueText = babydueText
 
         // Add RACE text
-        let babydueSubtext = this.game.add.text(this.game.width*1/3+3, headerOffset + (120 * this.heightScale),'    RACE ');
+        let babydueSubtext = this.game.add.text(this.getLeftOffsetSubText()/*MIN_WIDTH*0.25+80*/, headerOffset + (78 * this.heightScale), '    RACE ');
         babydueSubtext.anchor.set(0.5);
         babydueSubtext.align = 'center';
-        babydueSubtext.font = config.font.title.font;
-        babydueSubtext.fontSize = 260 * this.fontScale;
+        babydueSubtext.font = Config.font.title.font;
+        babydueSubtext.fontSize = 150 * this.fontScale;
         babydueSubtext.fill = '#504c39';
         this.items.push(babydueSubtext)
-	}
-
-	getTopOffset() {
-		// Calculate in function of world height
-		return 100 * this.heightScale
-	}
-
-	getPosition(){
-	    let item = this.items[0];
-	    return [item.x, item.y, item.width, item.height]
+        this.babydueSubtext = babydueSubtext
     }
 
-	destroy() {
-		this.items.forEach(function(navItem, index){
-			navItem.destroy();
-		});
-	}
+    getTopOffset() {
+        // Calculate in function of world height
+        return 50 * this.heightScale
+    }
+
+    getLeftOffsetText() {
+        return Math.max(this.game.width * 0.33, 300)
+    }
+
+    getLeftOffsetSubText() {
+        return Math.max(this.game.width * 0.33, 300)
+    }
+
+    redraw(center = false) {
+        if (false === center) {
+            this.babydueText.x = this.getLeftOffsetText()
+            this.babydueSubtext.x = this.getLeftOffsetSubText()
+        } else {
+            this.babydueText.x = this.game.width * 0.5
+            this.babydueSubtext.x = this.game.width * 0.5
+        }
+    }
+
+    getPosition() {
+        let item = this.items[0];
+        return [item.x, item.y, item.width, item.height]
+    }
+
+    destroy() {
+        this.items.forEach(function (navItem, index) {
+            navItem.destroy();
+        });
+    }
 
 }
 

@@ -1,4 +1,7 @@
-import config from '../../config'
+import Config from '../../config'
+
+const MIN_WIDTH = Config.resolutions[0].width // TODO Use according resolution instead of [0]
+const MIN_HEIGHT = Config.resolutions[0].height
 
 class Menu {
 
@@ -9,8 +12,9 @@ class Menu {
 		this.items = [];
 		this.active = null;
         // this.fontScale = this.game.attr.widthScale || 1;
-        this.fontScale = this.game.attr.heightScale || 1;
-        this.heightScale = this.game.attr.heightScale || 1;
+        // this.heightScale = this.game.attr.heightScale || 1;
+        this.heightScale = 1;
+        this.fontScale =  1;
 
 
 		// Create an isActive property on each element
@@ -32,10 +36,10 @@ class Menu {
 
 		if (this.options.title) {
 			let topOffset = navigationOffset - 40;
-			let text = this.game.add.text(this.game.width*1/3, topOffset, this.options.title + ' ');
+			let text = this.game.add.text(this.getLeftOffset(), topOffset, this.options.title + ' ');
 		    text.anchor.set(0.5);
 		    text.align = 'center';
-		    text.font = config.font.title.font;
+		    text.font = Config.font.title.font;
 		    text.fontSize = 25 * this.fontScale;
 		    text.fill = '#455c3d';
     		text.strokeThickness = 0;
@@ -43,14 +47,14 @@ class Menu {
     		this.items.push(text);
 		}
 
-		this.options.items.forEach(function(navItem,index){
+		this.options.items.forEach((navItem,index) => {
 			let topOffset = navigationOffset + index * 120 * this.heightScale;
-            let text = this.game.add.text(this.game.width*1/3, topOffset, navItem.label + ' ');
+            let text = this.game.add.text(this.getLeftOffset(), topOffset, navItem.label + ' ');
             text.inputEnabled = true;
 		    text.anchor.set(0.5);
 		    text.align = 'center';
-		    text.font = config.font.title.font;
-		    text.fontSize = 100 * this.fontScale;
+		    text.font = Config.font.title.font;
+		    text.fontSize = 80 * this.fontScale;
 		    text.fill = '#e5b900';
 		    text.stroke = '#504c39';
     		text.strokeThickness = 0;
@@ -63,9 +67,24 @@ class Menu {
 		},this);
 	}
 
+	redraw(center = false){
+		this.items.forEach((text) => {
+            if (false === center) {
+                text.x = this.getLeftOffset()
+            } else {
+                text.x = this.game.width * 0.5
+            }
+
+		})
+	}
+
+	getLeftOffset() {
+		return Math.max(this.game.width*0.33, 300)
+	}
+
 	getTopOffset() {
 		// Calculate in function of world height
-		return 470 * this.heightScale
+		return 300 * this.heightScale
 	}
 
 

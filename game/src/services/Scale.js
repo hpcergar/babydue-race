@@ -6,7 +6,9 @@ const MIN_HEIGHT = Config.resolutions[0].height
 
 export default class {
 
-    constructor () {
+    constructor (options) {
+
+        this.minScaleFactor = options.minScaleFactor || Config.scales.minScaleFactor || 1
         // Starts
         this.scaleFactor = {
             width:null,
@@ -18,7 +20,7 @@ export default class {
     resize(scaleManager, parentBounds, force = false, callback = undefined) {
         let scaleX = parentBounds.width / MIN_WIDTH,
             scaleY = parentBounds.height / MIN_HEIGHT,
-            scale = Math.max(Config.scales.minScaleFactor, Math.max(scaleX, scaleY)),
+            scale = Math.max(this.minScaleFactor, Math.max(scaleX, scaleY)),
             width = ~~Math.min(parentBounds.width / scale, MIN_WIDTH),
             height = ~~Math.min(parentBounds.height / scale, MIN_HEIGHT)
 
