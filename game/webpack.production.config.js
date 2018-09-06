@@ -64,7 +64,12 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             {from: 'assets', to: 'assets'}
-        ])
+        ]),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        })
     ],
     module: {
         rules: [
@@ -74,6 +79,7 @@ module.exports = {
             {test: /p2\.js/, use: ['expose-loader?p2']},
 
             {test: /lodash\.js/, use: ['expose-loader?_!lodash']},
+            {test: /jquery\.js/, use: ['expose-loader?$!jquery']},
             {test: /SAT\.js$/, use: ['expose-loader?SAT']},
             {test: /phaser-arcade-slopes\.js$/, use: ['expose-loader?phaserSlopes']}
         ]
