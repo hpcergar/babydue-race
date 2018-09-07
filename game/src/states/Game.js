@@ -48,7 +48,7 @@ export default class extends Phaser.State {
 
         // STATE
         // TODO False on production
-        this.debug = false
+        // this.debug = true
 
         // Score
         this.score = new Score(this.game)

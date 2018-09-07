@@ -95,15 +95,6 @@ export default class extends Phaser.State {
         })
     }
 
-
-    create() {
-        // // // Set image according to text block
-        // const [menuX, menuY, menuWidth, menuHeight] = this.header.getPosition()
-        // this.object.x =  menuX + (300) * this.fontScale
-        // this.object.y =  menuY
-    }
-
-
     startGame() {
         this.state.start('GameStartTransition')
     }

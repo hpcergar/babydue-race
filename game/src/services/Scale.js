@@ -6,7 +6,7 @@ const MIN_HEIGHT = Config.resolutions[0].height
 
 export default class {
 
-    constructor (options) {
+    constructor (options = {}) {
 
         this.minScaleFactor = options.minScaleFactor || Config.scales.minScaleFactor || 1
         // Starts
