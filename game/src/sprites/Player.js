@@ -163,6 +163,10 @@ export default class {
         // Mechanic: drag
         if(this.player.slopeId === SLOPE_TYPE_SLOW && this.player.body.velocity.x !== 0){
             this.player.body.velocity.x = (this.player.body.velocity.x >= 0 ? 1 : -1) * (this.velocity / 8)
+            // Vibration
+            if("vibrate" in window.navigator) {
+                window.navigator.vibrate(100);
+            }
         }
 
         // Animations

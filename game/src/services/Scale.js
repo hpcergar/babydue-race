@@ -6,9 +6,10 @@ const MIN_HEIGHT = Config.resolutions[0].height
 
 export default class {
 
-    constructor (options = {}) {
+    constructor (game, options = {}) {
 
         this.minScaleFactor = options.minScaleFactor || Config.scales.minScaleFactor || 1
+        this.game = game
         // Starts
         this.scaleFactor = {
             width:null,
@@ -45,6 +46,29 @@ export default class {
             if(callback) {
                 callback(width, height)
             }
+        }
+    }
+
+    goFullScreen(pointer, doubleTap) {
+        if(doubleTap){
+            if (this.game.scale.isFullScreen) {
+                this.game.scale.stopFullScreen();
+            }
+            else {
+                this.game.scale.startFullScreen(false);
+            }
+        }
+    }
+
+    handleIncorrect() {
+        if (!this.game.device.desktop) {
+            document.getElementById("turn").style.display = "block";
+        }
+    }
+
+    handleCorrect() {
+        if (!this.game.device.desktop) {
+            document.getElementById("turn").style.display = "none";
         }
     }
 }

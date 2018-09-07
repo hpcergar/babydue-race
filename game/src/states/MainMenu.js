@@ -15,7 +15,7 @@ export default class extends Phaser.State {
     preload() {
         // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
         this.game.renderer.renderSession.roundPixels = true
-        this.scaleService = new Scale({minScaleFactor:0.4})
+        this.scaleService = new Scale(this.game, {minScaleFactor:0.4})
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
         this.scale.setResizeCallback(this.onResize, this);
@@ -63,7 +63,8 @@ export default class extends Phaser.State {
 
         this.mainMenu = new Menu(mainMenuOptions, this.game, this.world);
 
-
+        // Full screen
+        this.game.input.onTap.add(this.scaleService.goFullScreen, this.scaleService);
     }
 
     /**
@@ -94,6 +95,7 @@ export default class extends Phaser.State {
             this.mainMenu.redraw(!this.object.visible)
         })
     }
+
 
     startGame() {
         this.state.start('GameStartTransition')

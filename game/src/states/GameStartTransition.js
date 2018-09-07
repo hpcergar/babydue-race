@@ -24,7 +24,7 @@ export default class extends Phaser.State {
 
     preload() {
 
-        this.scaleService = new Scale()
+        this.scaleService = new Scale(this.game)
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
         this.scale.setResizeCallback(this.onResize, this);
@@ -89,6 +89,9 @@ export default class extends Phaser.State {
         setTimeout(() => {
             this.textPanel.start()
         }, flashDuration)
+
+        // Full screen
+        this.game.input.onTap.add(this.scaleService.goFullScreen, this.scaleService);
     }
 
     /**

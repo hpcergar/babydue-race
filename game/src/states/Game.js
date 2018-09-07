@@ -38,7 +38,7 @@ export default class extends Phaser.State {
     preload() {
 
         this.game.renderer.renderSession.roundPixels = true
-        this.scaleService = new Scale()
+        this.scaleService = new Scale(this.game)
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
         this.scale.setResizeCallback(this.onResize, this);
@@ -105,6 +105,9 @@ export default class extends Phaser.State {
 
         this.game.world.bringToTop(this.player.getObject());
 
+        // Full screen
+        this.game.input.onTap.add(this.scaleService.goFullScreen, this.scaleService);
+
         // Start transition
         // Force update user scale
         this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
@@ -169,6 +172,8 @@ export default class extends Phaser.State {
             this.countDownNumber(2, () =>
                 this.countDownNumber(1, () =>
                     this.countDownNumber(this.game.translate('Despegue'), () => {
+                        // Remove full screen handler
+                        this.game.input.onTap.removeAll()
                         this.player.run()
                 }))))
     }
