@@ -181,6 +181,8 @@ export default class extends Phaser.State {
             this.collectibles.update(this.player.getObject())
             this.player.update(hitGround)
             this.score.update()
+        } else if(this.textPanel && this.textPanel.update){
+            this.textPanel.update()
         }
 
         this.layers[BACKGROUND_LAYER].update()
@@ -191,6 +193,8 @@ export default class extends Phaser.State {
         if (this.player.isPlayable && this.player.isBeyondEndPoint()) {
             this.startEndAnimation()
         }
+
+
     }
 
     /**
@@ -279,6 +283,7 @@ export default class extends Phaser.State {
                     // 5. Fade out overlay & start door transition
                     this.overlay.fade(1000, () => this.startDoorTransition(), 0)
                 }, {
+                    shouldWaitForUser:true,
                     offsetX: this.game.camera.x,
                     destroyOnComplete: true
                 })

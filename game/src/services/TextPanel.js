@@ -1,3 +1,5 @@
+import Input from "./Input";
+
 export default class {
 
     constructor(game, texts, callback = null, options = {}) {
@@ -9,6 +11,9 @@ export default class {
         this.offsetX = options.offsetX || 0
         this.offsetY = options.offsetY || 0
         this.destroyOnComplete = options.destroyOnComplete || false
+        this.input = new Input(this.game)
+        // User input control
+        this.inputIsDown = false
 
         this.textsIndex = 0
 
@@ -53,12 +58,16 @@ export default class {
         this.nextPage();
     }
 
-    update(input = false) {
+    update() {
 
         // Handle user input
-        if (!input) return;
+        if(!this.inputIsDown && this.input.isDown()){
+            this.inputIsDown = !this.inputIsDown
 
-        this.waitingForUser ? this.nextPage() : this.fullPage()
+            this.waitingForUser ? this.nextPage() : this.fullPage()
+        } else if (this.inputIsDown && !this.input.isDown()){
+            this.inputIsDown = !this.inputIsDown
+        }
     }
 
 

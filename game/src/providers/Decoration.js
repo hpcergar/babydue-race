@@ -23,5 +23,7 @@ export default class {
         map.createFromObjects(layerName, 'Flower-orange-right-small', 'autumn-objects', 19, true, false, layer);
         map.createFromObjects(layerName, 'Little-plant-orange', 'autumn-objects', 18, true, false, layer);
         map.createFromObjects(layerName, 'Little-plant-yellow', 'autumn-objects', 24, true, false, layer);
+        map.createFromObjects(layerName, 'Tree-florished', 'autumn-objects', 28, true, false, layer);
+        map.createFromObjects(layerName, 'Tree-green-florished', 'autumn-objects', 34, true, false, layer);
     }
 }

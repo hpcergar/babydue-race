@@ -18,14 +18,13 @@ export default class extends Phaser.State {
         this.assetScale = 64;
         this.prefabs = this.game.attr.prefabs
         this.game.plugins.add(Phaser.Plugin.ArcadeSlopes);
-
-        this.input = new Input(this.game)
     }
 
     preload() {
 
         this.scaleService = new Scale(this.game)
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.scale.fullScreenScaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
         this.scale.setResizeCallback(this.onResize, this);
         this.scale.refresh();
@@ -92,9 +91,6 @@ export default class extends Phaser.State {
         // Start transition
         this.camera.flash('#000000', flashDuration);
 
-        // User input control
-        this.inputIsDown = false
-
         // Force update user scale
         this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
 
@@ -130,11 +126,6 @@ export default class extends Phaser.State {
         // To keep player on the ground
         this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer);
 
-        if(!this.inputIsDown && this.input.isDown()){
-            this.inputIsDown = !this.inputIsDown
-            this.textPanel.update(true)
-        } else if (this.inputIsDown && !this.input.isDown()){
-            this.inputIsDown = !this.inputIsDown
-        }
+        this.textPanel.update()
     }
 }
