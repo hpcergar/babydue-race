@@ -2,78 +2,132 @@ import HighscoresService from '../services/HighscoresService';
 import ScoreService from '../services/Score';
 import Input from '../services/Input'
 import Config from '../config'
+import Scale from "../services/Scale";
 
 export default class extends Phaser.State {
 
-	create() {
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    create() {
+        // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        this.game.renderer.renderSession.roundPixels = true
+        this.scaleService = new Scale(this.game, {minScaleFactor: 0.4})
+        this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.scale.align(true, true);
+        this.scale.setResizeCallback(this.onResize, this);
+        this.scale.refresh();
 
         this.input = new Input(this.game)
 
-		// Set the game background colour
-		this.game.stage.backgroundColor = Config.background.color;
-        this.fontScale = this.game.attr.widthScale || 1;
-        this.heightScale = this.game.attr.heightScale || 1;
-		this.createHeader();
+        // Set the game background colour
+        this.game.stage.backgroundColor = Config.background.color;
+        this.fontScale = 1;
+        this.heightScale = 1;
+        this.renderHeader();
 
 
-		// this.font = 'arcade';
-		this.font = 'Press Start 2P';
+        // this.font = 'arcade';
+        this.font = 'Press Start 2P';
 
 
-		this.loadingText = this.game.add.text(this.game.width/2, 200, this.game.translate('Loading...'));
-	    this.loadingText.anchor.set(0.5);
+        this.loadingText = this.game.add.text(this.game.width / 2, 200, this.game.translate('Loading...'));
+        this.loadingText.anchor.set(0.5);
         this.loadingText.font = this.font
-	    this.loadingText.fontSize = 40 * this.fontScale;
-	    this.loadingText.fill = '#504c39';	   
+        this.loadingText.fontSize = 40 * this.fontScale;
+        this.loadingText.fill = '#504c39';
 
-	    this.scoreService = new ScoreService();
+        this.scoreService = new ScoreService();
         this.highscoresService = new HighscoresService();
-		let results = this.highscoresService.getTop10();
-		this.renderHighScores(results);
-	}
+        this.results = this.highscoresService.getTop10();
+        this.renderHighScores(this.results);
 
-	update() {
+        this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
+    }
+
+    /**
+     *
+     * @param scaleManager
+     * @param parentBounds
+     * @param force
+     */
+    onResize(scaleManager, parentBounds, force = false) {
+        this.scaleService.resize(scaleManager, parentBounds, force, (width, height) => {
+            this.renderHeader(width, height);
+            this.renderHighScores(this.results, width, height);
+        })
+    }
+
+    update() {
         if (this.input.isDown()) {
             this.game.state.start('MainMenu');
         }
-	}
+    }
 
-	createHeader() {
-		let headerOffset = 80 * this.heightScale;
+    renderHeader(width = this.game.width, height = this.game.height, scale = 1) {
+        let headerOffset = 80 * this.heightScale;
 
-		let text = this.game.add.text(this.game.width/2, headerOffset,'High Scores');
-	    text.anchor.set(0.5);
-	    text.align = 'center';
-	    text.font = this.font
-	    text.fontSize = 20 * this.fontScale;
-	    text.fill = '#FFFFFF';
-	    text.stroke = '#504c39';
-   		text.strokeThickness = 3 * this.fontScale;
-	}
+        if(this.header && this.header.visible === false){
+            this.header.destroy()
+            this.header = null
+        }
 
-	renderHighScores(toplist) {
-		this.loadingText.destroy();
-		
-		let topListOffset = 90 * this.heightScale;
-		let text = '';
-		_.each(toplist,_.bind((item,index) => {
-			let value = (index+1)+'. ' + this.scoreService.pad(item.score) + "\t" + item.name;
+        if (!this.header) {
+            this.header = this.game.add.text(width * 0.5, headerOffset, '<     High Scores  ');
+        }
+
+        this.header.x = width * 0.5;
+        this.header.y = headerOffset;
+        this.header.anchor.set(0.5);
+        this.header.align = 'center';
+        this.header.font = Config.font.title.font
+        this.header.fontSize = 90 * this.fontScale;
+        this.header.fill = '#504c39';
+        this.header.strokeThickness = 0;
+
+        if(this.header.width + 20 > width) {
+            this.renderHeader(width, height, scale*0.8)
+        }
+    }
+
+    renderHighScores(toplist, width = this.game.width, height = this.game.height, scale = 1) {
+        if (this.loadingText) {
+            this.loadingText.destroy();
+        }
+
+        let topListOffset = 90 * this.heightScale;
+        let text = '';
+        _.each(toplist, _.bind((item, index) => {
+            let value = (index + 1) + '. ' + this.scoreService.pad(item.score) + "\t" + item.name + '  ';
             text += "\n" + value;
-		}));
+        }));
 
-		let highscores = this.game.add.text(this.game.width/2, topListOffset, text,
-            {
-                // font: '40px ' + this.font, // for arcade
-                // font: '30px ' + this.font,
-                font: (14 * this.fontScale) + 'px ' + this.font,
-                fill: '#504c39',
-                align: 'left'
-            }
-        );
+        if(this.highscores && this.highscores.visible === false){
+            this.highscores.destroy()
+            this.highscores = null
+        }
 
-        highscores.lineSpacing = 10 * this.heightScale; // so it will move with camera
-        highscores.fixedToCamera = true; // so it will move with camera
-        highscores.anchor.setTo(0.5, 0);
-	}
+        if (!this.highscores) {
+            this.highscores = this.game.add.text();
+            this.highscores.checkWorldBounds = true
+            this.highscores.events.onOutOfBounds.add(() => {
+                this.renderHighScores(toplist, width, height, scale*0.8)
+            }, this);
+        }
+
+        this.highscores.x = width / 2
+        this.highscores.y = topListOffset
+        this.highscores.text = text
+        this.highscores.font = Config.font.title.font;
+        this.highscores.fontSize = 50 * scale;
+        this.highscores.align = 'left';
+        this.highscores.fill = '#e5b900';
+        this.highscores.stroke = '#504c39';
+        this.highscores.strokeThickness = 4;
+
+        this.highscores.lineSpacing = 10 * scale;
+        this.highscores.fixedToCamera = true; // so it will move with camera
+        this.highscores.anchor.setTo(0.5, 0);
+
+        if(this.highscores.width + 20 > width || this.highscores.height + 20 > height) {
+            this.renderHighScores(toplist, width, height, scale*0.8)
+        }
+    }
 }

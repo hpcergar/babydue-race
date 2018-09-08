@@ -8,6 +8,9 @@ export default class {
 
     constructor (game, options = {}) {
 
+        // screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation;
+        // screen.lockOrientationUniversal("landscape-primary")
+
         this.minScaleFactor = options.minScaleFactor || Config.scales.minScaleFactor || 1
         this.game = game
         // Starts
@@ -25,11 +28,7 @@ export default class {
             width = ~~Math.min(parentBounds.width / scale, MIN_WIDTH),
             height = ~~Math.min(parentBounds.height / scale, MIN_HEIGHT)
 
-        if(width) {
-            console.log('width', width)
-        } else {
-            console.log('no width')
-        }
+
         if(this.scaleFactor.width !== width || this.scaleFactor.height !== height){
 
             scaleManager.setGameSize(width, height);
@@ -37,7 +36,7 @@ export default class {
             if(this.scaleFactor.scale !== scale) {
                 scaleManager.setUserScale(scale, scale, 0, 0, force || false, force || false);
                 this.scaleFactor.scale = scale
-                console.log('y', scaleManager.game.camera.y)
+                //console.log('y', scaleManager.game.camera.y)
             }
 
             this.scaleFactor.width = width
