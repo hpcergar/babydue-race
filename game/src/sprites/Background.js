@@ -3,11 +3,8 @@
 export default class {
     constructor(game, map) {
         this.game = game
-        this.game.stage.backgroundColor = '#787878';
-        // this.backgroundTilesprite = this.game.add.tileSprite(0, 0, 2048, 1024, 'background');
-        this.backgroundTilesprite = this.game.add.sprite(0, -50, 'background');
-        // this.backgroundTilesprite.width = 2048;
-        // this.backgroundTilesprite.height = 1024;
+        this.game.stage.backgroundColor = '#db4e16';
+        this.backgroundTilesprite = this.game.add.sprite(0, -200, 'background');
         this.backgroundTilesprite.width = 1350;
         this.backgroundTilesprite.height = 900;
 

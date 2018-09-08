@@ -47,12 +47,12 @@ export default class {
     redraw() {
         if (this.label && this.scoretext) {
             const [labelX, labelY] = this.getLabelPosition()
-            this.label.x = labelX
-            this.label.y = labelY
+            this.label.cameraOffset.x = labelX
+            this.label.cameraOffset.y = labelY
 
             const [scoreX, scoreY] = this.getScorePosition()
-            this.scoretext.x = scoreX
-            this.scoretext.y = scoreY
+            this.scoretext.cameraOffset.x = scoreX
+            this.scoretext.cameraOffset.y = scoreY
         }
     }
 

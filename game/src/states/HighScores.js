@@ -55,12 +55,6 @@ export default class extends Phaser.State {
         })
     }
 
-    update() {
-        if (this.input.isDown()) {
-            this.game.state.start('MainMenu');
-        }
-    }
-
     renderHeader(width = this.game.width, height = this.game.height, scale = 1) {
         let headerOffset = 80 * this.heightScale;
 
@@ -70,7 +64,10 @@ export default class extends Phaser.State {
         }
 
         if (!this.header) {
-            this.header = this.game.add.text(width * 0.5, headerOffset, '<     High Scores  ');
+            this.header = this.game.add.text(width * 0.5, headerOffset, '←  High Scores  ');
+            // Go to home
+            this.header.inputEnabled = true;
+            this.header.events.onInputUp.add(() => this.game.state.start('MainMenu'));
         }
 
         this.header.x = width * 0.5;

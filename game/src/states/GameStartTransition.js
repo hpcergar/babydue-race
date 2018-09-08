@@ -30,6 +30,19 @@ export default class extends Phaser.State {
         this.scale.setResizeCallback(this.onResize, this);
         this.scale.refresh();
 
+        if (!this.game.device.desktop)                                     //In mobile force the orientation
+        {
+            this.scale.forceOrientation(true, false);
+            this.scale.enterIncorrectOrientation.add(() => {
+                this.scaleService.disableFullScreen()
+                this.resize()
+            });
+            this.scale.leaveIncorrectOrientation.add(() => {
+                this.scaleService.enableFullScreen()
+                this.resize()
+            });
+        }
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //

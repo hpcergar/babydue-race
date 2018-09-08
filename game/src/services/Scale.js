@@ -13,6 +13,9 @@ export default class {
 
         this.minScaleFactor = options.minScaleFactor || Config.scales.minScaleFactor || 1
         this.game = game
+        this.allowFullScreen = options.allowFullScreen || true
+        this.originalAllowFullScreen = this.allowFullScreen
+
         // Starts
         this.scaleFactor = {
             width:null,
@@ -53,10 +56,18 @@ export default class {
             if (this.game.scale.isFullScreen) {
                 this.game.scale.stopFullScreen();
             }
-            else {
+            else if(this.allowFullScreen){
                 this.game.scale.startFullScreen(false);
             }
         }
+    }
+
+    disableFullScreen() {
+        this.allowFullScreen = false
+    }
+
+    enableFullScreen() {
+        this.allowFullScreen = this.originalAllowFullScreen
     }
 
     handleIncorrect() {

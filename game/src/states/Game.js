@@ -23,7 +23,6 @@ const FRONT_LAYER = 'Foreground';
 export default class extends Phaser.State {
     init() {
 
-        this.stage.backgroundColor = '#000000'
         this.assetScale = 64;
         this.prefabs = this.game.attr.prefabs
         this.layers = []
@@ -40,15 +39,34 @@ export default class extends Phaser.State {
         this.game.renderer.renderSession.roundPixels = true
         this.scaleService = new Scale(this.game)
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+        this.scale.fullScreenScaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.align(true, true);
         this.scale.setResizeCallback(this.onResize, this);
         this.scale.refresh();
+
+        if (!this.game.device.desktop)                                     //In mobile force the orientation
+        {
+            this.scale.forceOrientation(true, false);
+            this.scale.enterIncorrectOrientation.add(() => {
+                this.scaleService.disableFullScreen()
+                this.resize()
+            });
+            this.scale.leaveIncorrectOrientation.add(() => {
+                this.scaleService.enableFullScreen()
+                this.resize()
+            });
+        }
 
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // STATE
         // TODO False on production
-        // this.debug = true
+        this.debug = false
+
+        if(this.debug) {
+            this.game.time.advancedTiming = true;
+        }
+
 
         // Score
         this.score = new Score(this.game)
@@ -110,7 +128,7 @@ export default class extends Phaser.State {
 
         // Start transition
         // Force update user scale
-        this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
+        this.resize()
         this.overlay.fade(1000, () => {
             this.score.show()
             this.game.world.bringToTop(this.layers[FRONT_LAYER])
@@ -122,6 +140,10 @@ export default class extends Phaser.State {
             }
 
         })
+    }
+
+    resize() {
+        this.onResize(this.game.scale, new Phaser.Rectangle(0, 0, this.game.width, this.game.height), true)
     }
 
     /**
@@ -144,8 +166,15 @@ export default class extends Phaser.State {
     }
 
 
-    update() {
+    render() {
+        // TODO Remove
+        if(this.debug) {
+            this.game.debug.text('FPS: ' + this.game.time.fps || 'FPS: --', 40, 40, "#00ff00");
+            this.game.debug.text( "Game width: " + this.game.width + " height: " + this.game.height, 50, 50 );
+        }
+    }
 
+    update() {
         let hitGround = this.game.physics.arcade.collide(this.player.getObject(), this.mainLayer, (player, ground) => this.player.setCollisionData(ground));
 
         if (!this.isEndAnimation) {
@@ -173,7 +202,7 @@ export default class extends Phaser.State {
                 this.countDownNumber(1, () =>
                     this.countDownNumber(this.game.translate('Despegue'), () => {
                         // Remove full screen handler
-                        this.game.input.onTap.removeAll()
+                        this.scaleService.disableFullScreen()
                         this.player.run()
                 }))))
     }
@@ -192,6 +221,8 @@ export default class extends Phaser.State {
         numberText.fill = '#cc4c28';
         numberText.fixedToCamera = true;
         numberText.alpha = 0;
+        numberText.stroke = '#504c39';
+        numberText.strokeThickness = 1;
 
         this.add.tween(numberText).to({ alpha: 1}, 500, Phaser.Easing.Back.Out, true);
         let scaleTweenIn = this.add.tween(numberText.scale).to({ x: 2, y: 2}, 500, Phaser.Easing.Back.Out)
