@@ -37,7 +37,9 @@ function handleUpsert(request, response, errorCode){
     }
 
     let user = users.getUserByEmail(email)
-    user.score = request.body.score;
+
+    user.lastScore = request.body.score;
+    user.score = !user.score || user.score < user.lastScore ? user.lastScore : user.score
     user.email = email;
 
 

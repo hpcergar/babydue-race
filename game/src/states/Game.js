@@ -251,9 +251,7 @@ export default class extends Phaser.State {
         // Push new score to API
         let bestScore = this.highscoresService.getUserScore()
         let position = this.highscoresService.getScorePosition(score)
-        if (!bestScore || score > bestScore) {
-            this.highscoresService.saveScore(score);
-        }
+        this.highscoresService.saveScore(score);
 
         // Score text & position if <= 10th
         let text = this.getEndText(score, position, bestScore)
@@ -331,7 +329,7 @@ export default class extends Phaser.State {
      */
     getEndText(score, position, bestScore) {
         let text = this.game.translate('Congratulations').replace(':score', score),
-            isBestScore = bestScore && score >= bestScore
+            isBestScore = (bestScore && score >= bestScore) || !bestScore
         ;
 
         if (false !== position && isBestScore) {

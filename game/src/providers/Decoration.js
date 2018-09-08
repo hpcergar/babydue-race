@@ -16,5 +16,12 @@ export default class {
         map.createFromObjects(layerName, 'Mech-Slow', 'autumn-objects', 10, true, false, layer);
         map.createFromObjects(layerName, 'Door', 'autumn-objects', 4, true, false, layer);
         map.createFromObjects(layerName, 'DoorMask', 'autumn-objects', 29, true, false, layer);
+
+        map.createFromObjects(layerName, 'Flower-yellow-small', 'autumn-objects', 13, true, false, layer);
+        map.createFromObjects(layerName, 'Flower-yellow-right-small', 'autumn-objects', 25, true, false, layer);
+        map.createFromObjects(layerName, 'Flower-orangegreen-small', 'autumn-objects', 7, true, false, layer);
+        map.createFromObjects(layerName, 'Flower-orange-right-small', 'autumn-objects', 19, true, false, layer);
+        map.createFromObjects(layerName, 'Little-plant-orange', 'autumn-objects', 18, true, false, layer);
+        map.createFromObjects(layerName, 'Little-plant-yellow', 'autumn-objects', 24, true, false, layer);
     }
 }
