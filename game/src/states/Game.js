@@ -62,8 +62,9 @@ export default class extends Phaser.State {
         // STATE
         // TODO False on production
         this.debug = false
+        this.debugFps = true
 
-        if(this.debug) {
+        if(this.debug || this.debugFps) {
             this.game.time.advancedTiming = true;
         }
 
@@ -157,7 +158,6 @@ export default class extends Phaser.State {
             console.log('scaled up (width, height)')
             let layersMap = this.tilemapProvider.getLayers()
             layersMap['Ground'].resize(width, height)
-            layersMap['Ground background'].resize(width, height)
 
             this.overlay.resize()
             this.mainLayer.resizeWorld()
@@ -168,7 +168,7 @@ export default class extends Phaser.State {
 
     render() {
         // TODO Remove
-        if(this.debug) {
+        if(this.debug || this.debugFps) {
             this.game.debug.text('FPS: ' + this.game.time.fps || 'FPS: --', 40, 40, "#00ff00");
             this.game.debug.text( "Game width: " + this.game.width + " height: " + this.game.height, 50, 50 );
         }
@@ -302,9 +302,9 @@ export default class extends Phaser.State {
         // Stop player in front of the door
         this.player.goToPoint('playerInFrontOfDoor', () => {
             // Display layers accordingly
+            this.game.world.bringToTop(this.tilemapProvider.getGroundLayer())
             this.game.world.bringToTop(this.door.getObject())
             this.game.world.bringToTop(this.player.getObject())
-            this.game.world.bringToTop(this.tilemapProvider.getGroundLayer())
             this.game.world.bringToTop(this.layers[FRONT_LAYER])
 
             this.game.camera.follow(null)

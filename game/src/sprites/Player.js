@@ -32,7 +32,7 @@ export default class {
 
         // Game key points
         const [startX, startY] = this.debug ? this.points.getDebugPoint() : this.points.getStartPoint()
-        // this.debug = false // TODO Remove
+        this.debug = false // TODO Remove
         console.log(startX)
         const [endX, endY] = this.points.getEndPoint()
         const [speedUpX, speedUpY] = this.points.getSpeedUpPoint()

@@ -16,9 +16,6 @@ export default class extends Phaser.State {
     //
     // load your assets
     //
-      // TODO Test & fallback if false
-      orientation();
-
       this.game.attr.prefabs = this.game.attr.assetProvider.preloadSubassets();
       this.game.attr.data = this.game.attr.prefabs.find(prefab => prefab.type === TYPE_TILEMAP_JSON).getData()
       this.game.attr.playerPoints = this.game.attr.data.layers.find(layer => layer.name === 'PlayerPoints').objects
@@ -26,9 +23,9 @@ export default class extends Phaser.State {
 
   create () {
     // TODO Undo, swap lines
-      this.state.start('MainMenu')
+    //   this.state.start('MainMenu')
       // this.state.start('HighScores')
-      // this.state.start('Game')
+      this.state.start('Game')
       // this.state.start('GameStartTransition')
   }
 }

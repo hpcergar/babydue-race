@@ -113,7 +113,6 @@ export default class extends Phaser.State {
         this.scaleService.resize(scaleManager, parentBounds, force, (width, height) => {
             let layersMap = this.tilemapProvider.getLayers()
             layersMap['Ground'].resize(width, height)
-            layersMap['Ground background'].resize(width, height)
 
             this.overlay.resize()
             this.mainLayer.resizeWorld()

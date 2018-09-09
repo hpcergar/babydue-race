@@ -44,6 +44,7 @@ export default class {
                     map.setCollision(collision_tiles, true, layer.name);
 
                     game.slopes.convertTilemapLayer(this.layers[layer.name], 'ninja', firstGid ? firstGid.value : undefined)
+                    this.layers[layer.name].visible = false
 
                 }
             })
@@ -55,10 +56,6 @@ export default class {
         if(this.mainLayer !== undefined){
             this.layers[this.mainLayer].resizeWorld()
         }
-    }
-
-    handleBackground(){
-
     }
 
     getLayers(){
