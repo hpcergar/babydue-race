@@ -3,42 +3,60 @@
 
 
 # Build public (calendar) webpack
+echo "Building /public"
 npm run build
 
 # Build game webpack
+echo "Building /game"
 cd game && npm run build && cd ..
 
-# TODO copy files to target dist
 
 # Go down a folder, TODO To remove if we fill a /dist folder before
 cd ..
 
 name=$(date '+%Y%m%d%H%M%S').babydue-race
+#name=20180909190723.babydue-race
+dirName=dist/${name}
 nameZip=$name.tar.gz
-tar -zcvf "$nameZip" babydue-race
+
+echo "Creating babydue-race/${dirName}"
+mkdir -p babydue-race/${dirName}
+
+# Copy to dist
+echo "Copying node & /public to babydue-race/${dirName}"
+rsync -av --progress babydue-race/ babydue-race/${dirName}/ --exclude game --exclude data --exclude dist --exclude .git --exclude deploy/deploy.sh --exclude config --exclude cron
+
+mkdir -p babydue-race/${dirName}/game
+
+echo "Copying game to babydue-race/${dirName}/game"
+rsync -av --progress babydue-race/game/build/ babydue-race/${dirName}/game/
+
+cd babydue-race/dist
+
+echo "Tarring ${name} to ${nameZip}"
+tar -zcvf "$nameZip" ${name}
 
 
-# TODO Send by ssh
-scp -pr BABYDUE_RACE_LOGIN
+# Remote vars
+remoteRoot=/var/www/babydue-race
+remoteDirVersions=${remoteRoot}/www/versions
 
-# TODO Ssh to host
-ssh BABYDUE_RACE_LOGIN:BABYDUE_RACE_PASSWORD@BABYDUE_RACE_HOST:/var/www/babydue-race
+# Send by ssh
+echo "Sending tar by ssh: sshpass -p ${BABYDUE_RACE_PASSWORD} scp -p ${nameZip} ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST}:/var/www/babydue-race/www/versions"
+sshpass -p ${BABYDUE_RACE_PASSWORD} scp -p ${nameZip} ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST}:/var/www/babydue-race/www/versions
 
-# TODO Untar
-tar -zxvf "$nameZip" "$name"
+echo "Uncompressing"
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteDirVersions} && tar -zxvf ${nameZip} ${name} && rm -Rf ${nameZip}"
 
-# TODO npm install?
+echo "Running npm install"
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteDirVersions}/${name} && sudo npm install"
+
+# Config symlink
+echo "Setting up symlinks"
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteDirVersions}/${name} && sh deploy/symlinks.sh ${remoteRoot}"
+# sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd /var/www/babydue-race/www/20180909193327.babydue-race && sh deploy/symlinks.sh"
+
+# latest symlink to
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www && ln -fs ${remoteDirVersions}/${name} current"
 
 
-# TODO
-
-#tar -zcvf "$(date '+%Y%m%d%H%M%S')_babydue-race.tar.gz" .
-
-#echo "Adding symlinks to json data\n";
-#cd $OPENSHIFT_REPO_DIR
-#ln -s $OPENSHIFT_DATA_DIR/bets.json $OPENSHIFT_REPO_DIR/data/bets.json
-#ln -s $OPENSHIFT_DATA_DIR/users.json $OPENSHIFT_REPO_DIR/data/users.json
-#ln -s $OPENSHIFT_DATA_DIR/log $OPENSHIFT_REPO_DIR/data/log
-#
-#echo "Adding symlinks to config files\n";
-#ln -s $OPENSHIFT_DATA_DIR/config.js $OPENSHIFT_REPO_DIR/config/config.js

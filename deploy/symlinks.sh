@@ -1,10 +1,31 @@
 #!/bin/sh
 
-echo "Adding symlinks to json data\n";
-cd $OPENSHIFT_REPO_DIR
-ln -s $OPENSHIFT_DATA_DIR/bets.json $OPENSHIFT_REPO_DIR/data/bets.json
-ln -s $OPENSHIFT_DATA_DIR/users.json $OPENSHIFT_REPO_DIR/data/users.json
-ln -s $OPENSHIFT_DATA_DIR/log $OPENSHIFT_REPO_DIR/data/log
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied"
+    exit 1
+fi
 
-echo "Adding symlinks to config files\n";
-ln -s $OPENSHIFT_DATA_DIR/config.js $OPENSHIFT_REPO_DIR/config/config.js
+if [ -z "$1" ]
+  then
+    echo "No argument supplied"
+    exit 1
+fi
+
+# CWD/versions/www
+dataDir=$1/data
+
+echo "dataDir is ${dataDir}"
+
+echo "Adding symlinks to json data";
+mkdir -p data
+ln -sf ${dataDir}/bets.json ./data/bets.json
+ln -sf ${dataDir}/users.json ./data/users.json
+ln -sf ${dataDir}/winner.json ./data/winner.json
+ln -sf ${dataDir}/log ./data/log
+
+echo "Adding symlinks to config files";
+mkdir -p config
+ln -sf ${dataDir}/config.js ./config/config.js
+
+
