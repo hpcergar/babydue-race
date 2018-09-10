@@ -66,7 +66,7 @@ define(function (require) {
                 this.datepicker = this.$el.datepicker({
                     numberOfMonths: this.calendarNumberOfMonths,
                     firstDay: 1, // Start with Monday
-                    minDate: new Date('2018-09-08'),
+                    minDate: new Date('2018-09-10'),
                     maxDate: new Date('2018-10-28'),
                     dayNamesMin: t('calendar.dayNamesMin').split(','),
 

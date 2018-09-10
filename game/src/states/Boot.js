@@ -20,7 +20,7 @@ export default class extends Phaser.State {
             })
         }
 
-        let text = this.add.text(this.world.centerX, this.world.centerY, this.game.translate('Loading...'), { font: '16px Arial', fill: '#dddddd', align: 'center' })
+        let text = this.add.text(this.world.centerX, this.world.centerY, this.game.translate('Loading...'), { font: '60px Arial', fill: '#dddddd', align: 'center' })
         text.anchor.setTo(0.5, 0.5)
 
         this.game.attr.assetProvider = new AssetProvider(this.game, config.scales.default, config.assets.prefixes)

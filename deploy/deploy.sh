@@ -57,6 +57,8 @@ sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOS
 # sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd /var/www/babydue-race/www/20180909193327.babydue-race && sh deploy/symlinks.sh"
 
 # latest symlink to
-sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www && ln -fs ${remoteDirVersions}/${name} current"
+echo "cd ${remoteRoot}/www && ln -sf ${remoteDirVersions}/${name} current"
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www && ln -sfn ${remoteDirVersions}/${name} current"
 
 
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www/current && pm2 restart ecosystem.config.js --env production"

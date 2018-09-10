@@ -62,7 +62,7 @@ export default class extends Phaser.State {
         // STATE
         // TODO False on production
         this.debug = false
-        this.debugFps = true
+        this.debugFps = false
 
         if(this.debug || this.debugFps) {
             this.game.time.advancedTiming = true;
