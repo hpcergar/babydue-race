@@ -7,6 +7,7 @@ module.exports = {
         },
         env_production : {
             NODE_ENV: 'production'
-        }
+        },
+        cwd: "/var/www/babydue-race/www/current"
     }]
 };

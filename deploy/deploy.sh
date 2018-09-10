@@ -61,4 +61,4 @@ echo "cd ${remoteRoot}/www && ln -sf ${remoteDirVersions}/${name} current"
 sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www && ln -sfn ${remoteDirVersions}/${name} current"
 
 
-sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www/current && pm2 restart ecosystem.config.js --env production"
+sshpass -p ${BABYDUE_RACE_PASSWORD} ssh ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST} "cd ${remoteRoot}/www/current && pm2 restart ecosystem.config.js --env production --update-env"
