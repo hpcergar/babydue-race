@@ -37,6 +37,7 @@ export default class extends Phaser.State {
     preload() {
 
         this.game.renderer.renderSession.roundPixels = true
+        this.game.time.desiredFps = 60;
         this.scaleService = new Scale(this.game)
         this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
         this.scale.fullScreenScaleMode = Phaser.ScaleManager.USER_SCALE;
@@ -57,14 +58,17 @@ export default class extends Phaser.State {
             });
         }
 
+        // Add callback to adjust fps if slower
+        this.game.fpsProblemNotifier.add(this.handleFpsProblem, this);
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // STATE
         // TODO False on production
         this.debug = false
-        this.debugFps = true
+        this.debugFps = false
 
-        if(this.debug || this.debugFps) {
+        if (this.debug || this.debugFps) {
             this.game.time.advancedTiming = true;
         }
 
@@ -133,7 +137,7 @@ export default class extends Phaser.State {
         this.overlay.fade(1000, () => {
             this.score.show()
             this.game.world.bringToTop(this.layers[FRONT_LAYER])
-            if(this.debug) {
+            if (this.debug) {
                 this.player.run()
             } else {
                 // Normal flow
@@ -141,6 +145,12 @@ export default class extends Phaser.State {
             }
 
         })
+    }
+
+    handleFpsProblem() {
+        console.log('Desired fps', this.game.time.desiredFps, 'Suggested fps', this.game.time.suggestedFps)
+        this.game.time.desiredFps = 40;
+        this.game.forceSingleUpdate = false;
     }
 
     resize() {
@@ -168,9 +178,14 @@ export default class extends Phaser.State {
 
     render() {
         // TODO Remove
-        if(this.debug || this.debugFps) {
+        if (this.debug || this.debugFps) {
             this.game.debug.text('FPS: ' + this.game.time.fps || 'FPS: --', 40, 40, "#00ff00");
-            this.game.debug.text( "Game width: " + this.game.width + " height: " + this.game.height, 50, 50 );
+            // this.game.debug.text("Game width: " + this.game.width + " height: " + this.game.height, 50, 50);
+            if (this.game.time.suggestedFps !== null)
+            {
+                this.game.debug.text('suggested FPS: ' + game.time.suggestedFps, 2, 28, "#00ff00");
+                this.game.debug.text('desired FPS: ' + game.time.desiredFps, 2, 42, "#00ff00");
+            }
         }
     }
 
@@ -181,7 +196,7 @@ export default class extends Phaser.State {
             this.collectibles.update(this.player.getObject())
             this.player.update(hitGround)
             this.score.update()
-        } else if(this.textPanel && this.textPanel.update){
+        } else if (this.textPanel && this.textPanel.update) {
             this.textPanel.update()
         }
 
@@ -208,7 +223,7 @@ export default class extends Phaser.State {
                         // Remove full screen handler
                         this.scaleService.disableFullScreen()
                         this.player.run()
-                }))))
+                    }))))
     }
 
     /**
@@ -217,7 +232,7 @@ export default class extends Phaser.State {
      * @param callback
      */
     countDownNumber(number, callback) {
-        let numberText = this.game.add.text(this.game.width/2, this.game.height/2, number);
+        let numberText = this.game.add.text(this.game.width / 2, this.game.height / 2, number);
         numberText.font = 'Press Start 2P';
         numberText.fontSize = 30;
         numberText.anchor.set(0.5);
@@ -228,11 +243,15 @@ export default class extends Phaser.State {
         numberText.stroke = '#504c39';
         numberText.strokeThickness = 1;
 
-        this.add.tween(numberText).to({ alpha: 1}, 500, Phaser.Easing.Back.Out, true);
-        let scaleTweenIn = this.add.tween(numberText.scale).to({ x: 2, y: 2}, 500, Phaser.Easing.Back.Out)
+        this.add.tween(numberText).to({alpha: 1}, 500, Phaser.Easing.Back.Out, true);
+        let scaleTweenIn = this.add.tween(numberText.scale).to({x: 2, y: 2}, 500, Phaser.Easing.Back.Out)
         scaleTweenIn.onComplete.addOnce(() => {
             setTimeout(() => {
-                let scaleTweenOut = this.add.tween(numberText).to({ width: numberText.width*3, height: numberText.height*3, alpha: 0}, 300, Phaser.Easing.Circular.Out)
+                let scaleTweenOut = this.add.tween(numberText).to({
+                    width: numberText.width * 3,
+                    height: numberText.height * 3,
+                    alpha: 0
+                }, 300, Phaser.Easing.Circular.Out)
                 scaleTweenOut.onComplete.addOnce(() => {
                     numberText.kill();
                     callback()
@@ -283,7 +302,7 @@ export default class extends Phaser.State {
                     // 5. Fade out overlay & start door transition
                     this.overlay.fade(1000, () => this.startDoorTransition(), 0)
                 }, {
-                    shouldWaitForUser:true,
+                    shouldWaitForUser: true,
                     offsetX: this.game.camera.x,
                     destroyOnComplete: true
                 })
