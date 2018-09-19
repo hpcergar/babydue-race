@@ -51,6 +51,8 @@ define([], function () {
 
         "Bet saved": "Pronostic sauvegardé",
         "Error saving bet": "Erreur lors de la sauvegarde du pronostic",
+
+        "HomeMenu": "Retour à l'accueil"
     }
 
 });

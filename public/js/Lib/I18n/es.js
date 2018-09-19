@@ -51,6 +51,8 @@ define([], function () {
 
         "Bet saved": "Apuesta guardada",
         "Error saving bet": "Error guardando la apuesta",
+
+        "HomeMenu": "Volver al menú"
     }
 
 });

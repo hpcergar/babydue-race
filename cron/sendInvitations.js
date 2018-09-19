@@ -15,7 +15,7 @@ var _ = require('underscore'),
     user,
     urlSend,
     
-    filterLevel = 0
+    filterLevel = 5
 ;
 
 
@@ -27,6 +27,10 @@ _.each(users, function(user, key) {
 
         console.log('Starting with user ' + key);
         console.log(' -> with language ' + user['lg']);
+
+
+        var waitTill = new Date(new Date().getTime() + 2 * 1000);
+        while(waitTill > new Date()){}
 
         // Set language by user
         t.setDictionary(user['lg']);
@@ -53,6 +57,8 @@ _.each(users, function(user, key) {
             }
             console.log('Message sent: ' + info.response);
         });
+
+
     }
 });
 

@@ -57,6 +57,10 @@ define(function(require){
                 this.calendarView.render().$el
             );
 
+            // Load Calendar
+            let url = location.href.replace("calendar/", '');
+            this.$el.find('#home-link').attr('href', url);
+
             return this;
         },
 
