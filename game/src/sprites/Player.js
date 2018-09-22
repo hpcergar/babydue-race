@@ -182,9 +182,9 @@ export default class {
 
     vibrate() {
         // Vibration
-        if("vibrate" in window.navigator) {
-            window.navigator.vibrate(100);
-        }
+        // if("vibrate" in window.navigator) {
+        //     window.navigator.vibrate(100);
+        // }
     }
 
     setCollisionData(ground) {
