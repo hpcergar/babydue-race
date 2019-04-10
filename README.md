@@ -7,7 +7,7 @@ This is a web application featuring a 2D endless runner game and a baby due bet 
 
 Had lots of fun doing it :)
 
-## Code structure
+# Code structure
 * /game: Phaser.js game
 * /public: Backbone.js Bet calendar
 * / (root): Backend nodejs/express API server
@@ -34,62 +34,10 @@ by both 2d game and bet calendar.
 There is middleware to ensure that our API responds only to a valid key of email/signature.
 So email and signature MUST always be sent in GET along with the other parameters.
 
-### API Resources
 
-#### /bets
-##### GET /bets/
-Retrieve a map date/bets of the current placed bets
+# How to dev
 
-##### POST /bets/
-Place a bet, if no other bet is in the way
-Params:
-- email (aaa@bbb.com)
-- date (2016-01-01)
-- gender ("m", "f", "d" -> as male, female or dragon ;))
-
-##### PUT /bets/:email
-Update bet with same restrictions as POST
-Params:
-- email (aaa@bbb.com)
-- date (2016-01-01)
-- gender ("m", "f", "d" -> as male, female or dragon ;))
-
-#### /highscores
-##### GET /highscores/
-Retrieve a list of top 10 scores, with emails
-
-##### GET /highscores/:email
-Retrieve best score for given email
-
-##### PUT /highscores/:email
-Update user's best score with given parameter (only if better than current)
-Params:
-- email (aaa@bbb.com)
-- score (100)
-- scoreSignature
-
-
-#### /login
-##### GET /login/
-Validate current user's credentials
-
-
-#### /users
-##### GET /users/
-Retrieve a list of users data models indexed by email 
-with name, language, lastScore, (best) score.
-
-##### GET /users/:email
-Retrieve user data model for a single email
-
-#### /winner
-##### GET /winner/
-[WIP] Retrieve a winner of the bet calendar
-
-
-## How to dev
-
-### Install
+## Install
 ```game``` folder is independent from the ```/``` (root) & ```public``` folders.
 This means it has its own webpack and dev flow. Here I will be describing how I work with them.  
 
@@ -106,12 +54,12 @@ We will be using ```obiwan.kenobi@tatooine.com``` for this tutorial
 * Generate email signature with ```node cron/getSignature.js obiwan.kenobi@tatooine.com``` and save it for later.
 
 
-### Build (dev):
+## Build (dev):
 ```bash
 $ npm run build-dev-all
 ```
 
-### Run
+## Run
 Application will be served on port 3000 after launching the following command 
 ```bash
 $ node app
@@ -124,7 +72,7 @@ http://localhost:3000/?email=[user email]&signature=[email signature]
 That should do it :)
 
 
-### Build (production)
+## Build (production)
 Well, once you are ready for production, let's generate the optimized dist.
 
 There is a single command that build for production & also sends to a remote server.
@@ -143,8 +91,62 @@ Don't forget to change server path in file to suit your needs.
 After ssh to it, this scripts is going to send a tar.gz, untar it,
 and execute some commands on the remote server to prepare data, config & logs.
 
-
-### Tests (WIP)
+## Tests (WIP)
 ```bash
 $ npm test
 ```
+
+
+
+# Annex: API Resources
+
+## /bets
+### GET /bets/
+Retrieve a map date/bets of the current placed bets
+
+### POST /bets/
+Place a bet, if no other bet is in the way
+Params:
+- email (aaa@bbb.com)
+- date (2016-01-01)
+- gender ("m", "f", "d" -> as male, female or dragon ;))
+
+### PUT /bets/:email
+Update bet with same restrictions as POST
+Params:
+- email (aaa@bbb.com)
+- date (2016-01-01)
+- gender ("m", "f", "d" -> as male, female or dragon ;))
+
+## /highscores
+### GET /highscores/
+Retrieve a list of top 10 scores, with emails
+
+### GET /highscores/:email
+Retrieve best score for given email
+
+### PUT /highscores/:email
+Update user's best score with given parameter (only if better than current)
+Params:
+- email (aaa@bbb.com)
+- score (100)
+- scoreSignature
+
+
+## /login
+### GET /login/
+Validate current user's credentials
+
+
+## /users
+### GET /users/
+Retrieve a list of users data models indexed by email 
+with name, language, lastScore, (best) score.
+
+### GET /users/:email
+Retrieve user data model for a single email
+
+## /winner
+### GET /winner/
+[WIP] Retrieve a winner of the bet calendar
+
