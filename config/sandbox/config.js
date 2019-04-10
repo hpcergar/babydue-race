@@ -14,13 +14,4 @@ module.exports = {
     winner:{
         "2016-06-06":"m"
     }
-
-    // // Unused for now
-    // storage:{
-    //     type: 'file',
-    //     paths: {
-    //         bets:path.join(__dirname, '..', 'data', 'bets.json'),
-    //         users:path.join(__dirname, '..', 'data', 'users.json'),
-    //     },
-    // }
 };

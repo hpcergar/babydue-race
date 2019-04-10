@@ -11,10 +11,8 @@
   ],
   "author": {
     "name": "H. Paúl Cervera García",
-    "email": "hpcergar@gmail.com",
-    "url": "TODO"
+    "email": "hpcergar@gmail.com"
   },
-  "homepage": "TODO",
   "repository": {
     "type": "git",
     "url": "https://github.com/hpcergar/babydue-race"
@@ -59,8 +57,8 @@
   "main": "app.js",
   "scripts": {
     "test": "NODE_ENV=test mocha test.js",
-    "postInstallDisabled": "if-env NODE_ENV=production && npm run build",
     "build-dev": "webpack",
+    "build-dev-all": "sh deploy/build-dev-all.sh",
     "build": "webpack -p --config ./webpack.production.config.js",
     "deploy": "sh deploy/deploy.sh"
   }

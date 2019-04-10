@@ -9,13 +9,11 @@ var _ = require('underscore'),
         from: config.email.sender,
         bcc: config.email.sender,
     },
-    // url = 'http://babydue-hpcergar.rhcloud.com/?email=:email&signature=:signature',
     url = 'http://babydue-race.netake.com:3000/?email=:email&signature=:signature',
     signature,
-    user,
     urlSend,
     
-    filterLevel = 5
+    filterLevel = 7
 ;
 
 

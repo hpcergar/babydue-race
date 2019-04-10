@@ -1,15 +1,6 @@
 #!/bin/sh
 
-
-
-# Build public (calendar) webpack
-echo "Building /public"
-npm run build
-
-# Build game webpack
-echo "Building /game"
-cd game && npm run build && cd ..
-
+sh deploy/build-prod-all.sh
 
 # Go down a folder, TODO To remove if we fill a /dist folder before
 cd ..
@@ -42,6 +33,7 @@ remoteRoot=/var/www/babydue-race
 remoteDirVersions=${remoteRoot}/www/versions
 
 # Send by ssh
+# TODO Improve paths to avoid hard-coding them
 echo "Sending tar by ssh: sshpass -p ${BABYDUE_RACE_PASSWORD} scp -p ${nameZip} ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST}:/var/www/babydue-race/www/versions"
 sshpass -p ${BABYDUE_RACE_PASSWORD} scp -p ${nameZip} ${BABYDUE_RACE_LOGIN}@${BABYDUE_RACE_HOST}:/var/www/babydue-race/www/versions
 
